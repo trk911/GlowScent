@@ -25,7 +25,7 @@ body{margin:0;background:#0a0a0a;font-family:'Almarai','Montserrat',sans-serif;o
 .logo-img{height:32px;width:auto;display:block;filter:brightness(0.9) contrast(1.1);}
 #scene{position:relative;height:1100vh;}
 .viewport{position:sticky;top:0;height:100vh;overflow:hidden;}
-.bg{position:absolute;width:100%;height:100%;background:url('../background.PNG') center/cover no-repeat;background-color:#0a0a0a;}
+.bg{position:absolute;width:100%;height:100%;background:url('background.PNG') center/cover no-repeat;background-color:#0a0a0a;}
 .frame{position:absolute;width:150%;height:150%;top:-25%;left:-25%;object-fit:contain;display:none;z-index:auto !important;}
 .frame.active{display:block;}
 .hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;z-index:5;text-align:center;white-space:nowrap;}
@@ -144,7 +144,7 @@ body{margin:0;background:#0a0a0a;font-family:'Almarai','Montserrat',sans-serif;o
   <div class="text-wrapper" id="w10"><div class="text-card"><h1>توقيعك الخاص، طقوسك الخاصة</h1><p>جلوسينت هو أكثر من أداة — إنه امتداد لهويتك. اختر عبوات العطر المفضلة لديك، واضبط الكثافة، واجعل التجربة خاصة بك. لأن الفخامة الحقيقية شخصية، وشعرك يستحق الأفضل.</p></div></div>
 </div>
 
-<div class="model-section"><div class="model-container"><div class="model-item"><img src="../model/001.png" alt="موديل 1"></div><div class="model-item"><img src="../model/002.png" alt="موديل 2"></div></div></div>
+<div class="model-section"><div class="model-container"><div class="model-item"><img src="model/001.png" alt="موديل 1"></div><div class="model-item"><img src="../model/002.png" alt="موديل 2"></div></div></div>
 
 <div class="perfume-section"><div class="perfume-container"><h2>عطورنا</h2><div class="subtitle">✦ استكشف المجموعة ✦</div><div class="carousel-wrapper"><button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-right"></i></button><div class="carousel-container" id="carouselContainer"></div><button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-left"></i></button></div></div></div>
 
@@ -157,7 +157,7 @@ body{margin:0;background:#0a0a0a;font-family:'Almarai','Montserrat',sans-serif;o
 <footer class="footer"><div class="footer-container"><div class="footer-brand"><h3>هتان</h3><p>تقنية العطور الفاخرة تعيد تعريف الطقوس اليومية. جلوسينت هو حيث يلتقي العلم بالأناقة.</p></div><div class="footer-links"><h4>روابط سريعة</h4><ul><li><a href="#" onclick="goToTop(); return false;">الرئيسية</a></li><li><a href="#" onclick="goToSection('about'); return false;">من نحن</a></li><li><a href="#" onclick="goToSection('contact'); return false;">اتصل بنا</a></li><li><a href="#" onclick="goToSection('reserve'); return false;">احجز</a></li></ul></div><div class="footer-contact"><h4>اتصل بنا</h4><p><i class="fas fa-envelope"></i> info@glowscent.com</p><p><i class="fas fa-phone"></i> +966 5X XXX XXXX</p><p><i class="fas fa-map-marker-alt"></i> الرياض، المملكة العربية السعودية</p><div class="footer-social"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div></div></div><div class="footer-bottom"><p>© 2024 تماز تك — جميع الحقوق محفوظة. صمم بحب للفخامة.</p></div></footer>
 
 <div class="header"><button onclick="goToTop()">الرئيسية</button><button onclick="goToSection('about')">من نحن</button><button onclick="goToSection('contact')">اتصل بنا</button><button onclick="goToSection('reserve')">احجز</button></div>
-<div class="logo-header"><img src="../logo.png" alt="جلوسينت" class="logo-img"></div>
+<div class="logo-header"><img src="logo.png" alt="جلوسينت" class="logo-img"></div>
 
 <script>
 const totalImages = 10;
@@ -165,7 +165,7 @@ let currentIndex = 0;
 let images = [];
 for (let i = 1; i <= totalImages; i++) {
   const num = String(i).padStart(3, '0');
-  images.push(`../perfumes/${num}.png`);
+  images.push(`perfumes/${num}.png`);
 }
 function createCarousel() {
   const container = document.getElementById('carouselContainer');
@@ -202,7 +202,7 @@ const total = 345;
 const container = document.getElementById("container");
 for(let i=1;i<=total;i++){
   let img=document.createElement("img");
-  img.src="../NEW VERSION/"+String(i).padStart(4,'0')+".webp";
+  img.src="NEW VERSION/"+String(i).padStart(4,'0')+".webp";
   img.className="frame";
   if(i===1) img.classList.add("active");
   container.appendChild(img);
