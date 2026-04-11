@@ -1,0 +1,117 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>Test | GlowScent</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+body{background:#0a0a0a;font-family:Arial;}
+
+#scene{position:relative;height:1000vh;}
+.viewport{position:sticky;top:0;height:100vh;overflow:hidden;}
+.bg{position:absolute;top:0;left:0;width:100%;height:3300px;background:url('background.PNG') center/cover no-repeat;z-index:0;}
+.frame{position:absolute;width:150%;height:150%;top:-25%;left:-25%;display:none;z-index:1;}
+.frame.active{display:block;}
+.frame img{width:100%;height:100%;object-fit:contain;}
+
+.text-block{position:absolute;width:80%;left:10%;padding:20px;background:rgba(0,0,0,0.6);color:white;text-align:center;z-index:2;}
+#t1{top:100vh;}#t2{top:200vh;}#t3{top:300vh;}#t4{top:400vh;}#t5{top:500vh;}
+#t6{top:600vh;}#t7{top:700vh;}#t8{top:800vh;}#t9{top:900vh;}#t10{top:1000vh;}
+</style>
+</head>
+<body>
+
+<div id="scene">
+  <div class="viewport">
+    <div class="bg"></div>
+    <div id="container"></div>
+  </div>
+
+  <div class="text-block" id="t1"><h2>Block 1</h2><p>Text 1</p></div>
+  <div class="text-block" id="t2"><h2>Block 2</h2><p>Text 2</p></div>
+  <div class="text-block" id="t3"><h2>Block 3</h2><p>Text 3</p></div>
+  <div class="text-block" id="t4"><h2>Block 4</h2><p>Text 4</p></div>
+  <div class="text-block" id="t5"><h2>Block 5</h2><p>Text 5</p></div>
+  <div class="text-block" id="t6"><h2>Block 6</h2><p>Text 6</p></div>
+  <div class="text-block" id="t7"><h2>Block 7</h2><p>Text 7</p></div>
+  <div class="text-block" id="t8"><h2>Block 8</h2><p>Text 8</p></div>
+  <div class="text-block" id="t9"><h2>Block 9</h2><p>Text 9</p></div>
+  <div class="text-block" id="t10"><h2>Block 10</h2><p>Text 10</p></div>
+</div>
+
+<script>
+gsap.registerPlugin(ScrollTrigger);
+
+// ========== الفريمات (صورك الخاصة) ==========
+const totalFrames = 345;  // غير هذا الرقم حسب عدد صورك
+const container = document.getElementById("container");
+
+for(let i=1;i<=totalFrames;i++){
+    let img=document.createElement("img");
+    let num = String(i).padStart(4,'0');
+    img.src=`NEW VERSION/${num}.webp`;  // ضع المسار الصحيح لصورك
+    img.className="frame";
+    if(i===1) img.classList.add("active");
+    container.appendChild(img);
+}
+
+const frames = document.querySelectorAll(".frame");
+let obj = {frame:0};
+
+gsap.to(obj,{
+    frame: totalFrames-1,
+    snap:"frame",
+    ease:"none",
+    scrollTrigger:{
+        trigger:"#scene",
+        start:"top top",
+        end:"+=1000%",
+        scrub:1,
+        pin:".viewport"
+    },
+    onUpdate:()=>{
+        frames.forEach(f=>f.classList.remove("active"));
+        frames[Math.floor(obj.frame)].classList.add("active");
+    }
+});
+
+// ========== حركة الخلفية ==========
+const bgHeight = 3300;
+const moveDistance = -(bgHeight - window.innerHeight);
+
+gsap.to(".bg", {
+    y: moveDistance,
+    ease: "none",
+    scrollTrigger: {
+        trigger: "#scene",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 1.5,
+        invalidateOnRefresh: true
+    }
+});
+
+// ========== حركة البلوكات ==========
+const blocks = document.querySelectorAll('.text-block');
+blocks.forEach(block => {
+    gsap.to(block, {
+        scrollTrigger: {
+            trigger: block,
+            start: "top bottom",
+            end: "top top",
+            scrub: 1
+        },
+        y: -window.innerHeight * 0.7,
+        opacity: 1,
+        ease: "none"
+    });
+    gsap.set(block, { opacity: 0, y: 100 });
+});
+</script>
+
+</body>
+</html>
