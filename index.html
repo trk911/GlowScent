@@ -1,0 +1,254 @@
+
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<title>GlowScent | Luxury Fragrance</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<style>
+*{box-sizing:border-box;}
+body{margin:0;background:#0a0a0a;font-family:'Montserrat', sans-serif;overflow-x:hidden;}
+.logo-text{font-family:'Brush Script MT','Lucida Handwriting',cursive;font-size:12px;font-weight:normal;letter-spacing:1px;color:#c0c0c0;margin:0;cursor:pointer;transition:0.3s;}
+.header{position:fixed;top:30px;right:40px;display:flex;gap:10px;z-index:200;background:rgba(10,10,10,0.6);backdrop-filter:blur(12px);padding:8px 18px;border-radius:50px;border:1px solid rgba(180,40,40,0.3);}
+.header button{padding:6px 18px;border:none;color:#c0c0c0;background:rgba(255,255,255,0.03);border-radius:30px;cursor:pointer;transition:0.3s;font-weight:500;font-size:12px;letter-spacing:1px;font-family:inherit;white-space:nowrap;}
+.header button:hover{background:rgba(180,40,40,0.15);color:#e0e0e0;transform:scale(1.03);border:1px solid rgba(200,60,50,0.4);}
+.logo-header{position:fixed;top:30px;left:40px;z-index:200;background:rgba(10,10,10,0.6);backdrop-filter:blur(12px);padding:8px 18px;border-radius:50px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(180,40,40,0.3);transition:0.3s;}
+.logo-header:hover{border-color:rgba(200,60,50,0.5);}
+#scene{position:relative;height:1000vh;}
+.viewport{position:sticky;top:0;height:100vh;overflow:hidden;}
+.bg{position:absolute;top:0;left:0;width:100%;height:3300px;background:url('background.PNG') center/cover no-repeat;background-color:#0a0a0a;will-change:transform;z-index:0;}
+.frame{position:absolute;width:150%;height:150%;top:-25%;left:-25%;object-fit:contain;display:none;z-index:auto !important;}
+.frame.active{display:block;}
+.hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;z-index:5;text-align:center;white-space:nowrap;}
+.hero h1{font-family:'Cormorant Garamond',serif;font-size:100px;font-weight:700;letter-spacing:12px;margin:0;background:linear-gradient(135deg,#f0f0f0 0%,#a0a0a0 30%,#c8c8c8 60%,#e8e8e8 100%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:0 0 40px rgba(180,40,40,0.3);animation:titleGlow 3s ease-in-out infinite;}
+.hero p{font-family:inherit;font-size:12px;letter-spacing:14px;margin-top:18px;opacity:0.6;color:#c0c0c0;font-weight:300;text-transform:uppercase;animation:subtitleFade 3s ease-in-out infinite;}
+@keyframes titleGlow{0%,100%{text-shadow:0 0 30px rgba(180,40,40,0.2);}50%{text-shadow:0 0 60px rgba(200,60,50,0.5);}}
+@keyframes subtitleFade{0%,100%{opacity:0.4;}50%{opacity:0.8;}}
+.text-wrapper{position:absolute;width:55%;left:22.5%;z-index:4;opacity:1;transform:translateY(0);}
+.text-card{background:transparent;border-radius:0;padding:16px 20px;border:none;text-align:center;}
+.text-card h1{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;letter-spacing:1px;margin:0 0 14px 0;background:linear-gradient(135deg,#d0d0d0 0%,#a0a0a0 50%,#c0c0c0 100%);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.3;position:relative;display:inline-block;}
+.text-card h1::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:55px;height:1.5px;background:linear-gradient(90deg,#c04030,#a03020,rgba(180,40,40,0.3));transition:width 0.4s ease;}
+.text-card:hover h1::after{width:85px;}
+.text-card p{font-family:inherit;color:rgba(180,180,180,0.6);line-height:1.6;font-size:15px;font-weight:300;letter-spacing:0.3px;margin:0;max-width:90%;margin-left:auto;margin-right:auto;}
+#w1{top:100vh;}#w2{top:200vh;}#w3{top:300vh;}#w4{top:400vh;}#w5{top:500vh;}#w6{top:600vh;}#w7{top:700vh;}#w8{top:800vh;}#w9{top:900vh;}#w10{top:1000vh;}
+.model-section{width:100%;min-height:100vh;background:rgba(5,5,5,0.85);backdrop-filter:blur(8px);padding:80px 0;border-top:1px solid rgba(180,40,40,0.3);border-bottom:1px solid rgba(180,40,40,0.3);display:flex;align-items:center;justify-content:center;}
+.model-container{width:90%;max-width:1400px;margin:0 auto;display:flex;flex-wrap:wrap;gap:30px;align-items:center;justify-content:center;}
+.model-item{flex:1;min-width:300px;border-radius:20px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.4);border:1px solid rgba(180,40,40,0.3);transition:all 0.3s ease;}
+.model-item:hover{border-color:rgba(200,60,50,0.5);box-shadow:0 25px 50px rgba(200,60,50,0.15);transform:translateY(-5px);}
+.model-item img{width:100%;height:auto;display:block;object-fit:contain;}
+.perfume-section{width:100%;min-height:100vh;background:rgba(5,5,5,0.85);backdrop-filter:blur(8px);padding:80px 0;border-top:1px solid rgba(180,40,40,0.3);border-bottom:1px solid rgba(180,40,40,0.3);display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.perfume-container{width:100%;max-width:1400px;margin:0 auto;text-align:center;padding:0 20px;}
+.perfume-container h2{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:600;letter-spacing:4px;background:linear-gradient(135deg,#e8e8e8,#b0b0b0,#c8c8c8);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:20px;}
+.perfume-container .subtitle{font-family:inherit;font-size:14px;letter-spacing:6px;color:rgba(200,60,50,0.6);margin-bottom:60px;text-transform:uppercase;}
+.carousel-wrapper{position:relative;display:flex;align-items:center;justify-content:center;min-height:500px;perspective:1200px;}
+.carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:60px;height:60px;border-radius:50%;background:rgba(180,40,40,0.2);border:1px solid rgba(180,40,40,0.4);color:rgba(200,200,200,0.8);font-size:24px;cursor:pointer;z-index:20;transition:all 0.3s ease;backdrop-filter:blur(4px);}
+.carousel-btn:hover{background:rgba(200,60,50,0.4);border-color:rgba(200,60,50,0.8);color:white;transform:translateY(-50%) scale(1.05);}
+.carousel-btn.prev{left:20px;}
+.carousel-btn.next{right:20px;}
+.carousel-container{position:relative;width:100%;display:flex;align-items:center;justify-content:center;gap:20px;}
+.carousel-slide{transition:all 0.5s cubic-bezier(0.4,0,0.2,1);cursor:pointer;border-radius:16px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.4);border:1px solid rgba(180,40,40,0.3);}
+.carousel-slide.active{transform:scale(1);z-index:10;box-shadow:0 30px 60px rgba(200,60,50,0.2);border-color:rgba(200,60,50,0.5);}
+.carousel-slide.prev{transform:scale(0.7);filter:blur(2px);opacity:0.6;}
+.carousel-slide.next{transform:scale(0.7);filter:blur(2px);opacity:0.6;}
+.carousel-slide img{display:block;width:auto;height:auto;max-width:100%;max-height:400px;border-radius:16px;}
+.reserve-section{width:100%;min-height:100vh;background:rgba(5,5,5,0.85);backdrop-filter:blur(8px);padding:80px 0;border-top:1px solid rgba(180,40,40,0.3);border-bottom:1px solid rgba(180,40,40,0.3);display:flex;align-items:center;justify-content:center;}
+.reserve-container{width:85%;margin:0 auto;display:flex;flex-wrap:wrap;gap:50px;align-items:center;}
+.reserve-left{flex:1;min-width:280px;text-align:center;}
+.reserve-left h2{font-family:'Cormorant Garamond',serif;font-size:70px;font-weight:600;letter-spacing:6px;background:linear-gradient(135deg,#e8e8e8,#b0b0b0,#c8c8c8);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:20px;}
+.reserve-left .coming-soon-badge{font-family:inherit;font-size:14px;letter-spacing:8px;color:rgba(200,60,50,0.7);margin-bottom:30px;text-transform:uppercase;}
+.reserve-left p{font-family:inherit;font-size:16px;line-height:1.8;color:rgba(200,200,200,0.7);max-width:400px;margin:0 auto;}
+.reserve-right{flex:1;min-width:320px;background:rgba(10,10,10,0.5);backdrop-filter:blur(10px);border-radius:24px;padding:40px 30px;border:1px solid rgba(180,40,40,0.3);text-align:center;}
+.reserve-right h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:rgba(200,200,200,0.9);margin-bottom:20px;letter-spacing:2px;}
+.reserve-right .form-placeholder{min-height:400px;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.3);border-radius:16px;border:1px dashed rgba(200,60,50,0.4);color:rgba(180,180,180,0.5);font-size:14px;}
+.contact-section{width:100%;min-height:100vh;background:rgba(5,5,5,0.85);backdrop-filter:blur(8px);padding:80px 0;border-top:1px solid rgba(180,40,40,0.3);border-bottom:1px solid rgba(180,40,40,0.3);display:flex;align-items:center;justify-content:center;}
+.contact-container{width:70%;margin:0 auto;text-align:center;}
+.contact-container h2{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:600;letter-spacing:4px;background:linear-gradient(135deg,#e8e8e8,#b0b0b0,#c8c8c8);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:20px;}
+.contact-container .subtitle{font-family:inherit;font-size:14px;letter-spacing:6px;color:rgba(200,60,50,0.6);margin-bottom:60px;text-transform:uppercase;}
+.contact-info{display:flex;flex-wrap:wrap;justify-content:center;gap:50px;margin-bottom:50px;}
+.contact-item{text-align:center;min-width:200px;}
+.contact-item i{font-size:32px;color:rgba(200,60,50,0.6);margin-bottom:15px;}
+.contact-item h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:rgba(200,200,200,0.9);margin-bottom:10px;letter-spacing:2px;}
+.contact-item p{font-family:inherit;color:rgba(180,180,180,0.6);font-size:14px;}
+.social-links{display:flex;justify-content:center;gap:25px;margin-top:40px;}
+.social-links a{width:50px;height:50px;border-radius:50%;background:rgba(180,40,40,0.1);display:flex;align-items:center;justify-content:center;color:rgba(200,200,200,0.7);font-size:22px;transition:0.3s;border:1px solid rgba(180,40,40,0.3);}
+.social-links a:hover{background:rgba(200,60,50,0.2);color:rgba(200,60,50,0.8);transform:translateY(-3px);}
+.about-section{width:100%;min-height:100vh;background:rgba(5,5,5,0.85);backdrop-filter:blur(8px);padding:80px 0;border-top:1px solid rgba(180,40,40,0.3);border-bottom:1px solid rgba(180,40,40,0.3);}
+.about-container{width:70%;margin:0 auto;text-align:center;}
+.about-container h2{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:600;letter-spacing:4px;background:linear-gradient(135deg,#e8e8e8,#b0b0b0,#c8c8c8);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:20px;}
+.about-container .subtitle{font-family:inherit;font-size:14px;letter-spacing:6px;color:rgba(200,60,50,0.6);margin-bottom:60px;text-transform:uppercase;}
+.about-container h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;background:linear-gradient(135deg,#d0d0d0,#a0a0a0);-webkit-background-clip:text;background-clip:text;color:transparent;margin:40px 0 20px 0;letter-spacing:2px;}
+.about-container p{font-family:inherit;font-size:16px;line-height:1.8;color:rgba(200,200,200,0.75);max-width:800px;margin:0 auto 30px auto;text-align:center;}
+.about-divider{width:80px;height:2px;background:linear-gradient(90deg,transparent,#c04030,#a03020,transparent);margin:40px auto;}
+.footer{width:100%;background:rgba(5,5,5,0.95);backdrop-filter:blur(10px);border-top:1px solid rgba(180,40,40,0.3);padding:60px 0 30px 0;}
+.footer-container{width:85%;margin:0 auto;display:flex;flex-wrap:wrap;justify-content:space-between;gap:40px;}
+.footer-brand{flex:1;min-width:200px;}
+.footer-brand h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:600;background:linear-gradient(135deg,#e8e8e8,#b0b0b0);-webkit-background-clip:text;background-clip:text;color:transparent;margin-bottom:10px;letter-spacing:2px;}
+.footer-brand p{font-family:inherit;color:rgba(180,180,180,0.6);font-size:13px;line-height:1.6;}
+.footer-links{flex:1;min-width:150px;}
+.footer-links h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:rgba(200,200,200,0.9);margin-bottom:20px;letter-spacing:2px;}
+.footer-links ul{list-style:none;padding:0;margin:0;}
+.footer-links ul li{margin-bottom:12px;}
+.footer-links ul li a{font-family:inherit;color:rgba(180,180,180,0.6);text-decoration:none;font-size:13px;transition:0.3s;}
+.footer-links ul li a:hover{color:rgba(200,60,50,0.8);letter-spacing:0.5px;}
+.footer-contact{flex:1;min-width:200px;}
+.footer-contact h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:rgba(200,200,200,0.9);margin-bottom:20px;letter-spacing:2px;}
+.footer-contact p{font-family:inherit;color:rgba(180,180,180,0.6);font-size:13px;line-height:1.8;margin-bottom:10px;}
+.footer-contact i{width:25px;color:rgba(200,60,50,0.6);margin-right:10px;}
+.footer-social{display:flex;gap:15px;margin-top:20px;}
+.footer-social a{color:rgba(180,180,180,0.6);font-size:18px;transition:0.3s;}
+.footer-social a:hover{color:rgba(200,60,50,0.8);transform:translateY(-3px);}
+.footer-bottom{text-align:center;padding-top:40px;margin-top:40px;border-top:1px solid rgba(180,180,180,0.1);}
+.footer-bottom p{font-family:inherit;color:rgba(180,180,180,0.4);font-size:12px;letter-spacing:1px;}
+@media (max-width:1400px){.hero h1{font-size:85px;letter-spacing:10px;}.text-wrapper{width:60%;left:20%;}.text-card h1{font-size:34px;}.text-card p{font-size:14px;}.reserve-left h2{font-size:60px;}.contact-container h2{font-size:50px;}.about-container h2{font-size:50px;}.perfume-container h2{font-size:50px;}}
+@media (max-width:1200px){.hero h1{font-size:75px;letter-spacing:8px;}.hero p{font-size:10px;letter-spacing:10px;}.text-wrapper{width:65%;left:17.5%;}.text-card h1{font-size:32px;}.reserve-left h2{font-size:50px;}.contact-container h2{font-size:45px;}.about-container h2{font-size:45px;}.perfume-container h2{font-size:45px;}}
+@media (max-width:992px){.header{right:20px;top:20px;padding:6px 12px;gap:6px;}.header button{padding:5px 12px;font-size:10px;}.logo-header{left:20px;top:20px;padding:6px 12px;}.hero h1{font-size:60px;letter-spacing:6px;}.hero p{font-size:9px;letter-spacing:8px;}.text-wrapper{width:70%;left:15%;}.text-card h1{font-size:30px;}.model-container{flex-direction:column;}.model-item{width:100%;max-width:500px;margin:0 auto;}.reserve-container{flex-direction:column;text-align:center;}.reserve-right{width:100%;}.contact-info{gap:30px;}.contact-container h2{font-size:40px;}.about-container h2{font-size:40px;}.perfume-container h2{font-size:40px;}.carousel-btn{width:45px;height:45px;font-size:18px;}}
+@media (max-width:768px){.header{right:15px;top:15px;padding:5px 10px;gap:5px;}.header button{padding:4px 10px;font-size:9px;}.logo-header{left:15px;top:15px;padding:5px 12px;}.hero h1{font-size:45px;letter-spacing:5px;}.hero p{font-size:7px;letter-spacing:6px;margin-top:12px;}.text-wrapper{width:85%;left:7.5%;}.text-card h1{font-size:28px;}.reserve-left h2{font-size:40px;}.reserve-left p{font-size:14px;}.contact-container{width:85%;}.contact-container h2{font-size:35px;}.contact-item{min-width:100%;}.about-container{width:85%;}.about-container h2{font-size:35px;}.about-container h3{font-size:24px;}.about-container p{font-size:14px;}.perfume-container h2{font-size:35px;}.carousel-btn{width:40px;height:40px;font-size:16px;}.carousel-btn.prev{left:5px;}.carousel-btn.next{right:5px;}.footer-container{flex-direction:column;text-align:center;gap:30px;}.footer-social{justify-content:center;}}
+@media (max-width:480px){.hero h1{font-size:32px;letter-spacing:4px;}.hero p{font-size:6px;letter-spacing:5px;}.text-card h1{font-size:24px;}.text-card p{font-size:12px;}.reserve-left h2{font-size:32px;}.contact-container h2{font-size:28px;}.about-container h2{font-size:28px;}.about-container h3{font-size:22px;}.perfume-container h2{font-size:28px;}.header button{padding:3px 8px;font-size:8px;}.carousel-slide img{max-height:250px;}}
+</style>
+</head>
+<body>
+
+<div id="scene">
+  <div class="viewport">
+    <div class="bg" id="parallaxBg"></div>
+    <div id="container"></div>
+    <div class="hero" id="hero">
+      <h1>GLOWSCENT</h1>
+      <p>LUXURY FRAGRANCE</p>
+    </div>
+  </div>
+
+  <div class="text-wrapper" id="w1"><div class="text-card"><h1>Beyond a Comb</h1><p>GlowScent is not just a hairbrush. It's a complete sensory experience that combines hair care with therapeutic aromatherapy. Every stroke delivers micro-doses of natural botanical extracts, transforming your daily routine into a ritual of self-care and elegance.</p></div></div>
+  <div class="text-wrapper" id="w2"><div class="text-card"><h1>Pure Botanical Essences</h1><p>Our fragrances are meticulously extracted from premium roses and rare flowers, blended with authentic natural oils that nourish rather than coat. Unlike heavy synthetic perfumes, GlowScent works with your hair's biology, leaving no sticky residue or oily film behind.</p></div></div>
+  <div class="text-wrapper" id="w3"><div class="text-card"><h1>Weightless Hydration</h1><p>Say goodbye to greasy, weighed-down hair. Our advanced non-oily formula absorbs instantly into each strand, delivering moisture and fragrance without the heaviness. Your hair remains light, bouncy, and naturally fresh throughout the day.</p></div></div>
+  <div class="text-wrapper" id="w4"><div class="text-card"><h1>Minimalist Elegance</h1><p>Designed for the modern aesthetic, GlowScent features a sleek matte finish with subtle rose gold accents. Its ergonomic curve fits perfectly in your hand, making it a pleasure to hold and use. A statement piece for your vanity, not an eyesore.</p></div></div>
+  <div class="text-wrapper" id="w5"><div class="text-card"><h1>Portable Freedom</h1><p>Take GlowScent wherever life takes you. The compact, lightweight design slips easily into any bag. When it's time to recharge, simply place it on the elegant wireless charging base — no messy cables, no fuss, just effortless power.</p></div></div>
+  <div class="text-wrapper" id="w6"><div class="text-card"><h1>Built for Daily Rituals</h1><p>With a powerful 1000mAh battery, GlowScent keeps up with your busiest days. A single full charge provides weeks of regular use. The intelligent power management system ensures you're never left without your signature scent.</p></div></div>
+  <div class="text-wrapper" id="w7"><div class="text-card"><h1>Whisper-Quiet Operation</h1><p>No buzzing, no distracting noises. GlowScent operates in near silence, allowing you to enjoy your morning routine or evening wind-down without disruption. The sound of luxury is the absence of sound.</p></div></div>
+  <div class="text-wrapper" id="w8"><div class="text-card"><h1>Scalp Wellness First</h1><p>Healthy hair starts from the root. GlowScent's gentle massaging action combined with red light therapy helps soothe irritation, reduce dryness, and create the optimal environment for stronger, shinier hair growth over time.</p></div></div>
+  <div class="text-wrapper" id="w9"><div class="text-card"><h1>Red Light Therapy</h1><p>Integrated LED technology emits therapeutic red light wavelengths that penetrate the scalp, stimulating blood circulation and promoting healthier hair follicles. This clinical-grade feature works silently in the background, supporting scalp wellness with every use.</p></div></div>
+  <div class="text-wrapper" id="w10"><div class="text-card"><h1>Your Signature, Your Ritual</h1><p>GlowScent is more than a tool — it's an extension of your identity. Choose your preferred fragrance refills, adjust the intensity, and make the experience yours. Because true luxury is personal, and your hair deserves nothing less.</p></div></div>
+</div>
+
+<div class="model-section"><div class="model-container"><div class="model-item"><img src="model/001.png" alt="Model 1"></div><div class="model-item"><img src="model/002.png" alt="Model 2"></div></div></div>
+
+<div class="perfume-section"><div class="perfume-container"><h2>OUR FRAGRANCES</h2><div class="subtitle">✦ EXPLORE THE COLLECTION ✦</div><div class="carousel-wrapper"><button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button><div class="carousel-container" id="carouselContainer"></div><button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button></div></div></div>
+
+<div class="reserve-section" id="reserve"><div class="reserve-container"><div class="reserve-left"><h2>COMING SOON</h2><div class="coming-soon-badge">✦ BE THE FIRST ✦</div><p>GlowScent is almost here. Sign up to receive exclusive updates and be among the first to experience the future of hair care.</p></div><div class="reserve-right"><h3>Secure Your Spot</h3><div class="form-placeholder"><p style="text-align:center;">📋 Google Form Embed<br>سيظهر هنا نموذج التسجيل</p></div></div></div></div>
+
+<div class="contact-section" id="contact"><div class="contact-container"><h2>GET IN TOUCH</h2><div class="subtitle">✦ CONNECT WITH US ✦</div><div class="contact-info"><div class="contact-item"><i class="fas fa-envelope"></i><h4>Email</h4><p>info@glowscent.com</p></div><div class="contact-item"><i class="fas fa-map-marker-alt"></i><h4>Location</h4><p>Hong Kong</p></div></div><div class="social-links"><a href="#" target="_blank"><i class="fab fa-instagram"></i></a><a href="#" target="_blank"><i class="fab fa-twitter"></i></a><a href="#" target="_blank"><i class="fab fa-facebook-f"></i></a><a href="#" target="_blank"><i class="fab fa-linkedin-in"></i></a></div></div></div>
+
+<div class="about-section" id="about"><div class="about-container"><h2>TAMAZ TECH</h2><div class="subtitle">INNOVATION MEETS ELEGANCE</div><p>Tamaz Tech is a forward-thinking technology company dedicated to redefining the intersection of beauty, wellness, and innovation. Founded with a vision to create products that seamlessly integrate into modern lifestyles, Tamaz Tech combines cutting-edge engineering with sophisticated design to deliver exceptional user experiences.</p><div class="about-divider"></div><h3>HATAN — THE BRAND</h3><p>Hatan is the luxury brand under Tamaz Tech, representing a commitment to excellence, craftsmanship, and timeless elegance. Every Hatan product is meticulously designed to elevate daily rituals into moments of indulgence. The name "Hatan" embodies the spirit of thoughtful creation — where tradition meets innovation, and every detail is crafted with intention.</p><div class="about-divider"></div><h3>GLOWSCENT — THE VISION</h3><p>GlowScent was born from a simple yet powerful idea: What if your daily hair care routine could also be a therapeutic ritual? The answer is a revolutionary device that combines a premium hairbrush with an integrated aromatherapy system and red light therapy technology.</p><p>Unlike traditional perfumes that simply coat the hair, GlowScent delivers micro-doses of natural botanical extracts that work in harmony with your hair's biology. The result is a weightless, non-greasy finish that leaves your hair feeling fresh, healthy, and subtly scented — without any sticky residue.</p><div class="about-divider"></div><h3>THE PHILOSOPHY</h3><p>At Tamaz Tech, we believe that true luxury is personal. It's not about excess — it's about intention. Every GlowScent device is designed to be a companion in your daily journey, offering moments of calm, clarity, and self-care in a fast-paced world.</p><p>We are committed to sustainability, using refillable fragrance cartridges and eco-conscious materials. Our wireless charging base eliminates cable waste, and our long-lasting battery means fewer charging cycles. Because caring for yourself shouldn't come at the expense of caring for our planet.</p><div class="about-divider"></div><h3>JOIN THE MOVEMENT</h3><p>GlowScent is more than a product — it's a community of individuals who value quality, authenticity, and innovation. Whether you're preparing for an important meeting, winding down after a long day, or simply taking a moment for yourself, GlowScent is here to enhance every experience.</p><p>Discover the perfect fusion of science and nature. Experience the future of hair care. Welcome to GlowScent. Welcome to Hatan. Welcome to Tamaz Tech.</p><div class="about-divider"></div><p style="font-size:14px;color:rgba(200,60,50,0.5);margin-top:40px;">© TAMAZ TECH — WHERE INNOVATION GLOWS</p></div></div>
+
+<footer class="footer"><div class="footer-container"><div class="footer-brand"><h3>HATAN</h3><p>Luxury fragrance technology redefining daily rituals. GlowScent is where science meets elegance.</p></div><div class="footer-links"><h4>Quick Links</h4><ul><li><a href="#" onclick="goToTop(); return false;">Home</a></li><li><a href="#" onclick="goToSection('about'); return false;">About</a></li><li><a href="#" onclick="goToSection('contact'); return false;">Contact</a></li><li><a href="#" onclick="goToSection('reserve'); return false;">Reserve</a></li></ul></div><div class="footer-contact"><h4>Contact</h4><p><i class="fas fa-envelope"></i> info@glowscent.com</p><p><i class="fas fa-map-marker-alt"></i> Hong Kong</p><div class="footer-social"><a href="#"><i class="fab fa-instagram"></i></a><a href="#"><i class="fab fa-twitter"></i></a><a href="#"><i class="fab fa-facebook-f"></i></a><a href="#"><i class="fab fa-linkedin-in"></i></a></div></div></div><div class="footer-bottom"><p>© 2024 TAMAZ TECH — All Rights Reserved. Designed with <i class="fas fa-heart" style="color:rgba(200,60,50,0.6);"></i> for luxury.</p></div></footer>
+
+<div class="header"><button onclick="goToTop()">HOME</button><button onclick="goToSection('about')">ABOUT</button><button onclick="goToSection('contact')">CONTACT</button><button onclick="goToSection('reserve')">RESERVE</button></div>
+<div class="logo-header"><h3 class="logo-text">Hatan</h3></div>
+
+<script>
+// ============================================
+// 1. سكشن العطور (Carousel)
+// ============================================
+let totalImages = 3;
+let currentIndex = 0;
+let images = [];
+for (let i = 1; i <= totalImages; i++) {
+  const num = String(i).padStart(3, '0');
+  images.push(`perfumes/${num}.png`);
+}
+function createCarousel() {
+  const container = document.getElementById('carouselContainer');
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i = -1; i <= 1; i++) {
+    let index = currentIndex + i;
+    if (index < 0) index = totalImages - 1;
+    if (index >= totalImages) index = 0;
+    const slide = document.createElement('div');
+    slide.className = 'carousel-slide';
+    if (i === 0) slide.classList.add('active');
+    if (i === -1) slide.classList.add('prev');
+    if (i === 1) slide.classList.add('next');
+    const img = document.createElement('img');
+    img.src = images[index];
+    img.alt = `Perfume ${index + 1}`;
+    img.onerror = function() { this.src = 'https://placehold.co/600x400/1a1a2e/808080?text=Image+Not+Found'; };
+    slide.appendChild(img);
+    container.appendChild(slide);
+  }
+}
+function updateCarousel(direction) {
+  if (direction === 'next') { currentIndex++; if (currentIndex >= totalImages) currentIndex = 0; }
+  else if (direction === 'prev') { currentIndex--; if (currentIndex < 0) currentIndex = totalImages - 1; }
+  createCarousel();
+}
+document.getElementById('prevBtn')?.addEventListener('click', () => updateCarousel('prev'));
+document.getElementById('nextBtn')?.addEventListener('click', () => updateCarousel('next'));
+document.addEventListener('DOMContentLoaded', () => { createCarousel(); });
+
+// ============================================
+// 2. الفريمات (باستخدام GSAP فقط)
+// ============================================
+gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
+const total = 345;
+const container = document.getElementById("container");
+for(let i=1;i<=total;i++){
+  let img=document.createElement("img");
+  img.src="NEW VERSION/"+String(i).padStart(4,'0')+".webp";
+  img.className="frame";
+  if(i===1) img.classList.add("active");
+  container.appendChild(img);
+}
+const frames=document.querySelectorAll(".frame");
+const hero = document.getElementById("hero");
+const heroH1 = hero.querySelector('h1');
+const heroP = hero.querySelector('p');
+let obj={frame:0};
+gsap.to(obj,{
+  frame: total-1, snap:"frame", ease:"none",
+  scrollTrigger:{ trigger:"#scene", start:"top top", end:"+=1000%", scrub:true, pin:".viewport" },
+  onUpdate:()=>{ frames.forEach(f=>f.classList.remove("active")); frames[obj.frame].classList.add("active"); }
+});
+gsap.to(hero, { scrollTrigger: { trigger:"#scene", start:"top top", end:"+=700", scrub:1.2 }, y: -window.innerHeight * 0.8, opacity: 0, scale: 0.5, ease: "power3.out" });
+gsap.to(heroP, { scrollTrigger: { trigger:"#scene", start:"top top", end:"+=350", scrub:1 }, opacity: 0, y: -40, ease: "power2.out" });
+gsap.to(heroH1, { scrollTrigger: { trigger:"#scene", start:"top top", end:"+=500", scrub:0.8 }, letterSpacing: "20px", ease: "power1.out" });
+const wrappers = document.querySelectorAll('.text-wrapper');
+wrappers.forEach(wrapper => { const viewportHeight = window.innerHeight; gsap.to(wrapper, { scrollTrigger: { trigger: wrapper, start: "top bottom", end: "top top", scrub: 1.2 }, y: -viewportHeight * 0.8, ease: "none" }); });
+
+// ============================================
+// 3. حركة الخلفية (JavaScript عادي - بدون GSAP)
+// ============================================
+const bg = document.getElementById('parallaxBg');
+const maxMove = 2300; // مقدار حركة الخلفية (أقل من ارتفاعها الفعلي 3300px)
+
+function updateBackground() {
+    if (!bg) return;
+    const scrollY = window.scrollY;
+    const maxScroll = document.body.scrollHeight - window.innerHeight;
+    const progress = Math.min(1, Math.max(0, scrollY / maxScroll));
+    const moveY = maxMove * progress;
+    bg.style.transform = `translateY(-${moveY}px)`;
+}
+
+window.addEventListener('scroll', updateBackground);
+window.addEventListener('resize', () => {
+    updateBackground();
+    ScrollTrigger.refresh();
+});
+updateBackground(); // تشغيل مرة واحدة عند التحميل
+
+// ============================================
+// 4. وظائف التنقل
+// ============================================
+function goToSection(id){ const el = document.getElementById(id); if(el){ gsap.to(window, { scrollTo: el, duration: 1.2, ease: "power2.inOut" }); } }
+function goToTop(){ gsap.to(window, { scrollTo: 0, duration: 1.2, ease: "power2.inOut" }); }
+window.addEventListener('resize', () => { ScrollTrigger.refresh(); });
+</script>
+
+</body>
+</html>
