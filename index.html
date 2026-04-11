@@ -27,7 +27,16 @@ body{margin:0;background:#0a0a0a;font-family:'Montserrat', sans-serif;overflow-x
 /* المشهد - ارتفاع مناسب للفريمات */
 #scene{position:relative;height:1100vh;}
 .viewport{position:sticky;top:0;height:100vh;overflow:hidden;}
-.bg{position:absolute;top:0;left:0;width:100%;height:3300px;background:url('background.PNG') center/cover no-repeat;background-color:#0a0a0a;will-change:transform;z-index:0;}
+.bg{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  background:url('background.PNG') center/cover no-repeat;
+  background-color:#0a0a0a;
+  will-change:transform;
+  z-index:0;
+}
 .frame{position:absolute;width:150%;height:150%;top:-25%;left:-25%;object-fit:contain;display:none;z-index:auto !important;}
 .frame.active{display:block;}
 
@@ -215,7 +224,11 @@ gsap.registerPlugin(ScrollTrigger, ScrollToPlugin);
 // ============================================
 // حركة الخلفية - الطريقة الصحيحة من الكود الذي أرسلته
 // ============================================
-const bgMoveDistance = -(3300 - window.innerHeight);
+// حساب ارتفاع الخلفية تلقائياً
+const bg = document.querySelector('.bg');
+const bgHeight = bg.offsetHeight;
+const bgMoveDistance = -(bgHeight - window.innerHeight);
+
 gsap.to(".bg", {
     y: bgMoveDistance,
     ease: "none",
@@ -227,7 +240,6 @@ gsap.to(".bg", {
         invalidateOnRefresh: true
     }
 });
-
 const total = 345;
 const container = document.getElementById("container");
 for(let i=1;i<=total;i++){
