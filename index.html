@@ -177,6 +177,10 @@ canvas{
 <div class="logo-header"><h3 class="logo-text">Hatan</h3></div>
 
 <script>
+// ========== منع المتصفح من تذكر مكان التمرير ==========
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
 // ========== إعدادات الصورة الثابتة ==========
 const staticBg = document.getElementById('staticBg');
 const IMG_WIDTH = 1440;
