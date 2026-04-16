@@ -1,10 +1,11 @@
+
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-<title>GlowScent | Luxury Fragrance</title>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<title>غلوسينت | العناية الفاخرة</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+Arabic:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
@@ -19,7 +20,7 @@ body{margin:0;background:#0a0a0a;font-family:'Montserrat', sans-serif;overflow-x
 .viewport{position:sticky;top:0;height:100vh;overflow:hidden;z-index:0;}
 .static-bg{
     position:absolute;top:0;left:0;width:100%;
-    background:url('background.PNG') top center no-repeat;
+    background:url('../background.PNG') top center no-repeat;
     background-size:100% auto;z-index:0;
 }
 canvas{
@@ -34,15 +35,15 @@ canvas{
 .hero p{font-family:inherit;font-size:12px;letter-spacing:14px;margin-top:18px;opacity:0.9;color:#e0e0e0;font-weight:400;text-transform:uppercase;}
 
 /* البلوكات النصية */
-.text-wrapper{position:absolute;width:55%;left:22.5%;z-index:4;opacity:1;transform:translateY(0);}
+.text-wrapper{position:absolute;width:55%;right:22.5%;z-index:4;opacity:1;transform:translateY(0);}
 .text-card{background:transparent;border-radius:0;padding:16px 20px;border:none;text-align:center;}
 .text-card h1{font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:600;letter-spacing:1px;margin:0 0 14px 0;background:linear-gradient(135deg,#f0f0f0 0%,#c0c0c0 50%,#e0e0e0 100%);-webkit-background-clip:text;background-clip:text;color:transparent;line-height:1.3;position:relative;display:inline-block;}
 .text-card h1::after{content:'';position:absolute;bottom:-10px;left:50%;transform:translateX(-50%);width:55px;height:1.5px;background:linear-gradient(90deg,#c04030,#a03020,rgba(180,40,40,0.3));transition:width 0.4s ease;}
 .text-card:hover h1::after{width:85px;}
 .text-card p{font-family:inherit;color:rgba(255,255,255,0.95);line-height:1.6;font-size:15px;font-weight:400;letter-spacing:0.3px;margin:0;max-width:90%;margin-left:auto;margin-right:auto;}
 
-/* 12 بلوك */
-#w1{top:100vh;}#w2{top:150vh;}#w3{top:200vh;}#w4{top:250vh;}#w5{top:300vh;}#w6{top:350vh;}#w7{top:400vh;}#w8{top:450vh;}#w9{top:500vh;}#w10{top:550vh;}#w11{top:610vh;}#w12{top:670vh;}
+/* 10 بلوكات */
+#w1{top:100vh;}#w2{top:163vh;}#w3{top:226vh;}#w4{top:289vh;}#w5{top:352vh;}#w6{top:415vh;}#w7{top:478vh;}#w8{top:541vh;}#w9{top:604vh;}#w10{top:667vh;}
 
 /* ===== السكشنات الإضافية ===== */
 .model-section,.perfume-section,.reserve-section,.contact-section,.about-section{
@@ -67,7 +68,7 @@ canvas{
 .carousel-wrapper{position:relative;display:flex;align-items:center;justify-content:center;min-height:500px;perspective:1200px;}
 .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:60px;height:60px;border-radius:50%;background:rgba(180,40,40,0.2);border:1px solid rgba(180,40,40,0.4);color:rgba(200,200,200,0.8);font-size:24px;cursor:pointer;z-index:20;transition:all 0.3s ease;backdrop-filter:blur(4px);}
 .carousel-btn:hover{background:rgba(200,60,50,0.4);border-color:rgba(200,60,50,0.8);color:white;transform:translateY(-50%) scale(1.05);}
-.carousel-btn.prev{left:20px;}.carousel-btn.next{right:20px;}
+.carousel-btn.prev{right:20px;}.carousel-btn.next{left:20px;}
 .carousel-container{position:relative;width:100%;display:flex;align-items:center;justify-content:center;gap:20px;}
 .carousel-slide{transition:all 0.5s cubic-bezier(0.4,0,0.2,1);cursor:pointer;border-radius:16px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.4);border:1px solid rgba(180,40,40,0.3);background:#1e1e24;}
 .carousel-slide.active{transform:scale(1);z-index:10;box-shadow:0 30px 60px rgba(200,60,50,0.2);border-color:rgba(200,60,50,0.5);}
@@ -85,14 +86,14 @@ canvas{
 
 .reserve-right{flex:1;min-width:320px;background:rgba(26,26,34,0.8);backdrop-filter:blur(10px);border-radius:24px;padding:40px 30px;border:1px solid rgba(180,40,40,0.3);text-align:center;}
 .reserve-right h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color:rgba(200,200,200,0.9);margin-bottom:25px;letter-spacing:2px;}
-.glow-form{display:flex;flex-direction:column;gap:20px;text-align:left;}
+.glow-form{display:flex;flex-direction:column;gap:20px;text-align:right;}
 .form-group{display:flex;flex-direction:column;gap:8px;}
 .form-group label{font-family:inherit;font-size:13px;letter-spacing:1px;color:rgba(200,200,200,0.7);text-transform:uppercase;}
-.form-group label .optional{color:rgba(200,200,200,0.4);font-weight:300;margin-left:5px;}
-.form-group label .required{color:#c04030;margin-left:4px;}
-.form-group input,.form-group textarea{background:rgba(20,20,30,0.8);border:1px solid rgba(180,40,40,0.3);border-radius:12px;padding:14px 16px;color:#fff;font-family:inherit;font-size:14px;transition:all 0.3s ease;outline:none;}
+.form-group label .optional{color:rgba(200,200,200,0.4);font-weight:300;margin-right:5px;}
+.form-group label .required{color:#c04030;margin-right:4px;}
+.form-group input,.form-group textarea{background:rgba(20,20,30,0.8);border:1px solid rgba(180,40,40,0.3);border-radius:12px;padding:14px 16px;color:#fff;font-family:inherit;font-size:14px;transition:all 0.3s ease;outline:none;text-align:right;}
 .form-group input:focus,.form-group textarea:focus{border-color:rgba(200,60,50,0.8);box-shadow:0 0 10px rgba(200,60,50,0.2);}
-.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(200,200,200,0.3);}
+.form-group input::placeholder,.form-group textarea::placeholder{color:rgba(200,200,200,0.3);text-align:right;}
 .submit-btn{background:linear-gradient(135deg,rgba(180,40,40,0.8),rgba(140,30,30,0.9));border:none;border-radius:40px;padding:14px 20px;color:#fff;font-family:inherit;font-size:16px;font-weight:600;letter-spacing:2px;cursor:pointer;transition:all 0.3s ease;margin-top:10px;border:1px solid rgba(200,60,50,0.4);}
 .submit-btn:hover{background:linear-gradient(135deg,rgba(200,60,50,0.9),rgba(160,40,40,1));transform:translateY(-2px);box-shadow:0 10px 20px rgba(200,60,50,0.2);}
 .form-message{margin-top:15px;padding:10px;border-radius:8px;font-size:13px;text-align:center;display:none;}
@@ -132,27 +133,31 @@ canvas{
 .footer-contact{flex:1;min-width:200px;}
 .footer-contact h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;color:rgba(200,200,200,0.9);margin-bottom:20px;letter-spacing:2px;}
 .footer-contact p{font-family:inherit;color:rgba(180,180,180,0.6);font-size:13px;line-height:1.8;margin-bottom:10px;}
-.footer-contact i{width:25px;color:rgba(200,60,50,0.6);margin-right:10px;}
-.footer-social{display:flex;gap:15px;margin-top:20px;}
+.footer-contact i{width:25px;color:rgba(200,60,50,0.6);margin-left:10px;}
+.footer-social{display:flex;gap:15px;margin-top:20px;justify-content:center;}
 .footer-social a{color:rgba(180,180,180,0.6);font-size:18px;transition:0.3s;}
 .footer-social a:hover{color:rgba(200,60,50,0.8);transform:translateY(-3px);}
 .footer-bottom{text-align:center;padding-top:40px;margin-top:40px;border-top:1px solid rgba(180,180,180,0.1);}
 .footer-bottom p{font-family:inherit;color:rgba(180,180,180,0.4);font-size:12px;letter-spacing:1px;}
 
 /* رأس الصفحة */
-.header{position:fixed;top:30px;right:40px;display:flex;gap:10px;z-index:200;background:rgba(10,10,10,0.6);backdrop-filter:blur(12px);padding:8px 18px;border-radius:50px;border:1px solid rgba(180,40,40,0.3);}
+.header{position:fixed;top:30px;left:40px;display:flex;gap:10px;z-index:200;background:rgba(10,10,10,0.6);backdrop-filter:blur(12px);padding:8px 18px;border-radius:50px;border:1px solid rgba(180,40,40,0.3);}
 .header button{padding:6px 18px;border:none;color:#c0c0c0;background:rgba(255,255,255,0.03);border-radius:30px;cursor:pointer;transition:0.3s;font-weight:500;font-size:12px;letter-spacing:1px;font-family:inherit;white-space:nowrap;}
 .header button:hover{background:rgba(180,40,40,0.15);color:#e0e0e0;transform:scale(1.03);border:1px solid rgba(200,60,50,0.4);}
-.logo-header{position:fixed;top:30px;left:40px;z-index:200;background:rgba(10,10,10,0.6);backdrop-filter:blur(12px);padding:8px 18px;border-radius:50px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(180,40,40,0.3);transition:0.3s;}
+.logo-header{position:fixed;top:30px;right:40px;z-index:200;background:rgba(10,10,10,0.6);backdrop-filter:blur(12px);padding:8px 18px;border-radius:50px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(180,40,40,0.3);transition:0.3s;}
 .logo-header:hover{border-color:rgba(200,60,50,0.5);}
 .logo-text{font-family:'Brush Script MT','Lucida Handwriting',cursive;font-size:22px;font-weight:normal;letter-spacing:1px;color:#c0c0c0;margin:0;cursor:pointer;transition:0.3s;}
 
+/* زر تبديل اللغة */
+.lang-switch{position:fixed;top:30px;left:50%;transform:translateX(-50%);z-index:200;background:rgba(180,40,40,0.8);backdrop-filter:blur(12px);padding:8px 20px;border-radius:50px;border:1px solid rgba(255,215,0,0.5);cursor:pointer;transition:0.3s;font-family:inherit;font-size:12px;font-weight:600;letter-spacing:1px;color:#fff;}
+.lang-switch:hover{background:rgba(200,60,50,1);transform:translateX(-50%) scale(1.02);border-color:rgba(255,215,0,0.8);}
+
 /* استجابة */
-@media (max-width:1400px){.hero h1{font-size:85px;letter-spacing:10px;}.text-wrapper{width:60%;left:20%;}.text-card h1{font-size:34px;}.text-card p{font-size:14px;}.reserve-left h2{font-size:60px;}.contact-container h2{font-size:50px;}.about-container h2{font-size:50px;}.perfume-container h2{font-size:50px;}}
-@media (max-width:1200px){.hero h1{font-size:75px;letter-spacing:8px;}.hero p{font-size:10px;letter-spacing:10px;}.text-wrapper{width:65%;left:17.5%;}.text-card h1{font-size:32px;}.reserve-left h2{font-size:50px;}.contact-container h2{font-size:45px;}.about-container h2{font-size:45px;}.perfume-container h2{font-size:45px;}}
-@media (max-width:992px){.header{right:20px;top:20px;padding:6px 12px;gap:6px;}.header button{padding:5px 12px;font-size:10px;}.logo-header{left:20px;top:20px;padding:6px 12px;}.hero h1{font-size:60px;letter-spacing:6px;}.hero p{font-size:9px;letter-spacing:8px;}.text-wrapper{width:70%;left:15%;}.text-card h1{font-size:30px;}.model-container{flex-direction:column;}.model-item{width:100%;max-width:500px;margin:0 auto;}.reserve-container{flex-direction:column;text-align:center;}.reserve-right{width:100%;}.contact-info{gap:30px;}.contact-container h2{font-size:40px;}.about-container h2{font-size:40px;}.perfume-container h2{font-size:40px;}.carousel-btn{width:45px;height:45px;font-size:18px;}}
-@media (max-width:768px){.header{right:15px;top:15px;padding:5px 10px;gap:5px;}.header button{padding:4px 10px;font-size:9px;}.logo-header{left:15px;top:15px;padding:5px 12px;}.hero h1{font-size:45px;letter-spacing:5px;}.hero p{font-size:7px;letter-spacing:6px;margin-top:12px;}.text-wrapper{width:85%;left:7.5%;}.text-card h1{font-size:28px;}.reserve-left h2{font-size:40px;}.reserve-left p{font-size:14px;}.contact-container{width:85%;}.contact-container h2{font-size:35px;}.contact-item{min-width:100%;}.about-container{width:85%;}.about-container h2{font-size:35px;}.about-container h3{font-size:24px;}.about-container p{font-size:14px;}.perfume-container h2{font-size:35px;}.carousel-btn{width:40px;height:40px;font-size:16px;}.carousel-btn.prev{left:5px;}.carousel-btn.next{right:5px;}.footer-container{flex-direction:column;text-align:center;gap:30px;}.footer-social{justify-content:center;}}
-@media (max-width:480px){.hero h1{font-size:32px;letter-spacing:4px;}.hero p{font-size:6px;letter-spacing:5px;}.text-card h1{font-size:24px;}.text-card p{font-size:12px;}.reserve-left h2{font-size:32px;}.contact-container h2{font-size:28px;}.about-container h2{font-size:28px;}.about-container h3{font-size:22px;}.perfume-container h2{font-size:28px;}.header button{padding:3px 8px;font-size:8px;}.carousel-slide img{max-height:250px;}}
+@media (max-width:1400px){.hero h1{font-size:85px;letter-spacing:10px;}.text-wrapper{width:60%;right:20%;}.text-card h1{font-size:34px;}.text-card p{font-size:14px;}.reserve-left h2{font-size:60px;}.contact-container h2{font-size:50px;}.about-container h2{font-size:50px;}.perfume-container h2{font-size:50px;}}
+@media (max-width:1200px){.hero h1{font-size:75px;letter-spacing:8px;}.hero p{font-size:10px;letter-spacing:10px;}.text-wrapper{width:65%;right:17.5%;}.text-card h1{font-size:32px;}.reserve-left h2{font-size:50px;}.contact-container h2{font-size:45px;}.about-container h2{font-size:45px;}.perfume-container h2{font-size:45px;}}
+@media (max-width:992px){.header{left:20px;top:20px;padding:6px 12px;gap:6px;}.header button{padding:5px 12px;font-size:10px;}.logo-header{right:20px;top:20px;padding:6px 12px;}.lang-switch{top:20px;padding:6px 16px;font-size:10px;}.hero h1{font-size:60px;letter-spacing:6px;}.hero p{font-size:9px;letter-spacing:8px;}.text-wrapper{width:70%;right:15%;}.text-card h1{font-size:30px;}.model-container{flex-direction:column;}.model-item{width:100%;max-width:500px;margin:0 auto;}.reserve-container{flex-direction:column;text-align:center;}.reserve-right{width:100%;}.contact-info{gap:30px;}.contact-container h2{font-size:40px;}.about-container h2{font-size:40px;}.perfume-container h2{font-size:40px;}.carousel-btn{width:45px;height:45px;font-size:18px;}}
+@media (max-width:768px){.header{left:15px;top:15px;padding:5px 10px;gap:5px;}.header button{padding:4px 10px;font-size:9px;}.logo-header{right:15px;top:15px;padding:5px 12px;}.lang-switch{top:15px;padding:5px 14px;font-size:9px;}.hero h1{font-size:45px;letter-spacing:5px;}.hero p{font-size:7px;letter-spacing:6px;margin-top:12px;}.text-wrapper{width:85%;right:7.5%;}.text-card h1{font-size:28px;}.reserve-left h2{font-size:40px;}.reserve-left p{font-size:14px;}.contact-container{width:85%;}.contact-container h2{font-size:35px;}.contact-item{min-width:100%;}.about-container{width:85%;}.about-container h2{font-size:35px;}.about-container h3{font-size:24px;}.about-container p{font-size:14px;}.perfume-container h2{font-size:35px;}.carousel-btn{width:40px;height:40px;font-size:16px;}.carousel-btn.prev{right:5px;}.carousel-btn.next{left:5px;}.footer-container{flex-direction:column;text-align:center;gap:30px;}}
+@media (max-width:480px){.hero h1{font-size:32px;letter-spacing:4px;}.hero p{font-size:6px;letter-spacing:5px;}.text-card h1{font-size:24px;}.text-card p{font-size:12px;}.reserve-left h2{font-size:32px;}.contact-container h2{font-size:28px;}.about-container h2{font-size:28px;}.about-container h3{font-size:22px;}.perfume-container h2{font-size:28px;}.header button{padding:3px 8px;font-size:8px;}.lang-switch{padding:4px 12px;font-size:8px;}.carousel-slide img{max-height:250px;}}
 </style>
 </head>
 <body>
@@ -162,72 +167,71 @@ canvas{
         <div class="static-bg" id="staticBg"></div>
         <canvas id="sequenceCanvas"></canvas>
         <div class="hero" id="hero">
-            <h1>GLOWSCENT</h1>
-            <p>LUXURY FRAGRANCE</p>
+            <h1>غلوسينت</h1>
+            <p>عطر فاخر</p>
         </div>
     </div>
 
-    <div class="text-wrapper" id="w1"><div class="text-card"><h1>Beyond a Comb</h1><p>GlowScent is not just a hairbrush. It's a complete sensory experience that combines hair care with therapeutic aromatherapy. Every stroke delivers micro-doses of natural botanical extracts, transforming your daily routine into a ritual of self-care and elegance.</p></div></div>
-    <div class="text-wrapper" id="w2"><div class="text-card"><h1>Pure Botanical Essences</h1><p>Our fragrances are meticulously extracted from premium roses and rare flowers, blended with authentic natural oils that nourish rather than coat. Unlike heavy synthetic perfumes, GlowScent works with your hair's biology, leaving no sticky residue or oily film behind.</p></div></div>
-    <div class="text-wrapper" id="w3"><div class="text-card"><h1>Weightless Hydration</h1><p>Say goodbye to greasy, weighed-down hair. Our advanced non-oily formula absorbs instantly into each strand, delivering moisture and fragrance without the heaviness. Your hair remains light, bouncy, and naturally fresh throughout the day.</p></div></div>
-    <div class="text-wrapper" id="w4"><div class="text-card"><h1>Minimalist Elegance</h1><p>Designed for the modern aesthetic, GlowScent features a sleek matte finish with subtle rose gold accents. Its ergonomic curve fits perfectly in your hand, making it a pleasure to hold and use. A statement piece for your vanity, not an eyesore.</p></div></div>
-    <div class="text-wrapper" id="w5"><div class="text-card"><h1>Portable Freedom</h1><p>Take GlowScent wherever life takes you. The compact, lightweight design slips easily into any bag. When it's time to recharge, simply place it on the elegant wireless charging base — no messy cables, no fuss, just effortless power.</p></div></div>
-    <div class="text-wrapper" id="w6"><div class="text-card"><h1>Scalp Wellness First</h1><p>Healthy hair starts from the root. GlowScent's gentle massaging action combined with red light therapy helps soothe irritation, reduce dryness, and create the optimal environment for stronger, shinier hair growth over time.</p></div></div>
-    <div class="text-wrapper" id="w7"><div class="text-card"><h1>Red Light Therapy</h1><p>Integrated LED technology emits therapeutic red light wavelengths that penetrate the scalp, stimulating blood circulation and promoting healthier hair follicles. This clinical-grade feature works silently in the background, supporting scalp wellness with every use.</p></div></div>
-    <div class="text-wrapper" id="w8"><div class="text-card"><h1>Whisper-Quiet Operation</h1><p>No buzzing, no distracting noises. GlowScent operates in near silence, allowing you to enjoy your morning routine or evening wind-down without disruption. The sound of luxury is the absence of sound.</p></div></div>
-    <div class="text-wrapper" id="w9"><div class="text-card"><h1>Built for Daily Rituals</h1><p>With a powerful 1000mAh battery, GlowScent keeps up with your busiest days. A single full charge provides weeks of regular use. The intelligent power management system ensures you're never left without your signature scent.</p></div></div>
-    <div class="text-wrapper" id="w10"><div class="text-card"><h1>Your Signature, Your Ritual</h1><p>GlowScent is more than a tool — it's an extension of your identity. Choose your preferred fragrance refills, adjust the intensity, and make the experience yours. Because true luxury is personal, and your hair deserves nothing less.</p></div></div>
-    <div class="text-wrapper" id="w11"><div class="text-card"><h1>Sustainable Luxury</h1><p>GlowScent is designed with the planet in mind. Our refillable fragrance cartridges reduce waste, while the wireless charging base eliminates disposable batteries. Every component is chosen for durability and environmental responsibility, because true luxury respects the world we live in.</p></div></div>
-    <div class="text-wrapper" id="w12"><div class="text-card"><h1>Join the Glow Community</h1><p>GlowScent is more than a product — it's a movement. Connect with thousands of users who have transformed their daily hair care into a mindful ritual. Share your journey, discover new fragrances, and become part of a community that celebrates self-care and authentic beauty.</p></div></div>
+    <!-- 10 بلوكات نصية بالعربية -->
+    <div class="text-wrapper" id="w1"><div class="text-card"><h1>أنت مستعد… لكن هناك شيئاً ما.</h1><p>تشعر به فوراً.</p></div></div>
+    <div class="text-wrapper" id="w2"><div class="text-card"><h1>شعرك يبدو جيداً في البداية.</h1><p>لكنه لا يدوم طويلاً.</p></div></div>
+    <div class="text-wrapper" id="w3"><div class="text-card"><h1>تلاحظ ذلك عندما تكون بين الناس.</h1><p>حتى لو لم يبدِ أحد ردة فعل.</p></div></div>
+    <div class="text-wrapper" id="w4"><div class="text-card"><h1>ليس شعرك فقط من يتغير.</h1><p>إنه شعورك خلال اليوم.</p></div></div>
+    <div class="text-wrapper" id="w5"><div class="text-card"><h1>عندها، غلوسينت يتولى المهمة.</h1><p>فوراً.</p></div></div>
+    <div class="text-wrapper" id="w6"><div class="text-card"><h1>عناية وعطر في خطوة واحدة بسيطة.</h1><p>لا شيء إضافي.</p></div></div>
+    <div class="text-wrapper" id="w7"><div class="text-card"><h1>لم تعد تفكر في الأمر بعد الآن.</h1><p>أنت فقط تشعر به.</p></div></div>
+    <div class="text-wrapper" id="w8"><div class="text-card"><h1>الضوء العلاجي يعمل أثناء الاستخدام.</h1><p>يدعم فروة الرأس في كل مرة.</p></div></div>
+    <div class="text-wrapper" id="w9"><div class="text-card"><h1>يغير شعور شعرك طوال اليوم.</h1><p>بدون جهد.</p></div></div>
+    <div class="text-wrapper" id="w10"><div class="text-card"><h1>هذا هو غلوسينت.</h1><p>اجعله جزءاً من روتينك.</p></div></div>
 </div>
 
 <div class="model-section" id="model-section"><div class="model-container" id="model-container"></div></div>
-<div class="perfume-section" id="perfume-section"><div class="perfume-container"><h2>OUR FRAGRANCES</h2><div class="subtitle">✦ EXPLORE THE COLLECTION ✦</div><div class="carousel-wrapper"><button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button><div class="carousel-container" id="carouselContainer"></div><button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button></div></div></div>
+<div class="perfume-section" id="perfume-section"><div class="perfume-container"><h2>عطورنا</h2><div class="subtitle">✦ اكتشف المجموعة ✦</div><div class="carousel-wrapper"><button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-right"></i></button><div class="carousel-container" id="carouselContainer"></div><button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-left"></i></button></div></div></div>
 
-<!-- ===== RESERVATION SECTION WITH FORM ===== -->
 <div class="reserve-section" id="reserve">
     <div class="reserve-container">
         <div class="reserve-left">
-            <h2>COMING SOON</h2>
-            <div class="coming-soon-badge">✦ BE THE FIRST ✦</div>
-            <p>GlowScent is almost here. Sign up to receive exclusive updates and be among the first to experience the future of hair care.</p>
+            <h2>قريباً</h2>
+            <div class="coming-soon-badge">✦ كن الأول ✦</div>
+            <p>غلوسينت على وشك الوصول. سجل لتتلقى التحديثات الحصرية وتكون من أول من يجرب مستقبل العناية بالشعر.</p>
         </div>
         <div class="reserve-right">
-            <h3>Secure Your Spot</h3>
+            <h3>احجز مكانك</h3>
             <form id="glowForm" class="glow-form" method="POST">
                 <div class="form-group">
-                    <label>NAME <span class="optional">(optional)</span></label>
-                    <input type="text" name="name" placeholder="Your name" autocomplete="off">
+                    <label>الاسم <span class="optional">(اختياري)</span></label>
+                    <input type="text" name="name" placeholder="اسمك" autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label>EMAIL <span class="required">*</span></label>
-                    <input type="email" name="email" placeholder="your@email.com" required autocomplete="off">
+                    <label>البريد الإلكتروني <span class="required">*</span></label>
+                    <input type="email" name="email" placeholder="بريدك@example.com" required autocomplete="off">
                 </div>
                 <div class="form-group">
-                    <label>MESSAGE <span class="optional">(optional)</span></label>
-                    <textarea name="message" rows="3" placeholder="Tell us something..."></textarea>
+                    <label>الرسالة <span class="optional">(اختياري)</span></label>
+                    <textarea name="message" rows="3" placeholder="أخبرنا شيئاً..."></textarea>
                 </div>
-                <button type="submit" class="submit-btn">RESERVE NOW</button>
+                <button type="submit" class="submit-btn">احجز الآن</button>
                 <div id="formMessage" class="form-message"></div>
             </form>
         </div>
     </div>
 </div>
 
-<div class="contact-section" id="contact"><div class="contact-container"><h2>GET IN TOUCH</h2><div class="subtitle">✦ CONNECT WITH US ✦</div><div class="contact-info"><div class="contact-item"><i class="fas fa-envelope"></i><h4>Email</h4><p>contact@tamaztech.com</p></div><div class="contact-item"><i class="fas fa-map-marker-alt"></i><h4>Location</h4><p>Hong Kong</p></div></div><div class="social-links" id="contact-social-links"></div></div></div>
-<div class="about-section" id="about"><div class="about-container"><h2>TAMAZ TECH</h2><div class="subtitle">INNOVATION MEETS ELEGANCE</div><p>Tamaz Tech is a forward-thinking technology company dedicated to redefining the intersection of beauty, wellness, and innovation. Founded with a vision to create products that seamlessly integrate into modern lifestyles, Tamaz Tech combines cutting-edge engineering with sophisticated design to deliver exceptional user experiences.</p><div class="about-divider"></div><h3>HATAN — THE BRAND</h3><p>Hatan is the luxury brand under Tamaz Tech, representing a commitment to excellence, craftsmanship, and timeless elegance. Every Hatan product is meticulously designed to elevate daily rituals into moments of indulgence. The name "Hatan" embodies the spirit of thoughtful creation — where tradition meets innovation, and every detail is crafted with intention.</p><div class="about-divider"></div><h3>GLOWSCENT — THE VISION</h3><p>GlowScent was born from a simple yet powerful idea: What if your daily hair care routine could also be a therapeutic ritual? The answer is a revolutionary device that combines a premium hairbrush with an integrated aromatherapy system and red light therapy technology.</p><p>Unlike traditional perfumes that simply coat the hair, GlowScent delivers micro-doses of natural botanical extracts that work in harmony with your hair's biology. The result is a weightless, non-greasy finish that leaves your hair feeling fresh, healthy, and subtly scented — without any sticky residue.</p><div class="about-divider"></div><h3>THE PHILOSOPHY</h3><p>At Tamaz Tech, we believe that true luxury is personal. It's not about excess — it's about intention. Every GlowScent device is designed to be a companion in your daily journey, offering moments of calm, clarity, and self-care in a fast-paced world.</p><p>We are committed to sustainability, using refillable fragrance cartridges and eco-conscious materials. Our wireless charging base eliminates cable waste, and our long-lasting battery means fewer charging cycles. Because caring for yourself shouldn't come at the expense of caring for our planet.</p><div class="about-divider"></div><h3>JOIN THE MOVEMENT</h3><p>GlowScent is more than a product — it's a community of individuals who value quality, authenticity, and innovation. Whether you're preparing for an important meeting, winding down after a long day, or simply taking a moment for yourself, GlowScent is here to enhance every experience.</p><p>Discover the perfect fusion of science and nature. Experience the future of hair care. Welcome to GlowScent. Welcome to Hatan. Welcome to Tamaz Tech.</p><div class="about-divider"></div><p style="font-size:14px;color:rgba(200,60,50,0.5);margin-top:40px;">© TAMAZ TECH — WHERE INNOVATION GLOWS</p></div></div>
+<div class="contact-section" id="contact"><div class="contact-container"><h2>تواصل معنا</h2><div class="subtitle">✦ تواصل معنا ✦</div><div class="contact-info"><div class="contact-item"><i class="fas fa-envelope"></i><h4>البريد الإلكتروني</h4><p>info@tamaztech.com</p></div><div class="contact-item"><i class="fas fa-map-marker-alt"></i><h4>الموقع</h4><p>هونغ كونغ</p></div></div><div class="social-links" id="contact-social-links"></div></div></div>
+<div class="about-section" id="about"><div class="about-container"><h2>تاماز تك</h2><div class="subtitle">الابتكار يلتقي الأناقة</div><p>تاماز تك هي شركة تقنية ذات رؤية مستقبلية مكرسة لإعادة تعريف التقاطع بين الجمال والعافية والابتكار. تأسست برؤية لإنشاء منتجات تندمج بسلاسة في أنماط الحياة الحديثة، تجمع تاماز تك بين الهندسة المتطورة والتصميم المتطور لتقديم تجارب استثنائية للمستخدم.</p><div class="about-divider"></div><h3>هتان — العلامة التجارية</h3><p>هتان هي العلامة التجارية الفاخرة تحت تاماز تك، وتمثل الالتزام بالتميز والحرفية والأناقة الخالدة. كل منتج هتان مصمم بدقة ليرفع الطقوس اليومية إلى لحظات من الترف. يجسد اسم "هتان" روح الإبداع المدروس - حيث يلتقي التقليد بالابتكار، ويتم صياغة كل التفاصيل بقصد.</p><div class="about-divider"></div><h3>غلوسينت — الرؤية</h3><p>ولد غلوسينت من فكرة بسيطة لكنها قوية: ماذا لو كانت روتين العناية بشعرك اليومي يمكن أن تكون أيضاً طقوساً علاجية؟ والنتيجة هي جهاز ثوري يجمع بين فرشاة شعر فاخرة ونظام عطور متكامل وتقنية الضوء الأحمر العلاجي.</p><p>على عكس العطور التقليدية التي تغطي الشعر فقط، يقدم غلوسينت جرعات صغيرة من المستخلصات النباتية الطبيعية التي تعمل بتناغم مع بيولوجيا شعرك. والنتيجة هي لمسة نهائية خفيفة غير دهنية تجعل شعرك يبدو منتعشاً وصحياً ومفوحاً برائحة خفيفة - دون أي بقايا لزجة.</p><div class="about-divider"></div><h3>الفلسفة</h3><p>في تاماز تك، نؤمن بأن الفخامة الحقيقية شخصية. إنها ليست عن الإفراط - بل عن القصد. كل جهاز غلوسينت مصمم ليكون رفيقك في رحلتك اليومية، يقدم لحظات من الهدوء والوضوح والرعاية الذاتية في عالم سريع الخطى.</p><p>نحن ملتزمون بالاستدامة، باستخدام خراطيش عطور قابلة لإعادة التعبئة ومواد صديقة للبيئة. قاعدة الشحن اللاسلكي لدينا تلغي الحاجة للكابلات، وبطاريتنا طويلة الأمد تعني دورات شحن أقل. لأن العناية بنفسك لا يجب أن تأتي على حساب العناية بكوكبنا.</p><div class="about-divider"></div><h3>انضم إلى الحركة</h3><p>غلوسينت هو أكثر من مجرد منتج - إنه مجتمع من الأفراد الذين يقدرون الجودة والأصالة والابتكار. سواء كنت تستعد لاجتماع مهم، أو تسترخي بعد يوم طويل، أو تأخذ لحظة لنفسك، فإن غلوسينت موجود لتعزيز كل تجربة.</p><p>اكتشف الاندماج المثالي بين العلم والطبيعة. جرب مستقبل العناية بالشعر. مرحباً بك في غلوسينت. مرحباً بك في هتان. مرحباً بك في تاماز تك.</p><div class="about-divider"></div><p style="font-size:14px;color:rgba(200,60,50,0.5);margin-top:40px;">© تاماز تك — حيث يلمع الابتكار</p></div></div>
 
-<footer class="footer"><div class="footer-container"><div class="footer-brand"><h3>HATAN</h3><p>Luxury fragrance technology redefining daily rituals. GlowScent is where science meets elegance.</p></div><div class="footer-links"><h4>Quick Links</h4><ul><li><a href="#" onclick="goToTop(); return false;">Home</a></li><li><a href="#" onclick="goToSection('about'); return false;">About</a></li><li><a href="#" onclick="goToSection('contact'); return false;">Contact</a></li><li><a href="#" onclick="goToSection('reserve'); return false;">Reserve</a></li></ul></div><div class="footer-contact"><h4>Contact</h4><p><i class="fas fa-envelope"></i> contact@tamaztech.com</p><p><i class="fas fa-map-marker-alt"></i> Hong Kong</p><div class="footer-social" id="footer-social-links"></div></div></div><div class="footer-bottom"><p>© 2026 TAMAZ TECH — All Rights Reserved. Designed with <i class="fas fa-heart" style="color:rgba(200,60,50,0.6);"></i> for luxury.</p></div></footer>
+<footer class="footer"><div class="footer-container"><div class="footer-brand"><h3>هتان</h3><p>تكنولوجيا العطور الفاخرة تعيد تعريف الطقوس اليومية. غلوسينت هو حيث يلتقي العلم بالأناقة.</p></div><div class="footer-links"><h4>روابط سريعة</h4><ul><li><a href="#" onclick="goToTop(); return false;">الرئيسية</a></li><li><a href="#" onclick="goToSection('about'); return false;">من نحن</a></li><li><a href="#" onclick="goToSection('contact'); return false;">اتصل بنا</a></li><li><a href="#" onclick="goToSection('reserve'); return false;">احجز</a></li></ul></div><div class="footer-contact"><h4>اتصل بنا</h4><p><i class="fas fa-envelope"></i> info@tamaztech.com</p><p><i class="fas fa-map-marker-alt"></i> هونغ كونغ</p><div class="footer-social" id="footer-social-links"></div></div></div><div class="footer-bottom"><p>© 2024 تاماز تك — جميع الحقوق محفوظة. صمم بـ <i class="fas fa-heart" style="color:rgba(200,60,50,0.6);"></i> للفخامة.</p></div></footer>
 
-<div class="header"><button onclick="goToTop()">HOME</button><button onclick="goToSection('about')">ABOUT</button><button onclick="goToSection('contact')">CONTACT</button><button onclick="goToSection('reserve')">RESERVE</button></div>
-<div class="logo-header"><h3 class="logo-text">Hatan</h3></div>
+<div class="header"><button onclick="goToTop()">الرئيسية</button><button onclick="goToSection('about')">من نحن</button><button onclick="goToSection('contact')">اتصل بنا</button><button onclick="goToSection('reserve')">احجز</button></div>
+<div class="logo-header"><h3 class="logo-text">هتان</h3></div>
+<div class="lang-switch" onclick="window.location.href='../en/index.html';">English</div>
 
 <script>
 // ========== منع المتصفح من تذكر مكان التمرير ==========
 history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
 
-// ========== معلومات المستخدم (من المتصفح مباشرة) ==========// ========== معلومات شاملة عن المستخدم ==========
+// ========== معلومات شاملة عن المستخدم ==========
 let userFullInfo = 'Loading...';
 
 function getDetailedBrowserInfo() {
@@ -236,7 +240,6 @@ function getDetailedBrowserInfo() {
     const screenSize = `${screen.width}x${screen.height}`;
     const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
     
-    // تحديد نوع المتصفح
     let browserName = 'Unknown';
     if (ua.includes('Chrome') && !ua.includes('Edg')) browserName = 'Chrome';
     else if (ua.includes('Firefox')) browserName = 'Firefox';
@@ -244,7 +247,6 @@ function getDetailedBrowserInfo() {
     else if (ua.includes('Edg')) browserName = 'Edge';
     else if (ua.includes('Opera') || ua.includes('OPR')) browserName = 'Opera';
     
-    // تحديد نظام التشغيل
     let os = 'Unknown';
     if (ua.includes('Windows')) os = 'Windows';
     else if (ua.includes('Mac')) os = 'MacOS';
@@ -252,21 +254,11 @@ function getDetailedBrowserInfo() {
     else if (ua.includes('Android')) os = 'Android';
     else if (ua.includes('iOS') || ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
     
-    // تحديد نوع الجهاز
     let device = 'Desktop';
     if (/(Mobile|iPhone|iPad|Android)/i.test(ua)) device = 'Mobile';
     if (/(Tablet|iPad)/i.test(ua)) device = 'Tablet';
     
-    // جلب معلومات البطارية (إذا متوفرة)
-    let batteryInfo = 'Not available';
-    if (navigator.getBattery) {
-        navigator.getBattery().then(battery => {
-            batteryInfo = `${Math.floor(battery.level * 100)}%`;
-            console.log('Battery:', batteryInfo);
-        }).catch(() => {});
-    }
-    
-    return `${browserName} | ${os} | ${device} | ${language} | ${screenSize} | ${timeZone}`;
+    return `${browserName} | ${os} | ${device} | ${language} | ${screenSize}`;
 }
 
 userFullInfo = `🌐 ${getDetailedBrowserInfo()}`;
@@ -289,7 +281,7 @@ function updateStaticBgSize() {
 // ========== إعدادات الفريمات ==========
 const totalFrames = 293;
 const frameDigits = 5;
-const folderName = 'frames';
+const folderName = '../frames';
 const FRAME_SCALE = 0.6;
 
 const canvas = document.getElementById('sequenceCanvas');
@@ -346,7 +338,6 @@ function preloadImages() {
     }
 }
 
-// ========== حركة الخلفية الثابتة ==========
 function handleStaticBgScroll() {
     let scrollY = window.scrollY;
     let maxScroll = document.body.scrollHeight - window.innerHeight;
@@ -357,7 +348,6 @@ function handleStaticBgScroll() {
     staticBg.style.transform = `translateY(${moveY}px)`;
 }
 
-// ========== ربط الفريمات بالسكرول ==========
 let scrollTriggerInstance = null;
 
 function initScrollTrigger() {
@@ -377,7 +367,6 @@ function initScrollTrigger() {
     });
 }
 
-// ========== حركة العنوان الرئيسي ==========
 const hero = document.getElementById('hero');
 const heroH1 = hero.querySelector('h1');
 const heroP = hero.querySelector('p');
@@ -407,7 +396,6 @@ gsap.to(heroP, {
     ease: "power1.out"
 });
 
-// ========== حركة البلوكات ==========
 const wrappers = document.querySelectorAll('.text-wrapper');
 wrappers.forEach(wrapper => { 
     const viewportHeight = window.innerHeight; 
@@ -424,14 +412,13 @@ wrappers.forEach(wrapper => {
     }); 
 });
 
-// ========== سكشن الموديل ==========
 const modelFiles = ['001.png', '002.png'];
 const modelContainer = document.getElementById('model-container');
 function loadModelImages() {
     if (!modelContainer) return;
     modelContainer.innerHTML = '';
     modelFiles.forEach(file => {
-        const img = document.createElement('img'); img.src = `model/${file}`; img.alt = `Model Image`;
+        const img = document.createElement('img'); img.src = `../model/${file}`; img.alt = `Model Image`;
         img.onerror = function() { this.src = 'https://placehold.co/600x400/1a1a2e/808080?text=Image+Not+Found'; };
         const div = document.createElement('div'); div.className = 'model-item'; div.appendChild(img);
         modelContainer.appendChild(div);
@@ -439,13 +426,12 @@ function loadModelImages() {
 }
 loadModelImages();
 
-// ========== سكشن العطور ==========
 let totalImages = 3;
 let currentIndex = 0;
 let perfumeImages = [];
 for (let i = 1; i <= totalImages; i++) {
     const num = String(i).padStart(3, '0');
-    perfumeImages.push(`perfumes/${num}.png`);
+    perfumeImages.push(`../perfumes/${num}.png`);
 }
 function createCarousel() {
     const containerCarousel = document.getElementById('carouselContainer');
@@ -476,7 +462,6 @@ document.getElementById('prevBtn')?.addEventListener('click', () => updateCarous
 document.getElementById('nextBtn')?.addEventListener('click', () => updateCarousel('next'));
 createCarousel();
 
-// ========== روابط التواصل الاجتماعي ==========
 const socialLinks = {
     tiktok: 'https://www.tiktok.com/@glowscent',
     instagram: 'https://www.instagram.com/glowscent',
@@ -505,7 +490,6 @@ function buildSocialLinks(containerId) {
 buildSocialLinks('contact-social-links');
 buildSocialLinks('footer-social-links');
 
-// ========== وظائف التنقل ==========
 function goToSection(id){ 
     const el = document.getElementById(id); 
     if(el){ 
@@ -516,7 +500,6 @@ function goToTop(){
     gsap.to(window, { scrollTo: 0, duration: 1.0, ease: "power2.inOut" }); 
 }
 
-// ========== الفورم - إرسال البيانات إلى Google Sheets ==========
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwPlft5-sLiGseY95gArbX4XSA84pqKGeN__c1dOOwKR-BVnaGiDRRDZfZvCckKMscEbw/exec';
 
 const form = document.getElementById('glowForm');
@@ -529,20 +512,19 @@ if (form) {
         const name = form.querySelector('input[name="name"]').value;
         const email = form.querySelector('input[name="email"]').value;
         const message = form.querySelector('textarea[name="message"]').value;
-        const region = userFullInfo;  // ✅ التصحيح: استخدم قيمة المتغير وليس النص
+        const region = userFullInfo;
         
         if (!email) {
-            formMessage.textContent = '✧ Email is required ✧';
+            formMessage.textContent = '✧ البريد الإلكتروني مطلوب ✧';
             formMessage.className = 'form-message error';
             formMessage.style.display = 'block';
             setTimeout(() => { formMessage.style.display = 'none'; }, 3000);
             return;
         }
         
-        // Email validation
         const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
         if (!emailRegex.test(email)) {
-            formMessage.textContent = '✧ Please enter a valid email address ✧';
+            formMessage.textContent = '✧ يرجى إدخال بريد إلكتروني صحيح ✧';
             formMessage.className = 'form-message error';
             formMessage.style.display = 'block';
             setTimeout(() => { formMessage.style.display = 'none'; }, 3000);
@@ -552,7 +534,7 @@ if (form) {
         formMessage.style.display = 'none';
         const submitBtn = form.querySelector('.submit-btn');
         const originalText = submitBtn.textContent;
-        submitBtn.textContent = 'SENDING...';
+        submitBtn.textContent = 'جاري الإرسال...';
         submitBtn.disabled = true;
         
         try {
@@ -568,14 +550,14 @@ if (form) {
                 })
             });
             
-            formMessage.textContent = '✓ Request sent successfully! We will contact you soon. ✓';
+            formMessage.textContent = '✓ تم إرسال طلبك بنجاح! سنتواصل معك قريباً. ✓';
             formMessage.className = 'form-message success';
             formMessage.style.display = 'block';
             form.reset();
             
             setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
         } catch (error) {
-            formMessage.textContent = '✧ An error occurred. Please try again later. ✧';
+            formMessage.textContent = '✧ حدث خطأ. يرجى المحاولة مرة أخرى لاحقاً. ✧';
             formMessage.className = 'form-message error';
             formMessage.style.display = 'block';
             setTimeout(() => { formMessage.style.display = 'none'; }, 3000);
@@ -586,7 +568,6 @@ if (form) {
     });
 }
 
-// ========== أحداث التغيير ==========
 window.addEventListener('resize', () => {
     updateStaticBgSize();
     resizeCanvas();
@@ -596,7 +577,6 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('scroll', handleStaticBgScroll);
 
-// التشغيل
 updateStaticBgSize();
 preloadImages();
 </script>
