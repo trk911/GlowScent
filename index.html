@@ -113,103 +113,62 @@ canvas{
 .carousel-btn{position:absolute;top:50%;transform:translateY(-50%);width:60px;height:60px;border-radius:50%;background:rgba(180,40,40,0.2);border:1px solid rgba(180,40,40,0.4);color:rgba(200,200,200,0.8);font-size:24px;cursor:pointer;z-index:20;transition:all 0.3s ease;backdrop-filter:blur(4px);}
 .carousel-btn:hover{background:rgba(200,60,50,0.4);border-color:rgba(200,60,50,0.8);color:white;transform:translateY(-50%) scale(1.05);}
 .carousel-btn.prev{left:20px;}.carousel-btn.next{right:20px;}
-.carousel-container{position:relative;width:100%;display:flex;align-items:center;justify-content:center;gap:20px;}
-.carousel-slide{transition:all 0.5s cubic-bezier(0.4,0,0.2,1);cursor:pointer;border-radius:16px;overflow:hidden;box-shadow:0 20px 40px rgba(0,0,0,0.4);border:1px solid rgba(180,40,40,0.3);background:#1e1e24;}
-.carousel-slide.active{transform:scale(1);z-index:10;box-shadow:0 30px 60px rgba(200,60,50,0.2);border-color:rgba(200,60,50,0.5);}
-.carousel-slide.prev{transform:scale(0.7);filter:blur(2px);opacity:0.6;}
-.carousel-slide.next{transform:scale(0.7);filter:blur(2px);opacity:0.6;}
 
-
-
-.carousel-container{
-    display:flex;
-    align-items:center;
-    justify-content:center;
-    gap:20px;
-    flex-wrap:nowrap;
-    overflow:visible;
-}
-.carousel-slide{
-    background: #1e1e24;
-    border-radius:20px;
-    overflow:hidden;
-    transition: all 0.4s ease-in-out;
-    width:300px;
-    flex-shrink:0;
-}
-.carousel-slide img{
-    width:100%;
-    height:250px;
-    display:block;
-    object-fit:contain;
-}
-/* اسم العطر فوق الصورة */
-.perfume-name{
-    text-align:center;
-    padding:15px 15px 5px 15px;
-    font-family:'Cormorant Garamond',serif;
-    font-size:20px;
-    font-weight:600;
-    color:#e0e0e0;
-    letter-spacing:1px;
-    background:#1e1e24;
-}
-/* الوصف تحت الصورة */
-.perfume-desc{
-    text-align:center;
-    padding:0 15px 18px 15px;
-    font-family:inherit;
-    font-size:13px;
-    color:rgba(200,200,200,0.7);
-    line-height:1.4;
-    background:#1e1e24;
-}
-/* تأثير fade */
-.carousel-slide.prev{
-    opacity: 0.3;
-    transform: scale(0.85);
-}
-.carousel-slide.next{
-    opacity: 0.3;
-    transform: scale(0.85);
-}
-.carousel-slide.active{
-    opacity: 1;
-    transform: scale(1);
-}
+/* كاروسيل العطور - ثابت بدون تمرير أفقي */
 .carousel-container {
-    gap: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
     overflow: visible;
+    flex-wrap: nowrap;
 }
 .carousel-slide {
-    width: 260px;
+    background: #1e1e24;
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    width: 300px;
     flex-shrink: 0;
 }
 .carousel-slide img {
-    height: 200px;
+    width: 100%;
+    height: 250px;
+    display: block;
+    object-fit: contain;
 }
 .perfume-name {
-    font-size: 16px;
-    padding: 12px 12px 3px 12px;
+    text-align: center;
+    padding: 15px 15px 5px 15px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: #e0e0e0;
+    letter-spacing: 1px;
+    background: #1e1e24;
 }
 .perfume-desc {
-    font-size: 11px;
-    padding: 0 12px 15px 12px;
+    text-align: center;
+    padding: 0 15px 18px 15px;
+    font-family: inherit;
+    font-size: 13px;
+    color: rgba(200, 200, 200, 0.7);
+    line-height: 1.4;
+    background: #1e1e24;
 }
+/* تأثير fade */
 .carousel-slide.prev {
+    opacity: 0.3;
     transform: scale(0.85);
-    opacity: 0.5;
 }
 .carousel-slide.next {
+    opacity: 0.3;
     transform: scale(0.85);
-    opacity: 0.5;
 }
 .carousel-slide.active {
-    transform: scale(1);
     opacity: 1;
+    transform: scale(1);
 }
-}
-
 
 /* سكشن الحجز - الفورم */
 .reserve-section{width:100%;min-height:100vh;padding:80px 0;display:flex;align-items:center;justify-content:center;}
@@ -288,15 +247,8 @@ canvas{
 @media (max-width:1200px){.hero h1{font-size:75px;letter-spacing:8px;}.hero p{font-size:10px;letter-spacing:10px;}.text-wrapper{width:65%;left:17.5%;}.text-card h1{font-size:32px;}.reserve-left h2{font-size:50px;}.contact-container h2{font-size:45px;}.about-container h2{font-size:45px;}.perfume-container h2{font-size:45px;}}
 @media (max-width:992px){.header{right:20px;top:20px;padding:6px 12px;gap:6px;}.header button{padding:5px 12px;font-size:10px;}.logo-header{left:20px;top:20px;padding:6px 12px;}.hero h1{font-size:60px;letter-spacing:6px;}.hero p{font-size:9px;letter-spacing:8px;}.text-wrapper{width:70%;left:15%;}.text-card h1{font-size:30px;}.model-container{flex-direction:column;}.model-item{width:100%;max-width:500px;margin:0 auto;}.reserve-container{flex-direction:column;text-align:center;}.reserve-right{width:100%;}.contact-info{gap:30px;}.contact-container h2{font-size:40px;}.about-container h2{font-size:40px;}.perfume-container h2{font-size:40px;}.carousel-btn{width:45px;height:45px;font-size:18px;}}
 @media (max-width:768px){.header{right:15px;top:15px;padding:5px 10px;gap:5px;}.header button{padding:4px 10px;font-size:9px;}.logo-header{left:15px;top:15px;padding:5px 12px;}.hero h1{font-size:45px;letter-spacing:5px;}.hero p{font-size:7px;letter-spacing:6px;margin-top:12px;}.text-wrapper{width:85%;left:7.5%;}.text-card h1{font-size:28px;}.reserve-left h2{font-size:40px;}.reserve-left p{font-size:14px;}.contact-container{width:85%;}.contact-container h2{font-size:35px;}.contact-item{min-width:100%;}.about-container{width:85%;}.about-container h2{font-size:35px;}.about-container h3{font-size:24px;}.about-container p{font-size:14px;}.perfume-container h2{font-size:35px;}.carousel-btn{width:40px;height:40px;font-size:16px;}.carousel-btn.prev{left:5px;}.carousel-btn.next{right:5px;}.footer-container{flex-direction:column;text-align:center;gap:30px;}.footer-social{justify-content:center;}}
-@media (max-width:480px){.hero h1{font-size:32px;letter-spacing:4px;}.hero p{font-size:6px;letter-spacing:5px;}.text-card h1{font-size:24px;}.text-card p{font-size:12px;}.reserve-left h2{font-size:32px;}.contact-container h2{font-size:28px;}.about-container h2{font-size:28px;}.about-container h3{font-size:22px;}.perfume-container h2{font-size:28px;}.header button{padding:3px 8px;font-size:8px;}.carousel-slide img{max-height:250px;}}
-/* ديناميكية صور الكاروسيل */
-.carousel-slide img{
-    width:100%;
-    max-width:100%;
-    height:auto;
-    max-height:300px;
-    object-fit:contain;
-}
+@media (max-width:480px){.hero h1{font-size:32px;letter-spacing:4px;}.hero p{font-size:6px;letter-spacing:5px;}.text-card h1{font-size:24px;}.text-card p{font-size:12px;}.reserve-left h2{font-size:32px;}.contact-container h2{font-size:28px;}.about-container h2{font-size:28px;}.about-container h3{font-size:22px;}.perfume-container h2{font-size:28px;}.header button{padding:3px 8px;font-size:8px;}}
+
 /* سكشن الموديل - التصميم الأصلي الديناميكي */
 .model-container{
     width:90%;
@@ -329,6 +281,26 @@ canvas{
     object-fit:cover;
 }
 
+/* للجوال - تعديل الكاروسيل */
+@media (max-width: 768px) {
+    .carousel-container {
+        gap: 10px;
+    }
+    .carousel-slide {
+        width: 260px;
+    }
+    .carousel-slide img {
+        height: 200px;
+    }
+    .perfume-name {
+        font-size: 16px;
+        padding: 12px 12px 3px 12px;
+    }
+    .perfume-desc {
+        font-size: 11px;
+        padding: 0 12px 15px 12px;
+    }
+}
 </style>
 </head>
 <body>
@@ -658,8 +630,6 @@ const perfumeData = [
 ];
 const totalImages = perfumeData.length;
 
-
-
 function createCarousel() {
     const containerCarousel = document.getElementById('carouselContainer');
     if (!containerCarousel) return;
@@ -693,7 +663,6 @@ function createCarousel() {
         containerCarousel.appendChild(slide);
     }
 }
-
 
 function updateCarousel(direction) {
     if (direction === 'next') { currentIndex++; if (currentIndex >= totalImages) currentIndex = 0; }
