@@ -176,14 +176,39 @@ canvas{
     opacity: 1;
     transform: scale(1);
 }
-@media (max-width:768px){
-    .carousel-container{gap:15px;}
-    .carousel-slide{width:220px;}
-    .carousel-slide img{height:180px;}
-    .perfume-name{font-size:16px;padding:10px 10px 3px 10px;}
-    .perfume-desc{font-size:10px;padding:0 10px 12px 10px;}
-    .carousel-slide.prev{transform: scale(0.75);}
-    .carousel-slide.next{transform: scale(0.75);}
+.carousel-container {
+    gap: 10px;
+    overflow-x: auto;
+    justify-content: flex-start;
+    padding: 10px;
+}
+.carousel-slide {
+    width: 260px;
+    flex-shrink: 0;
+}
+.carousel-slide img {
+    height: 200px;
+}
+.perfume-name {
+    font-size: 16px;
+    padding: 12px 12px 3px 12px;
+}
+.perfume-desc {
+    font-size: 11px;
+    padding: 0 12px 15px 12px;
+}
+.carousel-slide.prev {
+    transform: scale(0.85);
+    opacity: 0.5;
+}
+.carousel-slide.next {
+    transform: scale(0.85);
+    opacity: 0.5;
+}
+.carousel-slide.active {
+    transform: scale(1);
+    opacity: 1;
+}
 }
 
 
