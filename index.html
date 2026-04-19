@@ -125,8 +125,9 @@ canvas{
     display:flex;
     align-items:center;
     justify-content:center;
-    gap:30px;
-    position:relative;
+    gap:20px;
+    flex-wrap:nowrap;
+    overflow:visible;
 }
 .carousel-slide{
     background: #1e1e24;
@@ -178,9 +179,7 @@ canvas{
 }
 .carousel-container {
     gap: 10px;
-    overflow-x: auto;
-    justify-content: flex-start;
-    padding: 10px;
+    overflow: visible;
 }
 .carousel-slide {
     width: 260px;
