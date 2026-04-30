@@ -1,0 +1,1348 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<title>GlowScent | Smart Hair Brush</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+<style>
+*{box-sizing:border-box;}
+html{scroll-behavior:auto;}
+
+:root {
+    --primary: #C58780;
+    --primary-light: #EEB9B9;
+    --primary-soft: rgba(197, 135, 128, 0.15);
+    --primary-dark: #A86C65;
+    --primary-glow: rgba(197, 135, 128, 0.4);
+    --bg-page: #0C0B0A;
+    --bg-surface: #2A2A2A;
+    --bg-elevated: #1A1817;
+    --bg-glass: rgba(19, 17, 16, 0.75);
+    --bg-section: #2A2A2A;
+    --text-primary: #F2EBE9;
+    --text-secondary: #D9CECB;
+    --text-muted: #A69792;
+    --text-inverse: #1A1817;
+    --border-soft: rgba(197, 135, 128, 0.25);
+    --border-medium: rgba(197, 135, 128, 0.45);
+    --border-strong: rgba(197, 135, 128, 0.7);
+    --gradient-hero: linear-gradient(135deg, var(--primary-light), var(--primary), var(--primary-dark));
+    --gradient-section-title: linear-gradient(135deg, var(--primary-light), var(--primary-dark));
+    --gradient-card-line: linear-gradient(90deg, var(--primary), var(--primary-dark), transparent);
+    --gradient-footer-line: linear-gradient(90deg, transparent, var(--primary-soft), transparent);
+    --btn-gradient: linear-gradient(135deg, var(--primary), var(--primary-dark));
+    --btn-gradient-hover: linear-gradient(135deg, var(--primary-light), var(--primary));
+    --btn-text: var(--text-primary);
+    --btn-shadow: 0 8px 20px rgba(197, 135, 128, 0.25);
+    --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+    --shadow-glow: 0 0 20px rgba(197, 135, 128, 0.15);
+}
+
+body{
+    margin:0;
+    background: var(--bg-page);
+    font-family:'Montserrat', sans-serif;
+    overflow-x:hidden;
+    color: var(--text-secondary);
+}
+
+#scene{position:relative;height:700vh;}
+.viewport{position:sticky;top:0;height:100vh;overflow:hidden;z-index:0;}
+.static-bg{
+    position:absolute;top:0;left:0;width:100%;
+    background: var(--bg-page);
+    background-image: url('background.PNG');
+    background-repeat: no-repeat;
+    background-position: top center;
+    background-size: 100% auto;
+    z-index:0;
+}
+canvas{
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    width:100%;height:100%;object-fit:contain;z-index:1;
+    display:block;pointer-events:none;
+}
+
+.hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;text-align:center;white-space:nowrap;}
+.hero .coming-soon-badge{
+    display:inline-block;
+    font-family:inherit;
+    font-size:11px;
+    letter-spacing:6px;
+    margin-bottom:20px;
+    color: var(--primary-light);
+    font-weight:600;
+    text-transform:uppercase;
+    padding:8px 20px;
+    border:1.5px solid var(--primary-light);
+    border-radius:30px;
+    background: rgba(238, 185, 185, 0.08);
+    backdrop-filter:blur(4px);
+}
+.hero h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:100px;
+    font-weight:700;
+    letter-spacing:6px;
+    margin:0;
+    background: var(--gradient-hero);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    text-shadow:0 0 40px var(--primary-glow);
+}
+.hero .tagline{
+    font-family:inherit;
+    font-size:14px;
+    letter-spacing:6px;
+    margin-top:12px;
+    color: var(--text-secondary);
+    font-weight:500;
+    text-transform:uppercase;
+}
+.hero .sub-tagline{
+    font-family:inherit;
+    font-size:11px;
+    letter-spacing:4px;
+    margin-top:8px;
+    color: var(--text-muted);
+    font-weight:400;
+    text-transform:uppercase;
+}
+
+.scroll-down{
+    position:absolute;
+    bottom:25px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:10;
+    color: var(--text-muted);
+    font-size:10px;
+    letter-spacing:2px;
+    font-family:inherit;
+    text-transform:uppercase;
+    opacity:1;
+    transition:opacity 0.5s ease;
+    pointer-events:none;
+    text-align:center;
+    line-height:1.5;
+}
+.scroll-down span{
+    display:block;
+    font-size:14px;
+    letter-spacing:0;
+}
+.scroll-down.hidden{opacity:0;}
+
+/* ===== BLOCK TEXT - Solid single color, no gradients/filters ===== */
+.text-wrapper{position:absolute;width:55%;left:22.5%;z-index:4;opacity:1;transform:translateY(0);}
+.text-card{background:transparent;border-radius:0;padding:16px 20px;border:none;text-align:center;}
+.text-card h1{
+    font-family:'Cormorant Garamond',serif;
+    font-size:38px;
+    font-weight:600;
+    letter-spacing:1px;
+    margin:0 0 14px 0;
+    color: var(--primary-light);
+    line-height:1.3;
+    position:relative;
+    display:inline-block;
+}
+.text-card h1::after{
+    content:'';
+    position:absolute;
+    bottom:-10px;
+    left:50%;
+    transform:translateX(-50%);
+    width:55px;
+    height:1.5px;
+    background: var(--primary-light);
+    opacity:0.6;
+    transition:width 0.4s ease;
+}
+.text-card:hover h1::after{width:85px;}
+.text-card p{
+    font-family:inherit;
+    color: var(--text-secondary);
+    line-height:1.7;
+    font-size:16px;
+    font-weight:400;
+    letter-spacing:0.3px;
+    margin:0;
+    max-width:90%;
+    margin-left:auto;
+    margin-right:auto;
+}
+
+#w1{top:150vh;}#w2{top:275.5vh;}#w3{top:400vh;}#w4{top:525.5vh;}#w5{top:650vh;}
+
+.model-section,.perfume-section,.reserve-section,.contact-section,.about-section{
+    scroll-margin-top:30vh;
+    background: var(--bg-section);
+    backdrop-filter: blur(10px);
+    border-top: none;
+    border-bottom: none;
+    position:relative;
+    z-index:10;
+    color: var(--text-secondary);
+}
+.model-section{width:100%;min-height:auto;padding:60px 20px;display:flex;align-items:center;justify-content:center;}
+.model-item img{width:100%;max-width:100%;height:auto;border-radius:20px;}
+
+.perfume-container h2,
+.reserve-left h2,
+.contact-container h2,
+.about-container h2{
+    background: var(--gradient-section-title);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+}
+.perfume-container .subtitle,
+.reserve-left .coming-soon-badge,
+.contact-container .subtitle,
+.about-container .subtitle{
+    color: var(--primary-light);
+}
+.reserve-left p,
+.contact-item p,
+.about-container p{
+    color: var(--text-secondary);
+}
+.contact-item h4,
+.about-container h3{
+    color: var(--text-primary);
+}
+
+.fullscreen-image-section {
+    width: 100%;
+    height: auto;
+    position: relative;
+    display: block;
+    Line-heigh:0;
+}
+.fullscreen-image-section picture,
+.fullscreen-image-section img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.perfume-section{width:100%;min-height:auto;padding:60px 20px;display:flex;flex-direction:column;align-items:center;justify-content:center;}
+.perfume-container{width:100%;max-width:1400px;margin:0 auto;text-align:center;padding:0 20px;}
+.perfume-container h2{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:600;letter-spacing:4px;margin-bottom:20px;}
+.perfume-container .subtitle{font-family:inherit;font-size:14px;letter-spacing:6px;margin-bottom:60px;text-transform:uppercase;}
+.carousel-wrapper{position:relative;display:flex;align-items:center;justify-content:center;min-height:500px;perspective:1200px;}
+.carousel-btn{
+    position:absolute;
+    top:50%;
+    transform:translateY(-50%);
+    width:60px;
+    height:60px;
+    border-radius:50%;
+    background: var(--bg-glass);
+    border:1px solid var(--border-soft);
+    color: var(--primary-light);
+    font-size:24px;
+    cursor:pointer;
+    z-index:20;
+    transition:all 0.3s ease;
+    backdrop-filter:blur(4px);
+}
+.carousel-btn:hover{
+    background: var(--primary);
+    border-color: var(--primary);
+    color: var(--text-primary);
+    transform:translateY(-50%) scale(1.05);
+}
+.carousel-btn.prev{left:20px;}.carousel-btn.next{right:20px;}
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    overflow: visible;
+    flex-wrap: nowrap;
+}
+.carousel-slide {
+    background: var(--bg-elevated);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    overflow: hidden;
+    transition: all 0.4s ease-in-out;
+    width: 300px;
+    flex-shrink: 0;
+    border: 1px solid var(--border-soft);
+}
+.carousel-slide img {
+    width: 100%;
+    height: 250px;
+    display: block;
+    object-fit: contain;
+}
+.perfume-name {
+    text-align: center;
+    padding: 15px 15px 5px 15px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: 1px;
+    background: rgba(197, 135, 128, 0.08);
+}
+.perfume-desc {
+    text-align: center;
+    padding: 0 15px 18px 15px;
+    font-family: inherit;
+    font-size: 13px;
+    color: var(--text-secondary);
+    line-height: 1.4;
+    background: rgba(197, 135, 128, 0.05);
+}
+.carousel-slide.prev {
+    opacity: 0.3;
+    transform: scale(0.85);
+}
+.carousel-slide.next {
+    opacity: 0.3;
+    transform: scale(0.85);
+}
+.carousel-slide.active {
+    opacity: 1;
+    transform: scale(1);
+}
+
+.reserve-section{width:100%;min-height:100vh;padding:80px 0;display:flex;align-items:center;justify-content:center;}
+.reserve-container{width:85%;margin:0 auto;display:flex;flex-wrap:wrap;gap:50px;align-items:center;}
+.reserve-left{flex:1;min-width:280px;text-align:center;}
+.reserve-left h2{font-family:'Cormorant Garamond',serif;font-size:70px;font-weight:600;letter-spacing:6px;margin-bottom:20px;}
+.reserve-left .coming-soon-badge{font-family:inherit;font-size:14px;letter-spacing:8px;margin-bottom:30px;text-transform:uppercase;}
+.reserve-left p{font-family:inherit;font-size:16px;line-height:1.8;max-width:400px;margin:0 auto;}
+.reserve-left .reserve-note{
+    font-size:13px;
+    color: var(--text-muted);
+    margin-top:20px;
+    font-style:italic;
+}
+
+/* ===== 30% OFF - BIGGER & MORE PROMINENT ===== */
+.reserve-left .discount-badge{
+    display:inline-block;
+    margin:25px 0;
+    padding:12px 30px;
+    background: var(--btn-gradient);
+    border-radius:40px;
+    color: var(--btn-text);
+    font-family:'Cormorant Garamond',serif;
+    font-size:32px;
+    font-weight:700;
+    letter-spacing:2px;
+    box-shadow: var(--btn-shadow);
+    animation: pulse 2s infinite;
+}
+.reserve-left .discount-badge span{
+    font-family:'Montserrat',sans-serif;
+    font-size:14px;
+    font-weight:500;
+    display:block;
+    margin-top:4px;
+    letter-spacing:3px;
+    opacity:0.9;
+}
+@keyframes pulse {
+    0% { transform: scale(1); box-shadow: var(--btn-shadow); }
+    50% { transform: scale(1.03); box-shadow: 0 12px 30px rgba(197, 135, 128, 0.35); }
+    100% { transform: scale(1); box-shadow: var(--btn-shadow); }
+}
+
+.reserve-right{
+    flex:1;
+    min-width:320px;
+    background: var(--bg-glass);
+    backdrop-filter:blur(12px);
+    border-radius:24px;
+    padding:40px 30px;
+    border:1px solid var(--border-soft);
+    text-align:center;
+}
+.reserve-right h3{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:500;color: var(--text-primary);margin-bottom:25px;letter-spacing:2px;}
+.glow-form{display:flex;flex-direction:column;gap:20px;text-align:left;}
+.form-group{display:flex;flex-direction:column;gap:8px;}
+.form-group label{font-family:inherit;font-size:13px;letter-spacing:1px;color: var(--text-secondary);text-transform:uppercase;}
+.form-group label .optional{color: var(--text-muted);opacity:0.7;font-weight:300;margin-left:5px;}
+.form-group label .required{color: var(--primary);margin-left:4px;}
+.form-group input,.form-group textarea{
+    background: rgba(19, 17, 16, 0.8);
+    border:1px solid var(--border-soft);
+    border-radius:12px;
+    padding:14px 16px;
+    color: var(--text-primary);
+    font-family:inherit;
+    font-size:14px;
+    transition:all 0.3s ease;
+    outline:none;
+}
+.form-group input:focus,.form-group textarea:focus{
+    border-color: var(--primary);
+    box-shadow:0 0 0 3px var(--primary-soft);
+}
+.form-group input::placeholder,.form-group textarea::placeholder{color: var(--text-muted);}
+.submit-btn{
+    background: var(--btn-gradient);
+    border:none;
+    border-radius:40px;
+    padding:14px 20px;
+    color: var(--btn-text);
+    font-family:inherit;
+    font-size:16px;
+    font-weight:600;
+    letter-spacing:2px;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    margin-top:10px;
+    box-shadow: var(--btn-shadow);
+}
+.submit-btn:hover{
+    background: var(--btn-gradient-hover);
+    transform:translateY(-2px);
+    box-shadow:0 10px 20px var(--primary-glow);
+}
+.form-message{margin-top:15px;padding:10px;border-radius:8px;font-size:13px;text-align:center;display:none;}
+.form-message.success{background:rgba(72, 187, 120, 0.15);border:1px solid rgba(72, 187, 120, 0.4);color:#A3E4C2;display:block;}
+.form-message.error{background:var(--primary-soft);border:1px solid var(--border-medium);color:var(--primary-light);display:block;}
+
+.contact-section{width:100%;min-height:100vh;padding:80px 0;display:flex;align-items:center;justify-content:center;}
+.contact-container{width:70%;margin:0 auto;text-align:center;}
+.contact-container h2{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:600;letter-spacing:4px;margin-bottom:20px;}
+.contact-container .subtitle{font-family:inherit;font-size:14px;letter-spacing:6px;margin-bottom:60px;text-transform:uppercase;}
+.contact-info{display:flex;flex-wrap:wrap;justify-content:center;gap:50px;margin-bottom:50px;}
+.contact-item{text-align:center;min-width:200px;}
+.contact-item i{font-size:32px;color: var(--primary);margin-bottom:15px;}
+.contact-item h4{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:500;margin-bottom:10px;letter-spacing:2px;}
+.contact-item p{font-family:inherit;font-size:14px;}
+.social-links{display:flex;justify-content:center;gap:25px;margin-top:40px;}
+.social-links a{
+    width:50px;
+    height:50px;
+    border-radius:50%;
+    background: var(--bg-glass);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--text-secondary);
+    font-size:22px;
+    transition:0.3s;
+    border:1px solid var(--border-soft);
+}
+.social-links a:hover{
+    background: var(--primary);
+    color: var(--text-primary);
+    transform:translateY(-3px);
+    border-color: var(--primary);
+}
+
+.about-section{width:100%;min-height:100vh;padding:80px 0;}
+.about-container{width:70%;margin:0 auto;text-align:center;}
+.about-container h2{font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:600;letter-spacing:4px;margin-bottom:20px;}
+.about-container .subtitle{font-family:inherit;font-size:14px;letter-spacing:6px;margin-bottom:60px;text-transform:uppercase;}
+.about-container h3{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:500;margin:40px 0 20px 0;letter-spacing:2px;}
+.about-container p{font-family:inherit;font-size:16px;line-height:1.8;max-width:800px;margin:0 auto 30px auto;text-align:center;}
+.about-divider{width:80px;height:2px;background: var(--gradient-card-line);margin:40px auto;}
+
+/* ===== HEADER - Responsive ===== */
+.header{
+    position:fixed;
+    top:30px;
+    right:40px;
+    display:flex;
+    gap:8px;
+    z-index:200;
+    background: var(--bg-glass);
+    backdrop-filter:blur(12px);
+    padding:6px 14px;
+    border-radius:50px;
+    border:1px solid var(--border-soft);
+    align-items:center;
+    flex-wrap:nowrap;
+}
+.header button{
+    padding:6px 14px;
+    border:none;
+    color: var(--text-secondary);
+    background:rgba(255,255,255,0.03);
+    border-radius:30px;
+    cursor:pointer;
+    transition:0.3s;
+    font-weight:500;
+    font-size:11px;
+    letter-spacing:1px;
+    font-family:inherit;
+    white-space:nowrap;
+}
+.header button:hover{
+    background: var(--primary-soft);
+    color: var(--text-primary);
+    transform:scale(1.03);
+    border:1px solid var(--primary);
+}
+.header-cta{
+    padding:6px 14px;
+    background: var(--btn-gradient);
+    border:none;
+    border-radius:30px;
+    color: var(--btn-text);
+    font-family:inherit;
+    font-size:11px;
+    font-weight:600;
+    letter-spacing:1px;
+    cursor:pointer;
+    transition:all 0.3s ease;
+    text-decoration:none;
+    white-space:nowrap;
+}
+.header-cta:hover{
+    background: var(--btn-gradient-hover);
+    transform:scale(1.03);
+    box-shadow:0 4px 12px var(--primary-glow);
+}
+
+/* ===== LOGO - Wider, same height as header buttons, aligned ===== */
+.logo-header{
+    position:fixed;
+    top:30px;
+    left:40px;
+    z-index:200;
+    background: var(--bg-glass);
+    backdrop-filter:blur(12px);
+    padding:6px 20px;
+    border-radius:50px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    border:1px solid var(--border-soft);
+    transition:0.3s;
+    height:auto;
+    min-width:80px;
+}
+.logo-header:hover{
+    border-color: var(--primary);
+}
+.logo-text{
+    font-family:'Brush Script MT','Lucida Handwriting',cursive;
+    font-size:20px;
+    font-weight:normal;
+    letter-spacing:1px;
+    color: var(--primary-light);
+    margin:0;
+    cursor:pointer;
+    transition:0.3s;
+    line-height:1.4;
+    white-space:nowrap;
+}
+.logo-text:hover{
+    color: var(--primary);
+}
+
+/* ===== RESPONSIVE HEADER ===== */
+@media (max-width:1400px){
+    .hero h1{font-size:85px;letter-spacing:10px;}
+    .text-wrapper{width:60%;left:20%;}
+    .text-card h1{font-size:36px;}
+    .text-card p{font-size:15px;}
+    .reserve-left h2{font-size:60px;}
+    .contact-container h2{font-size:50px;}
+    .about-container h2{font-size:50px;}
+    .perfume-container h2{font-size:50px;}
+}
+@media (max-width:1200px){
+    .hero h1{font-size:75px;letter-spacing:8px;}
+    .hero .coming-soon-badge{font-size:10px;letter-spacing:5px;padding:6px 16px;}
+    .hero .tagline{font-size:12px;letter-spacing:4px;}
+    .hero .sub-tagline{font-size:10px;letter-spacing:3px;}
+    .text-wrapper{width:65%;left:17.5%;}
+    .text-card h1{font-size:34px;}
+    .text-card p{font-size:15px;}
+    .reserve-left h2{font-size:50px;}
+    .reserve-left .discount-badge{font-size:28px;}
+    .contact-container h2{font-size:45px;}
+    .about-container h2{font-size:45px;}
+    .perfume-container h2{font-size:45px;}
+}
+@media (max-width:992px){
+    .header{right:20px;top:20px;padding:5px 10px;gap:5px;}
+    .header button{padding:5px 10px;font-size:10px;}
+    .header-cta{padding:5px 10px;font-size:10px;}
+    .logo-header{left:20px;top:20px;padding:5px 14px;min-width:70px;}
+    .logo-text{font-size:17px;}
+    .hero h1{font-size:60px;letter-spacing:6px;}
+    .hero .coming-soon-badge{font-size:9px;letter-spacing:4px;padding:6px 14px;margin-bottom:15px;}
+    .hero .tagline{font-size:11px;letter-spacing:3px;}
+    .hero .sub-tagline{font-size:9px;letter-spacing:2px;}
+    .text-wrapper{width:70%;left:15%;}
+    .text-card h1{font-size:32px;}
+    .text-card p{font-size:14px;}
+    .model-container{flex-direction:column;}
+    .model-item{width:100%;max-width:500px;margin:0 auto;}
+    .reserve-container{flex-direction:column;text-align:center;}
+    .reserve-right{width:100%;}
+    .contact-info{gap:30px;}
+    .contact-container h2{font-size:40px;}
+    .about-container h2{font-size:40px;}
+    .perfume-container h2{font-size:40px;}
+    .carousel-btn{width:45px;height:45px;font-size:18px;}
+}
+@media (max-width:768px){
+    .header{right:10px;top:15px;padding:4px 8px;gap:4px;}
+    .header button{padding:4px 8px;font-size:9px;letter-spacing:0.5px;}
+    .header-cta{padding:4px 8px;font-size:9px;letter-spacing:0.5px;}
+    .logo-header{left:10px;top:15px;padding:4px 10px;min-width:60px;}
+    .logo-text{font-size:14px;}
+    .hero h1{font-size:45px;letter-spacing:5px;}
+    .hero .coming-soon-badge{font-size:8px;letter-spacing:3px;padding:5px 12px;margin-bottom:12px;}
+    .hero .tagline{font-size:10px;letter-spacing:2px;}
+    .hero .sub-tagline{font-size:8px;letter-spacing:1px;}
+    .text-wrapper{width:85%;left:7.5%;}
+    .text-card h1{font-size:28px;}
+    .text-card p{font-size:14px;}
+    .reserve-left h2{font-size:40px;}
+    .reserve-left .discount-badge{font-size:26px;padding:10px 24px;}
+    .reserve-left p{font-size:14px;}
+    .contact-container{width:85%;}
+    .contact-container h2{font-size:35px;}
+    .contact-item{min-width:100%;}
+    .about-container{width:85%;}
+    .about-container h2{font-size:35px;}
+    .about-container h3{font-size:24px;}
+    .about-container p{font-size:14px;}
+    .perfume-container h2{font-size:35px;}
+    .carousel-btn{width:40px;height:40px;font-size:16px;}
+    .carousel-btn.prev{left:5px;}
+    .carousel-btn.next{right:5px;}
+    .footer-container{flex-direction:column;text-align:center;gap:30px;}
+    .footer-social{justify-content:center;}
+}
+@media (max-width:480px){
+    .header{right:8px;top:12px;padding:3px 6px;gap:3px;}
+    .header button{padding:3px 6px;font-size:8px;letter-spacing:0.3px;}
+    .header-cta{padding:3px 6px;font-size:8px;letter-spacing:0.3px;}
+    .logo-header{left:8px;top:12px;padding:3px 8px;min-width:50px;}
+    .logo-text{font-size:12px;}
+    .hero h1{font-size:32px;letter-spacing:4px;}
+    .hero .coming-soon-badge{font-size:7px;letter-spacing:2px;padding:4px 10px;margin-bottom:10px;}
+    .hero .tagline{font-size:9px;letter-spacing:2px;}
+    .hero .sub-tagline{font-size:7px;letter-spacing:1px;}
+    .text-card h1{font-size:24px;}
+    .text-card p{font-size:12px;}
+    .reserve-left h2{font-size:32px;}
+    .reserve-left .discount-badge{font-size:22px;padding:8px 20px;}
+    .contact-container h2{font-size:28px;}
+    .about-container h2{font-size:28px;}
+    .about-container h3{font-size:22px;}
+    .perfume-container h2{font-size:28px;}
+}
+
+.model-container{
+    width:90%;
+    max-width:1400px;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    gap:30px;
+    align-items:center;
+    justify-content:center;
+}
+.model-item{
+    flex:1;
+    min-width:280px;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow: var(--shadow-md);
+    border:1px solid var(--border-soft);
+    transition:all 0.3s ease;
+    background: var(--bg-elevated);
+}
+.model-item:hover{
+    border-color: var(--primary);
+    transform:translateY(-5px);
+    box-shadow: var(--shadow-glow);
+}
+.model-item img{
+    width:100%;
+    height:auto;
+    display:block;
+    object-fit:cover;
+}
+@media (max-width: 768px) {
+    .carousel-container {
+        gap: 0;
+        justify-content: center;
+    }
+    .carousel-slide.prev,
+    .carousel-slide.next {
+        display: none;
+    }
+    .carousel-slide {
+        width: 280px;
+    }
+    .carousel-slide img {
+        height: 200px;
+    }
+    .perfume-name {
+        font-size: 16px;
+        padding: 12px 12px 3px 12px;
+    }
+    .perfume-desc {
+        font-size: 11px;
+        padding: 0 12px 15px 12px;
+    }
+}
+
+.footer{
+    width:100%;
+    background: var(--bg-surface);
+    backdrop-filter:blur(10px);
+    border-top:1px solid var(--border-soft);
+    padding:60px 0 30px 0;
+    position:relative;
+    z-index:10;
+    color: var(--text-secondary);
+}
+.footer-container{
+    width:85%;
+    margin:0 auto;
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+    gap:40px;
+}
+.footer-brand{
+    flex:1;
+    min-width:200px;
+}
+.footer-brand h3{
+    font-family:'Cormorant Garamond',serif;
+    font-size:28px;
+    font-weight:600;
+    background: var(--gradient-hero);
+    -webkit-background-clip:text;
+    background-clip:text;
+    color:transparent;
+    margin-bottom:10px;
+    letter-spacing:2px;
+}
+.footer-brand p{
+    font-family:inherit;
+    color: var(--text-muted);
+    font-size:13px;
+    line-height:1.6;
+}
+.footer-links{
+    flex:1;
+    min-width:150px;
+}
+.footer-links h4{
+    font-family:'Cormorant Garamond',serif;
+    font-size:18px;
+    font-weight:500;
+    color: var(--text-primary);
+    margin-bottom:20px;
+    letter-spacing:2px;
+}
+.footer-links ul{
+    list-style:none;
+    padding:0;
+    margin:0;
+}
+.footer-links ul li{
+    margin-bottom:12px;
+}
+.footer-links ul li a{
+    font-family:inherit;
+    color: var(--text-muted);
+    text-decoration:none;
+    font-size:13px;
+    transition:0.3s;
+}
+.footer-links ul li a:hover{
+    color: var(--primary-light);
+    letter-spacing:0.5px;
+}
+.footer-contact{
+    flex:1;
+    min-width:200px;
+}
+.footer-contact h4{
+    font-family:'Cormorant Garamond',serif;
+    font-size:18px;
+    font-weight:500;
+    color: var(--text-primary);
+    margin-bottom:20px;
+    letter-spacing:2px;
+}
+.footer-contact p{
+    font-family:inherit;
+    color: var(--text-muted);
+    font-size:13px;
+    line-height:1.8;
+    margin-bottom:10px;
+}
+.footer-contact i{
+    width:25px;
+    color: var(--primary);
+    margin-right:10px;
+}
+.footer-social{
+    display:flex;
+    gap:15px;
+    margin-top:20px;
+}
+.footer-social a{
+    color: var(--text-muted);
+    font-size:18px;
+    transition:0.3s;
+}
+.footer-social a:hover{
+    color: var(--primary);
+    transform:translateY(-3px);
+}
+.footer-bottom{
+    text-align:center;
+    padding-top:40px;
+    margin-top:40px;
+    border-top:1px solid rgba(166, 151, 146, 0.15);
+}
+.footer-bottom p{
+    font-family:inherit;
+    color: var(--text-muted);
+    font-size:12px;
+    letter-spacing:1px;
+}
+
+</style>
+</head>
+<body>
+
+<div id="scene">
+    <div class="viewport">
+        <div class="static-bg" id="staticBg"></div>
+        <canvas id="sequenceCanvas"></canvas>
+        <div class="hero" id="hero">
+            <span class="coming-soon-badge">COMING SOON</span>
+            <h1>GLOWSCENT</h1>
+            <p class="tagline">THE WORLD'S FIRST SMART HAIR BRUSH</p>
+            <p class="sub-tagline">AROMATHERAPY x RED LIGHT THERAPY</p>
+        </div>
+        <div class="scroll-down" id="scrollDown">
+            SCROLL DOWN
+            <span>&#8964;</span>
+            <span>&#8964;</span>
+        </div>
+    </div>
+
+    <div class="text-wrapper" id="w1"><div class="text-card"><h1>Your hair deserves more than just a brush.</h1><p>What if every stroke delivered fragrance, care, and therapy?</p></div></div>
+    <div class="text-wrapper" id="w2"><div class="text-card"><h1>Fragrance and care in one simple step.</h1><p>Micro-doses of natural botanical extracts - weightless, non-greasy, and made for your hair's biology.</p></div></div>
+    <div class="text-wrapper" id="w3"><div class="text-card"><h1>Red light therapy meets natural aromatherapy.</h1><p>Supporting scalp health with every pass. No extra time. No extra effort.</p></div></div>
+    <div class="text-wrapper" id="w4"><div class="text-card"><h1>No residue. No stickiness. Just results.</h1><p>Wireless charging. Refillable cartridges. Designed for the life you actually live.</p></div></div>
+    <div class="text-wrapper" id="w5"><div class="text-card"><h1>This is GlowScent.</h1><p>Make it part of your routine.</p></div></div>
+</div>
+
+<div class="fullscreen-image-section">
+    <picture>
+        <source media="(max-width: 768px)" srcset="bgbenmob.png">
+        <source media="(min-width: 769px)" srcset="bgbendesk.png">
+        <img src="bgbendesk.png" alt="GlowScent Fullscreen Background">
+    </picture>
+</div>
+
+<div class="perfume-section" id="perfume-section">
+    <div class="perfume-container">
+        <h2>OUR FRAGRANCES</h2>
+        <div class="subtitle">&#10022; EXPLORE THE COLLECTION &#10022;</div>
+        <div class="carousel-wrapper">
+            <button class="carousel-btn prev" id="prevBtn"><i class="fas fa-chevron-left"></i></button>
+            <div class="carousel-container" id="carouselContainer"></div>
+            <button class="carousel-btn next" id="nextBtn"><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </div>
+</div>
+
+<div class="reserve-section" id="reserve">
+    <div class="reserve-container">
+        <div class="reserve-left">
+            <h2>JOIN THE WAITLIST</h2>
+            <div class="coming-soon-badge">&#10022; BE THE FIRST &#10022;</div>
+            <div class="discount-badge">
+                30% OFF
+                <span>EARLY BIRD DISCOUNT</span>
+            </div>
+            <p>Be among the first to experience GlowScent. Reserve your spot now and lock in your exclusive discount.</p>
+            <div class="reserve-note">No payment required today</div>
+        </div>
+        <div class="reserve-right">
+            <h3>Secure Your Spot</h3>
+            <form id="glowForm" class="glow-form" method="POST">
+                <div class="form-group">
+                    <label>NAME <span class="optional">(optional)</span></label>
+                    <input type="text" name="name" placeholder="Your name" autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>EMAIL <span class="required">*</span></label>
+                    <input type="email" name="email" placeholder="your@email.com" required autocomplete="off">
+                </div>
+                <div class="form-group">
+                    <label>MESSAGE <span class="optional">(optional)</span></label>
+                    <textarea name="message" rows="3" placeholder="Tell us something..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">RESERVE NOW</button>
+                <div id="formMessage" class="form-message"></div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="model-section" id="model-section"><div class="model-container" id="model-container"></div></div>
+
+<div class="about-section" id="about">
+    <div class="about-container">
+        <h2>ABOUT US</h2>
+        <div class="subtitle">INNOVATION MEETS ELEGANCE</div>
+        <p>Tamaz Tech is a forward-thinking technology company dedicated to redefining the intersection of beauty, wellness, and innovation. We combine cutting-edge engineering with sophisticated design to deliver exceptional user experiences.</p>
+        <div class="about-divider"></div>
+        <h3>HATAN - THE BRAND</h3>
+        <p>Hatan is the luxury brand under Tamaz Tech, representing a commitment to excellence, craftsmanship, and timeless elegance. Every Hatan product is meticulously designed to elevate daily rituals into moments of indulgence.</p>
+        <div class="about-divider"></div>
+        <h3>GLOWSCENT - THE VISION</h3>
+        <p>GlowScent was born from a simple yet powerful idea: What if your daily hair care routine could also be a therapeutic ritual? The answer is a revolutionary device that combines a premium hairbrush with an integrated aromatherapy system and red light therapy technology.</p>
+    </div>
+</div>
+
+<div class="contact-section" id="contact">
+    <div class="contact-container">
+        <h2>GET IN TOUCH</h2>
+        <div class="subtitle">&#10022; CONNECT WITH US &#10022;</div>
+        <div class="contact-info">
+            <div class="contact-item">
+                <i class="fas fa-envelope"></i>
+                <h4>Email</h4>
+                <p>contact@tamaztech.com</p>
+            </div>
+            <div class="contact-item">
+                <i class="fas fa-map-marker-alt"></i>
+                <h4>Location</h4>
+                <p>Hong Kong</p>
+            </div>
+        </div>
+        <div class="social-links" id="contact-social-links"></div>
+    </div>
+</div>
+
+<footer class="footer">
+    <div class="footer-container">
+        <div class="footer-brand">
+            <h3>HATAN</h3>
+            <p>Luxury fragrance technology redefining daily rituals. GlowScent is where science meets elegance.</p>
+        </div>
+        <div class="footer-links">
+            <h4>Quick Links</h4>
+            <ul>
+                <li><a href="#" onclick="goToTop(); return false;">Home</a></li>
+                <li><a href="#" onclick="goToSection('about'); return false;">About</a></li>
+                <li><a href="#" onclick="goToSection('contact'); return false;">Contact</a></li>
+                <li><a href="#" onclick="goToSection('reserve'); return false;">Reserve</a></li>
+            </ul>
+        </div>
+        <div class="footer-contact">
+            <h4>Contact</h4>
+            <p><i class="fas fa-envelope"></i> contact@tamaztech.com</p>
+            <p><i class="fas fa-map-marker-alt"></i> Hong Kong</p>
+            <div class="footer-social" id="footer-social-links"></div>
+        </div>
+    </div>
+    <div class="footer-bottom">
+        <p>&copy; 2026 TAMAZ TECH - All Rights Reserved. Designed with <i class="fas fa-heart" style="color: var(--primary);"></i> for luxury.</p>
+    </div>
+</footer>
+
+<div class="header">
+    <button onclick="goToTop()">HOME</button>
+    <button onclick="goToSection('about')">ABOUT</button>
+    <button onclick="goToSection('contact')">CONTACT</button>
+    <a href="#reserve" class="header-cta" onclick="goToSection('reserve'); return false;">RESERVE YOURS</a>
+</div>
+<div class="logo-header"><h3 class="logo-text">Hatan</h3></div>
+
+<script>
+history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
+
+const scrollDownEl = document.getElementById('scrollDown');
+let scrollTimeout;
+window.addEventListener('scroll', function() {
+    if(scrollDownEl && !scrollDownEl.classList.contains('hidden')){
+        scrollDownEl.classList.add('hidden');
+        clearTimeout(scrollTimeout);
+        scrollTimeout = setTimeout(() => {
+            if(window.scrollY === 0) scrollDownEl.classList.remove('hidden');
+        }, 1000);
+    }
+});
+
+let userFullInfo = 'Loading...';
+
+function getDetailedBrowserInfo() {
+    const ua = navigator.userAgent;
+    const language = navigator.language;
+    const screenSize = `${screen.width}x${screen.height}`;
+    const timeZone = Intl.DateTimeFormat().resolvedOptions().timeZone;
+    
+    let browserName = 'Unknown';
+    if (ua.includes('Chrome') && !ua.includes('Edg')) browserName = 'Chrome';
+    else if (ua.includes('Firefox')) browserName = 'Firefox';
+    else if (ua.includes('Safari') && !ua.includes('Chrome')) browserName = 'Safari';
+    else if (ua.includes('Edg')) browserName = 'Edge';
+    else if (ua.includes('Opera') || ua.includes('OPR')) browserName = 'Opera';
+    
+    let os = 'Unknown';
+    if (ua.includes('Windows')) os = 'Windows';
+    else if (ua.includes('Mac')) os = 'MacOS';
+    else if (ua.includes('Linux')) os = 'Linux';
+    else if (ua.includes('Android')) os = 'Android';
+    else if (ua.includes('iOS') || ua.includes('iPhone') || ua.includes('iPad')) os = 'iOS';
+    
+    let device = 'Desktop';
+    if (/(Mobile|iPhone|iPad|Android)/i.test(ua)) device = 'Mobile';
+    if (/(Tablet|iPad)/i.test(ua)) device = 'Tablet';
+    
+    return `${browserName} | ${os} | ${device} | ${language} | ${screenSize} | ${timeZone}`;
+}
+
+userFullInfo = `🌐 ${getDetailedBrowserInfo()}`;
+console.log('✅ User Info:', userFullInfo);
+
+const staticBg = document.getElementById('staticBg');
+const IMG_WIDTH = 1440;
+const IMG_HEIGHT = 3300;
+const ASPECT_RATIO = IMG_HEIGHT / IMG_WIDTH;
+
+function updateStaticBgSize() {
+    let windowWidth = window.innerWidth;
+    let bgHeight = windowWidth * ASPECT_RATIO;
+    staticBg.style.height = bgHeight + 'px';
+    staticBg.maxMove = bgHeight - window.innerHeight;
+    if (staticBg.maxMove < 0) staticBg.maxMove = 0;
+}
+
+const totalFrames = 293;
+const frameDigits = 5;
+const folderName = 'frames';
+const FRAME_SCALE = 0.6;
+
+const canvas = document.getElementById('sequenceCanvas');
+const ctx = canvas.getContext('2d');
+
+const images = [];
+let imagesLoaded = 0;
+let currentFrameIndex = 1;
+
+function getFramePath(frameNumber) {
+    const paddedNumber = String(frameNumber).padStart(frameDigits, '0');
+    return `${folderName}/${paddedNumber}.webp`;
+}
+
+function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+    if (imagesLoaded === totalFrames && currentFrameIndex) {
+        drawFrame(currentFrameIndex);
+    }
+}
+
+function drawFrame(index) {
+    if (!images[index - 1]?.complete) return;
+    const img = images[index - 1];
+    const imgW = img.width * FRAME_SCALE;
+    const imgH = img.height * FRAME_SCALE;
+    const x = (canvas.width - imgW) / 2;
+    const y = (canvas.height - imgH) / 2;
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    ctx.drawImage(img, x, y, imgW, imgH);
+}
+
+function showFrame(index) {
+    currentFrameIndex = index;
+    drawFrame(index);
+}
+
+function preloadImages() {
+    for (let i = 1; i <= totalFrames; i++) {
+        const img = new Image();
+        img.src = getFramePath(i);
+        img.onload = () => {
+            imagesLoaded++;
+            if (imagesLoaded === totalFrames) {
+                console.log('✅ Frames loaded');
+                resizeCanvas();
+                showFrame(1);
+                initScrollTrigger();
+            }
+        };
+        img.onerror = () => console.error(`Error: ${getFramePath(i)}`);
+        images.push(img);
+    }
+}
+
+function handleStaticBgScroll() {
+    let scrollY = window.scrollY;
+    let maxScroll = document.body.scrollHeight - window.innerHeight;
+    let progress = scrollY / maxScroll;
+    let moveY = -(progress * staticBg.maxMove);
+    if (moveY > 0) moveY = 0;
+    if (moveY < -staticBg.maxMove) moveY = -staticBg.maxMove;
+    staticBg.style.transform = `translateY(${moveY}px)`;
+}
+
+let scrollTriggerInstance = null;
+
+function initScrollTrigger() {
+    if (scrollTriggerInstance) scrollTriggerInstance.kill();
+    
+    scrollTriggerInstance = ScrollTrigger.create({
+        trigger: "#scene",
+        start: "top top",
+        end: "bottom bottom",
+        scrub: 0.5,
+        onUpdate: (self) => {
+            let frameIndex = Math.floor(self.progress * (totalFrames - 1)) + 1;
+            frameIndex = Math.min(frameIndex, totalFrames);
+            showFrame(frameIndex);
+        },
+        onComplete: () => showFrame(totalFrames)
+    });
+}
+
+const hero = document.getElementById('hero');
+
+// ===== HERO ANIMATION - Disappears completely on scroll =====
+gsap.to(hero, {
+    scrollTrigger: {
+        trigger: "#scene",
+        start: "top top",
+        end: "+=300",
+        scrub: 1.5,
+        invalidateOnRefresh: true
+    },
+    y: -window.innerHeight * 1.2,
+    opacity: 0,
+    scale: 0.5,
+    ease: "power2.in"
+});
+
+const wrappers = document.querySelectorAll('.text-wrapper');
+wrappers.forEach(wrapper => { 
+    const viewportHeight = window.innerHeight; 
+    gsap.to(wrapper, { 
+        scrollTrigger: { 
+            trigger: wrapper, 
+            start: "top bottom", 
+            end: "top top", 
+            scrub: 1.2,
+            invalidateOnRefresh: true
+        }, 
+        y: -viewportHeight * 0.7, 
+        ease: "none" 
+    }); 
+});
+
+const modelFiles = ['001.png', '002.png'];
+const modelContainer = document.getElementById('model-container');
+function loadModelImages() {
+    if (!modelContainer) return;
+    modelContainer.innerHTML = '';
+    modelFiles.forEach(file => {
+        const img = document.createElement('img'); img.src = `model/${file}`; img.alt = `Model Image`;
+        img.onerror = function() { this.src = 'https://placehold.co/600x400/1a1a2e/808080?text=Image+Not+Found'; };
+        const div = document.createElement('div'); div.className = 'model-item'; div.appendChild(img);
+        modelContainer.appendChild(div);
+    });
+}
+loadModelImages();
+
+let currentIndex = 0;
+
+const perfumeData = [
+    { img: 'perfumes/001.png', name: 'Rose Velvet', desc: 'A romantic blend of Damascus rose' },
+    { img: 'perfumes/002.png', name: 'Oud Noir', desc: 'Deep, woody, and mysterious' },
+    { img: 'perfumes/003.png', name: 'Citrus Bloom', desc: 'Fresh, energetic, and bright' }
+];
+const totalImages = perfumeData.length;
+
+function createCarousel() {
+    const containerCarousel = document.getElementById('carouselContainer');
+    if (!containerCarousel) return;
+    containerCarousel.innerHTML = '';
+    for (let i = -1; i <= 1; i++) {
+        let index = currentIndex + i;
+        if (index < 0) index = totalImages - 1;
+        if (index >= totalImages) index = 0;
+        const slide = document.createElement('div'); 
+        slide.className = 'carousel-slide';
+        if (i === 0) slide.classList.add('active');
+        if (i === -1) slide.classList.add('prev');
+        if (i === 1) slide.classList.add('next');
+        
+        const img = document.createElement('img');
+        img.src = perfumeData[index].img;
+        img.alt = perfumeData[index].name;
+        img.onerror = function() { this.src = 'https://placehold.co/600x400/1a1a2e/808080?text=Image+Not+Found'; };
+        
+        const nameDiv = document.createElement('div');
+        nameDiv.className = 'perfume-name';
+        nameDiv.textContent = perfumeData[index].name;
+        
+        const descDiv = document.createElement('div');
+        descDiv.className = 'perfume-desc';
+        descDiv.textContent = perfumeData[index].desc;
+        
+        slide.appendChild(nameDiv);
+        slide.appendChild(img);
+        slide.appendChild(descDiv);
+        containerCarousel.appendChild(slide);
+    }
+}
+
+function updateCarousel(direction) {
+    if (direction === 'next') { currentIndex++; if (currentIndex >= totalImages) currentIndex = 0; }
+    else if (direction === 'prev') { currentIndex--; if (currentIndex < 0) currentIndex = totalImages - 1; }
+    createCarousel();
+}
+document.getElementById('prevBtn')?.addEventListener('click', () => updateCarousel('prev'));
+document.getElementById('nextBtn')?.addEventListener('click', () => updateCarousel('next'));
+createCarousel();
+
+const socialLinks = {
+    tiktok: 'https://www.tiktok.com/@glowscent',
+    instagram: 'https://www.instagram.com/glowscent',
+    facebook: 'https://www.facebook.com/glowscent',
+    snapchat: 'https://www.snapchat.com/add/glowscent'
+};
+function buildSocialLinks(containerId) {
+    const containerSocial = document.getElementById(containerId);
+    if (!containerSocial) return;
+    containerSocial.innerHTML = '';
+    const platforms = [
+        { icon: 'fab fa-tiktok', url: socialLinks.tiktok },
+        { icon: 'fab fa-instagram', url: socialLinks.instagram },
+        { icon: 'fab fa-facebook-f', url: socialLinks.facebook },
+        { icon: 'fab fa-snapchat-ghost', url: socialLinks.snapchat }
+    ];
+    platforms.forEach(platform => {
+        const link = document.createElement('a');
+        link.href = platform.url;
+        link.target = '_blank';
+        link.rel = 'noopener noreferrer';
+        link.innerHTML = `<i class="${platform.icon}"></i>`;
+        containerSocial.appendChild(link);
+    });
+}
+buildSocialLinks('contact-social-links');
+buildSocialLinks('footer-social-links');
+
+function goToSection(id){ 
+    const el = document.getElementById(id); 
+    if(el){ 
+        gsap.to(window, { scrollTo: el, duration: 1.0, ease: "power2.inOut" }); 
+    } 
+}
+function goToTop(){ 
+    gsap.to(window, { scrollTo: 0, duration: 1.0, ease: "power2.inOut" }); 
+}
+
+const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbwPlft5-sLiGseY95gArbX4XSA84pqKGeN__c1dOOwKR-BVnaGiDRRDZfZvCckKMscEbw/exec';
+
+const form = document.getElementById('glowForm');
+const formMessage = document.getElementById('formMessage');
+
+if (form) {
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        
+        const name = form.querySelector('input[name="name"]').value;
+        const email = form.querySelector('input[name="email"]').value;
+        const message = form.querySelector('textarea[name="message"]').value;
+        const region = userFullInfo;
+        
+        if (!email) {
+            formMessage.textContent = '✧ Email is required ✧';
+            formMessage.className = 'form-message error';
+            formMessage.style.display = 'block';
+            setTimeout(() => { formMessage.style.display = 'none'; }, 3000);
+            return;
+        }
+        
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(email)) {
+            formMessage.textContent = '✧ Please enter a valid email address ✧';
+            formMessage.className = 'form-message error';
+            formMessage.style.display = 'block';
+            setTimeout(() => { formMessage.style.display = 'none'; }, 3000);
+            return;
+        }
+        
+        formMessage.style.display = 'none';
+        const submitBtn = form.querySelector('.submit-btn');
+        const originalText = submitBtn.textContent;
+        submitBtn.textContent = 'SENDING...';
+        submitBtn.disabled = true;
+        
+        try {
+            await fetch(WEB_APP_URL, {
+                method: 'POST',
+                mode: 'no-cors',
+                headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                body: new URLSearchParams({
+                    name: name,
+                    email: email,
+                    message: message,
+                    region: region
+                })
+            });
+            
+            formMessage.textContent = '✓ Request sent successfully! We will contact you soon. ✓';
+            formMessage.className = 'form-message success';
+            formMessage.style.display = 'block';
+            form.reset();
+            
+            setTimeout(() => { formMessage.style.display = 'none'; }, 5000);
+        } catch (error) {
+            formMessage.textContent = '✧ An error occurred. Please try again later. ✧';
+            formMessage.className = 'form-message error';
+            formMessage.style.display = 'block';
+            setTimeout(() => { formMessage.style.display = 'none'; }, 3000);
+        } finally {
+            submitBtn.textContent = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+}
+
+window.addEventListener('resize', () => {
+    updateStaticBgSize();
+    resizeCanvas();
+    handleStaticBgScroll();
+    ScrollTrigger.refresh();
+});
+
+window.addEventListener('scroll', handleStaticBgScroll);
+
+updateStaticBgSize();
+preloadImages();
+</script>
+</body>
+</html>
