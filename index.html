@@ -52,21 +52,47 @@ body{
     color: var(--text-secondary);
 }
 
-#scene{Position:relative;height:700vh;
+#scene{
+    position:relative;
+    height:900vh; /* زيادة لـ 6 نصوص */
 }
-.viewport{position:sticky;top:0;height:100vh;overflow:hidden;z-index:0;}
+.viewport{
+    position:sticky;
+    top:0;
+    height:100vh;
+    overflow:hidden;
+    z-index:0;
+}
 .static-bg{
-    position:absolute;top:0;left:0;width:100%;
+    position:absolute;
+    top:0;
+    left:0;
+    width:100%;
     background: var(--bg-page);
     z-index:0;
 }
 canvas{
-    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-    width:100%;height:100%;object-fit:contain;z-index:1;
-    display:block;pointer-events:none;
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    width:100%;
+    height:100%;
+    object-fit:contain;
+    z-index:1;
+    display:block;
+    pointer-events:none;
 }
 
-.hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;text-align:center;white-space:nowrap;}
+.hero{
+    position:absolute;
+    top:50%;
+    left:50%;
+    transform:translate(-50%,-50%);
+    z-index:5;
+    text-align:center;
+    white-space:nowrap;
+}
 .hero .coming-soon-badge{
     display:inline-block;
     font-family:inherit;
@@ -134,8 +160,21 @@ canvas{
 }
 .scroll-down.hidden{opacity:0;}
 
-.text-wrapper{position:absolute;width:55%;left:22.5%;z-index:4;opacity:1;transform:translateY(0);}
-.text-card{background:transparent;border-radius:0;padding:16px 20px;border:none;text-align:center;}
+.text-wrapper{
+    position:absolute;
+    width:55%;
+    left:22.5%;
+    z-index:4;
+    opacity:1;
+    transform:translateY(0);
+}
+.text-card{
+    background:transparent;
+    border-radius:0;
+    padding:16px 20px;
+    border:none;
+    text-align:center;
+}
 .text-card h1{
     font-family:'Cormorant Garamond',serif;
     font-size:38px;
@@ -173,7 +212,37 @@ canvas{
     margin-right:auto;
 }
 
-#w1{top:150vh;}#w2{top:275.5vh;}#w3{top:400vh;}#w4{top:525.5vh;}#w5{top:650vh;}
+/* 6 نصوص بارتفاعات متساوية */
+#w1{top:130vh;}
+#w2{top:240vh;}
+#w3{top:350vh;}
+#w4{top:460vh;}
+#w5{top:570vh;}
+#w6{top:680vh;}
+
+/* تكبير النصوص في الجوال */
+@media (max-width:768px){
+    .text-wrapper{
+        width:85%;
+        left:7.5%;
+    }
+    .text-card h1{
+        font-size:30px !important;
+    }
+    .text-card p{
+        font-size:17px !important;
+        max-width:95%;
+    }
+}
+
+@media (max-width:480px){
+    .text-card h1{
+        font-size:26px !important;
+    }
+    .text-card p{
+        font-size:15px !important;
+    }
+}
 
 .model-section,.perfume-section,.reserve-section,.contact-section,.about-section{
     scroll-margin-top:30vh;
@@ -254,7 +323,8 @@ canvas{
     color: var(--text-primary);
     transform:translateY(-50%) scale(1.05);
 }
-.carousel-btn.prev{left:20px;}.carousel-btn.next{right:20px;}
+.carousel-btn.prev{left:20px;}
+.carousel-btn.next{right:20px;}
 
 .carousel-container {
     display: flex;
@@ -607,8 +677,8 @@ canvas{
     .hero .tagline{font-size:10px;letter-spacing:2px;}
     .hero .sub-tagline{font-size:8px;letter-spacing:1px;}
     .text-wrapper{width:85%;left:7.5%;}
-    .text-card h1{font-size:28px;}
-    .text-card p{font-size:14px;}
+    .text-card h1{font-size:30px !important;}
+    .text-card p{font-size:17px !important;}
     .reserve-left h2{font-size:40px;}
     .reserve-left .discount-badge{font-size:26px;padding:10px 24px;}
     .reserve-left p{font-size:14px;}
@@ -636,8 +706,8 @@ canvas{
     .hero .coming-soon-badge{font-size:7px;letter-spacing:2px;padding:4px 10px;margin-bottom:10px;}
     .hero .tagline{font-size:9px;letter-spacing:2px;}
     .hero .sub-tagline{font-size:7px;letter-spacing:1px;}
-    .text-card h1{font-size:24px;}
-    .text-card p{font-size:12px;}
+    .text-card h1{font-size:26px !important;}
+    .text-card p{font-size:15px !important;}
     .reserve-left h2{font-size:32px;}
     .reserve-left .discount-badge{font-size:22px;padding:8px 20px;}
     .contact-container h2{font-size:28px;}
@@ -915,11 +985,13 @@ canvas{
         </div>
     </div>
 
-    <div class="text-wrapper" id="w1"><div class="text-card"><h1>Your hair deserves more than just a brush.</h1><p>What if every stroke delivered fragrance, care, and therapy?</p></div></div>
-    <div class="text-wrapper" id="w2"><div class="text-card"><h1>Fragrance and care in one simple step.</h1><p>Micro-doses of natural botanical extracts - weightless, non-greasy, and made for your hair's biology.</p></div></div>
-    <div class="text-wrapper" id="w3"><div class="text-card"><h1>Red light therapy meets natural aromatherapy.</h1><p>Supporting scalp health with every pass. No extra time. No extra effort.</p></div></div>
-    <div class="text-wrapper" id="w4"><div class="text-card"><h1>No residue. No stickiness. Just results.</h1><p>Wireless charging. Refillable cartridges. Designed for the life you actually live.</p></div></div>
-    <div class="text-wrapper" id="w5"><div class="text-card"><h1>This is GlowScent.</h1><p>Make it part of your routine.</p></div></div>
+    <!-- 6 نصوص من الكود الثاني مع الحفاظ على نظام السكرول الطبيعي -->
+    <div class="text-wrapper" id="w1"><div class="text-card"><h1>The Future of Hair Care.</h1><p>Smart technology, refined into one effortless beauty ritual.</p></div></div>
+    <div class="text-wrapper" id="w2"><div class="text-card"><h1>Nano Mist Technology.</h1><p>An ultra-fine mist that envelops every strand with effortless precision.</p></div></div>
+    <div class="text-wrapper" id="w3"><div class="text-card"><h1>Beauty, Scented Your Way.</h1><p>A curated collection of hair care and fragrance blends for every ritual.</p></div></div>
+    <div class="text-wrapper" id="w4"><div class="text-card"><h1>Red Light Therapy.</h1><p>Targeted red light technology to elevate your scalp care experience.</p></div></div>
+    <div class="text-wrapper" id="w5"><div class="text-card"><h1>3D Vibration Massage.</h1><p>Multidimensional vibrations designed to create a soothing, immersive scalp massage.</p></div></div>
+    <div class="text-wrapper" id="w6"><div class="text-card"><h1>Your GlowScent Ritual.</h1><p>Mist. Massage. Nourish. A complete hair care ritual, beautifully simplified.</p></div></div>
 </div>
 
 <div class="fullscreen-image-section">
@@ -1229,13 +1301,11 @@ function initScrollTrigger() {
         start: "top top",
         end: "bottom bottom",
         scrub: 0.3,
-     onUpdate: (self) => {
-    let frameIndex = Math.floor(self.progress * (totalFrames - 1)) + 1;
-    frameIndex = Math.min(frameIndex, totalFrames);
-    showFrame(frameIndex);
-},
-
-
+        onUpdate: (self) => {
+            let frameIndex = Math.floor(self.progress * (totalFrames - 1)) + 1;
+            frameIndex = Math.min(frameIndex, totalFrames);
+            showFrame(frameIndex);
+        },
         onComplete: () => showFrame(totalFrames)
     });
 }
