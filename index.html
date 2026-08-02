@@ -2382,7 +2382,7 @@ function updateStaticBgSize(){
 
 
 // ============================================
-// SPRITE SHEET - SAFARI OPTIMIZED
+// SPRITE SHEET
 // ============================================
 
 const totalFrames = 220;
@@ -2396,27 +2396,405 @@ const rows = 20;
 const spriteFile = 'sprites/sprite01.webp';
 
 const canvas = document.getElementById('sequenceCanvas');
-const ctx = canvas.getContext('2d', {
-    alpha: true,
-    desynchronized: true
-});
+const ctx = canvas.getContext('2d');
 
-let spriteImage = null;
-let spriteBitmap = null;
-
+let spriteImage = new Image();
 let spriteLoaded = false;
 let currentFrame = 1;
 
-let pendingFrame = null;
-let drawScheduled = false;
-
 let scrollTriggerInstance = null;
+let scrollTriggerReady = false;
+    
+function getFramePosition(frameNum){
+
+    const index = frameNum - 1;
+
+    return {
+        x: (index % cols) * frameW,
+        y: Math.floor(index / cols) * frameH
+    };
+
+}
 
 
 // ============================================
-// FRAME POSITION
+// RESIZE CANVAS
 // ============================================
 
+function resizeCanvas(){
+
+    const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        2
+    );
+
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
+
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
+
+    ctx.setTransform(
+        dpr,
+        0,
+        0,
+        dpr,
+        0,
+        0
+    );
+
+    if(spriteLoaded){
+
+        drawFrame(currentFrame);
+
+    }
+
+}
+
+
+// ============================================
+// DRAW FRAME
+// ============================================
+
+function drawFrame(frameNum){
+
+    if(!spriteLoaded) return;
+
+    frameNum = Math.max(
+        1,
+        Math.min(
+            frameNum,
+            totalFrames
+        )
+    );
+
+    const position =
+        getFramePosition(frameNum);
+
+    const screenW =
+        window.innerWidth;
+
+    const screenH =
+        window.innerHeight;
+
+    const scale =
+        Math.max(
+            screenW / frameW,
+            screenH / frameH
+        );
+
+    const drawW =
+        frameW * scale;
+
+    const drawH =
+        frameH * scale;
+
+    const drawX =
+        (screenW - drawW) / 2;
+
+    const drawY =
+        (screenH - drawH) / 2;
+
+    ctx.clearRect(
+        0,
+        0,
+        screenW,
+        screenH
+    );
+
+    const source =
+        spriteBitmap || spriteImage;
+
+    ctx.drawImage(
+
+        source,
+
+        position.x,
+        position.y,
+
+        frameW,
+        frameH,
+
+        drawX,
+        drawY,
+
+        drawW,
+        drawH
+
+    );
+
+}
+
+
+// ============================================
+// SCHEDULE FRAME
+// ============================================
+
+function scheduleFrame(frameNum){
+
+    frameNum = Math.round(
+        Math.max(
+            1,
+            Math.min(
+                frameNum,
+                totalFrames
+            )
+        )
+    );
+
+    if(frameNum === currentFrame){
+        return;
+    }
+
+    pendingFrame = frameNum;
+
+    if(drawScheduled){
+        return;
+    }
+
+    drawScheduled = true;
+
+    requestAnimationFrame(function(){
+
+        drawScheduled = false;
+
+        if(pendingFrame === null){
+            return;
+        }
+
+        const frame =
+            pendingFrame;
+
+        pendingFrame = null;
+
+        currentFrame = frame;
+
+        drawFrame(frame);
+
+    });
+
+}
+
+
+// ============================================
+// SHOW FRAME
+// ============================================
+
+function showFrame(frameNum){
+
+    frameNum = Math.round(
+        Math.max(
+            1,
+            Math.min(
+                frameNum,
+                totalFrames
+            )
+        )
+    );
+
+    if(frameNum === currentFrame){
+        return;
+    }
+
+    scheduleFrame(frameNum);
+
+}
+
+
+// ============================================
+// LOAD SPRITE
+// ============================================
+
+function loadSprite(){
+
+    return new Promise(function(resolve){
+
+        const image =
+            new Image();
+
+        image.decoding = 'async';
+
+        image.onload = async function(){
+
+            spriteImage = image;
+
+            try{
+
+                if(
+                    'createImageBitmap' in window
+                ){
+
+                    spriteBitmap =
+                        await createImageBitmap(
+                            image
+                        );
+
+                }
+
+            }catch(error){
+
+                console.warn(
+                    'ImageBitmap unavailable, using normal image.',
+                    error
+                );
+
+                spriteBitmap = null;
+
+            }
+
+            spriteLoaded = true;
+
+            console.log(
+                '✅ Sprite loaded:',
+                image.naturalWidth,
+                'x',
+                image.naturalHeight
+            );
+
+            const percent =
+                document.getElementById(
+                    'loadingPercent'
+                );
+
+            const bar =
+                document.getElementById(
+                    'loadingBarFill'
+                );
+
+            if(percent){
+
+                percent.textContent =
+                    '100%';
+
+            }
+
+            if(bar){
+
+                bar.style.width =
+                    '100%';
+
+            }
+
+            resolve();
+
+        };
+
+
+        image.onerror = function(){
+
+            console.error(
+                '❌ Failed to load:',
+                spriteFile
+            );
+
+            resolve();
+
+        };
+
+
+        image.src =
+            spriteFile;
+
+    });
+
+}
+
+
+// ============================================
+// SCROLL TRIGGER
+// ============================================
+
+function initScrollTrigger(){
+
+    if(scrollTriggerInstance){
+
+        scrollTriggerInstance.kill();
+
+    }
+
+    scrollTriggerInstance =
+        ScrollTrigger.create({
+
+            trigger:'#scene',
+
+            start:'top top',
+
+            end:'bottom bottom',
+
+            scrub:0.15,
+
+            invalidateOnRefresh:true,
+
+            onUpdate:function(self){
+
+                const frame =
+                    Math.floor(
+                        self.progress *
+                        (totalFrames - 1)
+                    ) + 1;
+
+                showFrame(frame);
+
+            },
+
+            onComplete:function(){
+
+                scheduleFrame(
+                    totalFrames
+                );
+
+            }
+
+        });
+
+}
+
+
+// ============================================
+// START LOADING
+// ============================================
+
+function startLoading(){
+
+    const loadingScreen =
+        document.getElementById(
+            'loading-screen'
+        );
+
+    document.body.style.overflow =
+        'hidden';
+
+    loadSprite().then(function(){
+
+        resizeCanvas();
+
+        currentFrame = 1;
+
+        drawFrame(1);
+
+        document.body.style.overflow =
+            '';
+
+        if(loadingScreen){
+
+            loadingScreen.classList.add(
+                'hidden'
+            );
+
+        }
+
+        if(!scrollTriggerInstance){
+
+            initScrollTrigger();
+
+        }
+
+    });
+
+}
 function getFramePosition(frameNum){
 
     const index = frameNum - 1;
