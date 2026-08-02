@@ -54,7 +54,7 @@ body{
 
 #scene{
     position:relative;
-    height:900vh; /* زيادة لـ 6 نصوص */
+    height:450vh; /* زيادة لـ 6 نصوص */
 }
 .viewport{
     position:sticky;
@@ -213,12 +213,12 @@ canvas{
 }
 
 /* 6 نصوص بارتفاعات متساوية */
-#w1{top:130vh;}
-#w2{top:240vh;}
-#w3{top:350vh;}
-#w4{top:460vh;}
-#w5{top:570vh;}
-#w6{top:680vh;}
+#w1{top:120vh;}
+#w2{top:180vh;}
+#w3{top:250vh;}
+#w4{top:330vh;}
+#w5{top:370vh;}
+#w6{top:440vh;}
 
 /* تكبير النصوص في الجوال */
 @media (max-width:768px){
@@ -1180,7 +1180,7 @@ function updateStaticBgSize() {
     if (staticBg.maxMove < 0) staticBg.maxMove = 0;
 }
 
-const totalFrames = 480;
+const totalFrames = 220;
 const frameDigits = 4;
 const folderName = 'frames';
 
@@ -1326,14 +1326,25 @@ gsap.to(hero, {
 });
 
 const wrappers = document.querySelectorAll('.text-wrapper');
+const wrapperSpeeds = {
+    w1: 0.8,  // أسرع نص - يظهر ويختفي بسرعة
+    w2: 0.8,  // سريع
+    w3: 0.8,  // متوسط
+    w4: 0.8,  // بطيء شوي
+    w5: 0.8,  // بطيء
+    w6: 0.8   // أبطأ نص - يبقى فترة أطول على الشاشة
+};
+
 wrappers.forEach(wrapper => { 
-    const viewportHeight = window.innerHeight; 
+    const viewportHeight = window.innerHeight;
+    const speed = wrapperSpeeds[wrapper.id] || 1.2;
+    
     gsap.to(wrapper, { 
         scrollTrigger: { 
             trigger: wrapper, 
             start: "top bottom", 
             end: "top top", 
-            scrub: 1.2,
+            scrub: speed,
             invalidateOnRefresh: true
         }, 
         y: -viewportHeight * 0.7, 
