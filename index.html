@@ -2382,9 +2382,7 @@ function updateStaticBgSize(){
 
 
 // ============================================
-// SPRITE SHEET
-// 220 FRAME
-// 11 COLUMNS x 20 ROWS
+// SPRITE SHEET - SAFARI OPTIMIZED
 // ============================================
 
 const totalFrames = 220;
@@ -2394,28 +2392,25 @@ const frameH = 720;
 
 const cols = 11;
 const rows = 20;
-const framesPerSheet = 220;
 
-    
-const spriteFile =
-    'sprites/sprite01.webp';
+const spriteFile = 'sprites/sprite01.webp';
 
+const canvas = document.getElementById('sequenceCanvas');
+const ctx = canvas.getContext('2d', {
+    alpha: true,
+    desynchronized: true
+});
 
-const canvas =
-    document.getElementById('sequenceCanvas');
-
-const ctx =
-    canvas.getContext('2d');
-
-
-let spriteImage =
-    new Image();
+let spriteImage = null;
+let spriteBitmap = null;
 
 let spriteLoaded = false;
-
 let currentFrame = 1;
 
-let scrollTriggerReady = false;
+let pendingFrame = null;
+let drawScheduled = false;
+
+let scrollTriggerInstance = null;
 
 
 // ============================================
@@ -2424,22 +2419,13 @@ let scrollTriggerReady = false;
 
 function getFramePosition(frameNum){
 
-    const index =
-        frameNum - 1;
-
-    const col =
-        index % cols;
-
-    const row =
-        Math.floor(index / cols);
+    const index = frameNum - 1;
 
     return {
-
-        x:col * frameW,
-
-        y:row * frameH
-
+        x: (index % cols) * frameW,
+        y: Math.floor(index / cols) * frameH
     };
+
 }
 
 
@@ -2449,21 +2435,19 @@ function getFramePosition(frameNum){
 
 function resizeCanvas(){
 
-    const dpr =
-        window.devicePixelRatio || 1;
+    const dpr = Math.min(
+        window.devicePixelRatio || 1,
+        2
+    );
 
-    canvas.width =
-        window.innerWidth * dpr;
+    const width = window.innerWidth;
+    const height = window.innerHeight;
 
-    canvas.height =
-        window.innerHeight * dpr;
+    canvas.width = Math.round(width * dpr);
+    canvas.height = Math.round(height * dpr);
 
-    canvas.style.width =
-        window.innerWidth + 'px';
-
-    canvas.style.height =
-        window.innerHeight + 'px';
-
+    canvas.style.width = width + 'px';
+    canvas.style.height = height + 'px';
 
     ctx.setTransform(
         dpr,
@@ -2473,7 +2457,6 @@ function resizeCanvas(){
         0,
         0
     );
-
 
     if(spriteLoaded){
 
@@ -2492,20 +2475,16 @@ function drawFrame(frameNum){
 
     if(!spriteLoaded) return;
 
-
-    frameNum =
-        Math.max(
-            1,
-            Math.min(
-                frameNum,
-                totalFrames
-            )
-        );
-
+    frameNum = Math.max(
+        1,
+        Math.min(
+            frameNum,
+            totalFrames
+        )
+    );
 
     const position =
         getFramePosition(frameNum);
-
 
     const screenW =
         window.innerWidth;
@@ -2513,21 +2492,11 @@ function drawFrame(frameNum){
     const screenH =
         window.innerHeight;
 
-
-    /*
-        IMPORTANT:
-        MAX = COVER
-
-        This fills the entire screen
-        and removes black side bars.
-    */
-
     const scale =
         Math.max(
             screenW / frameW,
             screenH / frameH
         );
-
 
     const drawW =
         frameW * scale;
@@ -2535,13 +2504,11 @@ function drawFrame(frameNum){
     const drawH =
         frameH * scale;
 
-
     const drawX =
         (screenW - drawW) / 2;
 
     const drawY =
         (screenH - drawH) / 2;
-
 
     ctx.clearRect(
         0,
@@ -2550,10 +2517,12 @@ function drawFrame(frameNum){
         screenH
     );
 
+    const source =
+        spriteBitmap || spriteImage;
 
     ctx.drawImage(
 
-        spriteImage,
+        source,
 
         position.x,
         position.y,
@@ -2573,32 +2542,76 @@ function drawFrame(frameNum){
 
 
 // ============================================
+// SCHEDULE FRAME
+// ============================================
+
+function scheduleFrame(frameNum){
+
+    frameNum = Math.round(
+        Math.max(
+            1,
+            Math.min(
+                frameNum,
+                totalFrames
+            )
+        )
+    );
+
+    if(frameNum === currentFrame){
+        return;
+    }
+
+    pendingFrame = frameNum;
+
+    if(drawScheduled){
+        return;
+    }
+
+    drawScheduled = true;
+
+    requestAnimationFrame(function(){
+
+        drawScheduled = false;
+
+        if(pendingFrame === null){
+            return;
+        }
+
+        const frame =
+            pendingFrame;
+
+        pendingFrame = null;
+
+        currentFrame = frame;
+
+        drawFrame(frame);
+
+    });
+
+}
+
+
+// ============================================
 // SHOW FRAME
 // ============================================
 
 function showFrame(frameNum){
 
-    frameNum =
-        Math.round(
-            Math.max(
-                1,
-                Math.min(
-                    frameNum,
-                    totalFrames
-                )
+    frameNum = Math.round(
+        Math.max(
+            1,
+            Math.min(
+                frameNum,
+                totalFrames
             )
-        );
+        )
+    );
 
-
-    currentFrame =
-        frameNum;
-
-
-    if(spriteLoaded){
-
-        drawFrame(currentFrame);
-
+    if(frameNum === currentFrame){
+        return;
     }
+
+    scheduleFrame(frameNum);
 
 }
 
@@ -2611,66 +2624,90 @@ function loadSprite(){
 
     return new Promise(function(resolve){
 
-        spriteImage.onload =
-            function(){
+        const image =
+            new Image();
 
-                spriteLoaded = true;
+        image.decoding = 'async';
 
+        image.onload = async function(){
 
-                console.log(
-                    '✅ Sprite loaded:',
-                    spriteImage.naturalWidth,
-                    'x',
-                    spriteImage.naturalHeight
-                );
+            spriteImage = image;
 
+            try{
 
-                const percent =
-                    document.getElementById(
-                        'loadingPercent'
-                    );
+                if(
+                    'createImageBitmap' in window
+                ){
 
-                const bar =
-                    document.getElementById(
-                        'loadingBarFill'
-                    );
-
-
-                if(percent){
-
-                    percent.textContent =
-                        '100%';
+                    spriteBitmap =
+                        await createImageBitmap(
+                            image
+                        );
 
                 }
 
+            }catch(error){
 
-                if(bar){
-
-                    bar.style.width =
-                        '100%';
-
-                }
-
-
-                resolve();
-
-            };
-
-
-        spriteImage.onerror =
-            function(){
-
-                console.error(
-                    '❌ Failed to load:',
-                    spriteFile
+                console.warn(
+                    'ImageBitmap unavailable, using normal image.',
+                    error
                 );
 
-                resolve();
+                spriteBitmap = null;
 
-            };
+            }
+
+            spriteLoaded = true;
+
+            console.log(
+                '✅ Sprite loaded:',
+                image.naturalWidth,
+                'x',
+                image.naturalHeight
+            );
+
+            const percent =
+                document.getElementById(
+                    'loadingPercent'
+                );
+
+            const bar =
+                document.getElementById(
+                    'loadingBarFill'
+                );
+
+            if(percent){
+
+                percent.textContent =
+                    '100%';
+
+            }
+
+            if(bar){
+
+                bar.style.width =
+                    '100%';
+
+            }
+
+            resolve();
+
+        };
 
 
-        spriteImage.src =
+        image.onerror = function(){
+
+            console.error(
+                '❌ Failed to load:',
+                spriteFile
+            );
+
+            resolve();
+
+        };
+
+
+        image.src =
             spriteFile;
 
     });
@@ -2682,9 +2719,6 @@ function loadSprite(){
 // SCROLL TRIGGER
 // ============================================
 
-let scrollTriggerInstance = null;
-
-
 function initScrollTrigger(){
 
     if(scrollTriggerInstance){
@@ -2692,7 +2726,6 @@ function initScrollTrigger(){
         scrollTriggerInstance.kill();
 
     }
-
 
     scrollTriggerInstance =
         ScrollTrigger.create({
@@ -2703,33 +2736,27 @@ function initScrollTrigger(){
 
             end:'bottom bottom',
 
-            scrub:.15,
+            scrub:0.15,
 
+            invalidateOnRefresh:true,
 
             onUpdate:function(self){
 
-                let frame =
+                const frame =
                     Math.floor(
                         self.progress *
                         (totalFrames - 1)
                     ) + 1;
 
-
-                frame =
-                    Math.min(
-                        frame,
-                        totalFrames
-                    );
-
-
                 showFrame(frame);
 
             },
 
-
             onComplete:function(){
 
-                showFrame(totalFrames);
+                scheduleFrame(
+                    totalFrames
+                );
 
             }
 
@@ -2749,21 +2776,19 @@ function startLoading(){
             'loading-screen'
         );
 
-
     document.body.style.overflow =
         'hidden';
-
 
     loadSprite().then(function(){
 
         resizeCanvas();
 
-        showFrame(1);
+        currentFrame = 1;
 
+        drawFrame(1);
 
         document.body.style.overflow =
             '';
-
 
         if(loadingScreen){
 
@@ -2773,24 +2798,15 @@ function startLoading(){
 
         }
 
-
-        if(!scrollTriggerReady){
+        if(!scrollTriggerInstance){
 
             initScrollTrigger();
-
-            scrollTriggerReady = true;
 
         }
 
     });
 
 }
-
-
-// ============================================
-// STATIC BACKGROUND SCROLL
-// ============================================
-
 function handleStaticBgScroll(){
 
     const scrollY =
