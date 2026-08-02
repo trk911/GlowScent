@@ -2533,17 +2533,28 @@ function drawFrame(frameNum){
 // SCHEDULE FRAME
 // ============================================
 
+let drawScheduled = false;
+let scheduledFrame = 1;
+
 function scheduleFrame(frameNum){
 
-    frameNum = Math.round(
-        Math.max(
-            1,
-            Math.min(
-                frameNum,
-                totalFrames
-            )
-        )
-    );
+    scheduledFrame = frameNum;
+
+    if(drawScheduled){
+        return;
+    }
+
+    drawScheduled = true;
+
+    requestAnimationFrame(function(){
+
+        drawScheduled = false;
+
+        drawFrame(scheduledFrame);
+
+    });
+
+}
 
     if(frameNum === currentFrame){
         return;
@@ -2599,10 +2610,13 @@ function showFrame(frameNum){
         return;
     }
 
-    scheduleFrame(frameNum);
+    currentFrame = frameNum;
+
+    if(spriteLoaded){
+        scheduleFrame(currentFrame);
+    }
 
 }
-
 
 // ============================================
 // LOAD SPRITE
