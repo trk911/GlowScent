@@ -2624,98 +2624,211 @@ function showFrame(frameNum){
 
 function loadSprite(){
 
-    return new Promise(function(resolve){
+    return new Promise(async function(resolve){
 
-        const image =
-            new Image();
+        const percent =
+            document.getElementById('loadingPercent');
 
-        image.decoding = 'async';
+        const bar =
+            document.getElementById('loadingBarFill');
 
-        image.onload = async function(){
+        function updateLoading(value){
 
-            spriteImage = image;
-
-            try{
-
-                if(
-                    'createImageBitmap' in window
-                ){
-
-                    spriteBitmap =
-                        await createImageBitmap(
-                            image
-                        );
-
-                }
-
-            }catch(error){
-
-                console.warn(
-                    'ImageBitmap unavailable, using normal image.',
-                    error
-                );
-
-                spriteBitmap = null;
-
-            }
-
-            spriteLoaded = true;
-
-            console.log(
-                '✅ Sprite loaded:',
-                image.naturalWidth,
-                'x',
-                image.naturalHeight
-            );
-
-            const percent =
-                document.getElementById(
-                    'loadingPercent'
-                );
-
-            const bar =
-                document.getElementById(
-                    'loadingBarFill'
-                );
+            value = Math.max(0, Math.min(100, value));
 
             if(percent){
-
                 percent.textContent =
-                    '100%';
-
+                    Math.round(value) + '%';
             }
 
             if(bar){
-
                 bar.style.width =
-                    '100%';
+                    value + '%';
+            }
+
+        }
+
+        updateLoading(0);
+
+        try{
+
+            console.log('⬇️ Downloading sprite...');
+
+            const response =
+                await fetch(spriteFile, {
+                    cache: 'force-cache'
+                });
+
+            if(!response.ok){
+
+                throw new Error(
+                    'Sprite HTTP error: ' +
+                    response.status
+                );
 
             }
 
-            resolve();
+            const contentLength =
+                response.headers.get('content-length');
 
-        };
+            /*
+             * إذا المتصفح أعطانا حجم الملف،
+             * نحسب التحميل الحقيقي بالبايت.
+             */
 
+            if(
+                contentLength &&
+                response.body
+            ){
 
-        image.onerror = function(){
+                const total =
+                    parseInt(contentLength, 10);
+
+                const reader =
+                    response.body.getReader();
+
+                const chunks = [];
+
+                let received = 0;
+
+                while(true){
+
+                    const result =
+                        await reader.read();
+
+                    if(result.done){
+                        break;
+                    }
+
+                    chunks.push(result.value);
+
+                    received +=
+                        result.value.length;
+
+                    const progress =
+                        (received / total) * 100;
+
+                    updateLoading(progress);
+
+                }
+
+                const blob =
+                    new Blob(chunks, {
+                        type:'image/webp'
+                    });
+
+                const blobURL =
+                    URL.createObjectURL(blob);
+
+                spriteImage.onload =
+                    function(){
+
+                        spriteLoaded = true;
+
+                        console.log(
+                            '✅ Sprite fully loaded:',
+                            spriteImage.naturalWidth,
+                            'x',
+                            spriteImage.naturalHeight
+                        );
+
+                        updateLoading(100);
+
+                        URL.revokeObjectURL(blobURL);
+
+                        resolve();
+
+                    };
+
+                spriteImage.onerror =
+                    function(){
+
+                        console.error(
+                            '❌ Failed to decode sprite'
+                        );
+
+                        URL.revokeObjectURL(blobURL);
+
+                        resolve();
+
+                    };
+
+                spriteImage.src =
+                    blobURL;
+
+            }
+
+            /*
+             * إذا السيرفر لم يعط Content-Length،
+             * ننزل الملف كاملًا أولًا ثم نعتبره 100%.
+             */
+
+            else{
+
+                console.log(
+                    'ℹ️ Content-Length unavailable. Downloading full sprite...'
+                );
+
+                const blob =
+                    await response.blob();
+
+                updateLoading(100);
+
+                const blobURL =
+                    URL.createObjectURL(blob);
+
+                spriteImage.onload =
+                    function(){
+
+                        spriteLoaded = true;
+
+                        console.log(
+                            '✅ Sprite fully loaded:',
+                            spriteImage.naturalWidth,
+                            'x',
+                            spriteImage.naturalHeight
+                        );
+
+                        URL.revokeObjectURL(blobURL);
+
+                        resolve();
+
+                    };
+
+                spriteImage.onerror =
+                    function(){
+
+                        console.error(
+                            '❌ Failed to decode sprite'
+                        );
+
+                        URL.revokeObjectURL(blobURL);
+
+                        resolve();
+
+                    };
+
+                spriteImage.src =
+                    blobURL;
+
+            }
+
+        }catch(error){
 
             console.error(
-                '❌ Failed to load:',
-                spriteFile
+                '❌ Sprite download failed:',
+                error
             );
+
+            updateLoading(100);
 
             resolve();
 
-        };
-
-
-        image.src =
-            spriteFile;
+        }
 
     });
 
 }
-
 
 // ============================================
 // SCROLL TRIGGER
