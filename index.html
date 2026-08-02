@@ -54,7 +54,7 @@ body{
 
 #scene{
     position:relative;
-    height:450vh; /* زيادة لـ 6 نصوص */
+    height:450vh;
 }
 .viewport{
     position:sticky;
@@ -1180,17 +1180,26 @@ function updateStaticBgSize() {
     if (staticBg.maxMove < 0) staticBg.maxMove = 0;
 }
 
+// ============================================
+// نظام التحميل التدريجي للفريمات
+// ============================================
 const totalFrames = 220;
 const frameDigits = 4;
 const folderName = 'frames';
-
+const PRIORITY_FRAMES = 15; // عدد الفريمات ذات الأولوية
+const CONCURRENT_LOAD = 6;  // عدد الفريمات التي يتم تحميلها متزامنة
 
 const canvas = document.getElementById('sequenceCanvas');
 const ctx = canvas.getContext('2d');
 
-const images = [];
-let imagesLoaded = 0;
+// مصفوفة الفريمات
+const images = new Array(totalFrames);
+let loadedCount = 0;
 let currentFrameIndex = 1;
+let isWebsiteVisible = false;
+let isScrollTriggerInitialized = false;
+let loadQueue = [];
+let isQueueProcessing = false;
 
 function getFramePath(frameNumber) {
     const paddedNumber = String(frameNumber).padStart(frameDigits, '0');
@@ -1200,85 +1209,190 @@ function getFramePath(frameNumber) {
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    if (imagesLoaded === totalFrames && currentFrameIndex) {
+    if (currentFrameIndex) {
         drawFrame(currentFrameIndex);
     }
 }
 
 function drawFrame(index) {
-    if (!images[index - 1]?.complete) return;
-
     const img = images[index - 1];
+    if (!img || !img.complete) {
+        // إذا لم يكن الفريم محمولاً، حاول عرض أقرب فريم محمول
+        const nearestLoaded = findNearestLoadedFrame(index);
+        if (nearestLoaded !== null) {
+            const nearestImg = images[nearestLoaded - 1];
+            if (nearestImg && nearestImg.complete) {
+                drawImageOnCanvas(nearestImg);
+            }
+        }
+        return;
+    }
+    drawImageOnCanvas(img);
+}
 
+function drawImageOnCanvas(img) {
     const scale = Math.max(
         canvas.width / img.width,
         canvas.height / img.height
     );
-
     const imgW = img.width * scale;
     const imgH = img.height * scale;
-
     const x = (canvas.width - imgW) / 2;
     const y = (canvas.height - imgH) / 2;
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.drawImage(img, x, y, imgW, imgH);
 }
 
-function showFrame(index) {
-    currentFrameIndex = index;
-    drawFrame(index);
+function findNearestLoadedFrame(targetIndex) {
+    // البحث عن أقرب فريم محمول حول targetIndex
+    for (let offset = 0; offset < totalFrames; offset++) {
+        // أولاً نبحث للأمام
+        let forwardIndex = targetIndex + offset;
+        if (forwardIndex <= totalFrames && images[forwardIndex - 1] && images[forwardIndex - 1].complete) {
+            return forwardIndex;
+        }
+        // ثم للخلف
+        let backwardIndex = targetIndex - offset;
+        if (backwardIndex >= 1 && images[backwardIndex - 1] && images[backwardIndex - 1].complete) {
+            return backwardIndex;
+        }
+    }
+    return null;
 }
 
-function preloadImages() {
+function showFrame(index) {
+    currentFrameIndex = Math.min(Math.max(index, 1), totalFrames);
+    drawFrame(currentFrameIndex);
+}
+
+// تحميل صورة فردية
+function loadImage(index) {
+    return new Promise((resolve) => {
+        if (images[index - 1] && images[index - 1].complete) {
+            resolve(index);
+            return;
+        }
+        const img = new Image();
+        img.onload = () => {
+            images[index - 1] = img;
+            loadedCount++;
+            updateLoadingProgress();
+            resolve(index);
+        };
+        img.onerror = () => {
+            console.warn(`⚠️ Failed to load frame ${index}`);
+            // نعتبر الفريم محمولاً (فارغ) لتجنب التوقف
+            images[index - 1] = img;
+            loadedCount++;
+            updateLoadingProgress();
+            resolve(index);
+        };
+        img.src = getFramePath(index);
+        images[index - 1] = img;
+    });
+}
+
+// تحديث شريط التحميل
+function updateLoadingProgress() {
     const loadingPercent = document.getElementById('loadingPercent');
     const loadingBarFill = document.getElementById('loadingBarFill');
-    const loadingScreen = document.getElementById('loading-screen');
+    const percent = Math.round((loadedCount / totalFrames) * 100);
+    if (loadingPercent) loadingPercent.textContent = `${Math.min(percent, 100)}%`;
+    if (loadingBarFill) loadingBarFill.style.width = `${Math.min(percent, 100)}%`;
+}
 
+// معالجة قائمة التحميل
+async function processQueue() {
+    if (isQueueProcessing || loadQueue.length === 0) return;
+    isQueueProcessing = true;
+    
+    while (loadQueue.length > 0) {
+        const batch = loadQueue.splice(0, CONCURRENT_LOAD);
+        await Promise.all(batch.map(index => loadImage(index)));
+    }
+    
+    isQueueProcessing = false;
+    
+    // إذا انتهى التحميل بالكامل
+    if (loadedCount >= totalFrames) {
+        console.log('✅ All frames loaded successfully!');
+    }
+}
+
+// بدء التحميل
+function startProgressiveLoading() {
+    const loadingScreen = document.getElementById('loading-screen');
     document.body.style.overflow = 'hidden';
 
-    for (let i = 1; i <= totalFrames; i++) {
-        const img = new Image();
-        img.src = getFramePath(i);
+    console.log('🚀 Starting progressive frame loading...');
 
-        img.onload = () => {
-            imagesLoaded++;
-
-            const percent = Math.round(
-                (imagesLoaded / totalFrames) * 100
-            );
-
-            loadingPercent.textContent = `${percent}%`;
-            loadingBarFill.style.width = `${percent}%`;
-
-            if (imagesLoaded === totalFrames) {
-                console.log('✅ Frames loaded');
-
-                resizeCanvas();
-                showFrame(1);
-                initScrollTrigger();
-
-                setTimeout(() => {
-                    document.body.style.overflow = '';
-                    loadingScreen.classList.add('hidden');
-                }, 500);
-            }
-        };
-
-        img.onerror = () => {
-            console.error(`Error: ${getFramePath(i)}`);
-            imagesLoaded++;
-
-            const percent = Math.round(
-                (imagesLoaded / totalFrames) * 100
-            );
-
-            loadingPercent.textContent = `${percent}%`;
-            loadingBarFill.style.width = `${percent}%`;
-        };
-
-        images.push(img);
+    // 1. تحميل الفريمات ذات الأولوية (1-15)
+    const priorityIndices = [];
+    for (let i = 1; i <= PRIORITY_FRAMES && i <= totalFrames; i++) {
+        priorityIndices.push(i);
     }
+
+    console.log(`📦 Loading ${priorityIndices.length} priority frames...`);
+
+    Promise.all(priorityIndices.map(index => loadImage(index))).then(() => {
+        console.log('✅ Priority frames loaded!');
+        
+        // إظهار أول فريم
+        resizeCanvas();
+        showFrame(1);
+        
+        // إظهار الموقع
+        document.body.style.overflow = '';
+        loadingScreen.classList.add('hidden');
+        isWebsiteVisible = true;
+        
+        // تفعيل ScrollTrigger
+        if (!isScrollTriggerInitialized) {
+            initScrollTrigger();
+            isScrollTriggerInitialized = true;
+        }
+        
+        // تحميل باقي الفريمات في الخلفية
+        const remainingIndices = [];
+        for (let i = PRIORITY_FRAMES + 1; i <= totalFrames; i++) {
+            remainingIndices.push(i);
+        }
+        
+        if (remainingIndices.length > 0) {
+            console.log(`📦 Loading ${remainingIndices.length} remaining frames in background...`);
+            // إضافة الباقي إلى قائمة التحميل
+            loadQueue.push(...remainingIndices);
+            processQueue();
+        }
+    }).catch(err => {
+        console.error('Error loading priority frames:', err);
+        // حتى لو فشل، نحاول عرض الموقع
+        document.body.style.overflow = '';
+        loadingScreen.classList.add('hidden');
+        isWebsiteVisible = true;
+        resizeCanvas();
+        showFrame(1);
+        if (!isScrollTriggerInitialized) {
+            initScrollTrigger();
+            isScrollTriggerInitialized = true;
+        }
+    });
+
+    // طوارئ: إذا لم يتم التحميل خلال 3 ثواني، نعرض الموقع
+    setTimeout(() => {
+        if (!isWebsiteVisible) {
+            console.warn('⚠️ Loading timeout, showing website anyway...');
+            document.body.style.overflow = '';
+            loadingScreen.classList.add('hidden');
+            isWebsiteVisible = true;
+            resizeCanvas();
+            showFrame(1);
+            if (!isScrollTriggerInitialized) {
+                initScrollTrigger();
+                isScrollTriggerInitialized = true;
+            }
+        }
+    }, 3000);
 }
 
 function handleStaticBgScroll() {
@@ -1304,9 +1418,32 @@ function initScrollTrigger() {
         onUpdate: (self) => {
             let frameIndex = Math.floor(self.progress * (totalFrames - 1)) + 1;
             frameIndex = Math.min(frameIndex, totalFrames);
-            showFrame(frameIndex);
+            
+            // محاولة عرض الفريم المطلوب
+            const img = images[frameIndex - 1];
+            if (img && img.complete) {
+                showFrame(frameIndex);
+            } else {
+                // إذا لم يكن محمولاً، نعرض أقرب فريم محمول
+                const nearest = findNearestLoadedFrame(frameIndex);
+                if (nearest !== null) {
+                    showFrame(nearest);
+                } else {
+                    // إذا لم يوجد أي فريم محمول، نعرض الفريم 1
+                    showFrame(1);
+                }
+            }
         },
-        onComplete: () => showFrame(totalFrames)
+        onComplete: () => {
+            // محاولة عرض الفريم الأخير
+            const img = images[totalFrames - 1];
+            if (img && img.complete) {
+                showFrame(totalFrames);
+            } else {
+                const nearest = findNearestLoadedFrame(totalFrames);
+                if (nearest !== null) showFrame(nearest);
+            }
+        }
     });
 }
 
@@ -1327,12 +1464,12 @@ gsap.to(hero, {
 
 const wrappers = document.querySelectorAll('.text-wrapper');
 const wrapperSpeeds = {
-    w1: 0.8,  // أسرع نص - يظهر ويختفي بسرعة
-    w2: 0.8,  // سريع
-    w3: 0.8,  // متوسط
-    w4: 0.8,  // بطيء شوي
-    w5: 0.8,  // بطيء
-    w6: 0.8   // أبطأ نص - يبقى فترة أطول على الشاشة
+    w1: 0.8,
+    w2: 0.8,
+    w3: 0.8,
+    w4: 0.8,
+    w5: 0.8,
+    w6: 0.8
 };
 
 wrappers.forEach(wrapper => { 
@@ -1534,7 +1671,9 @@ window.addEventListener('resize', () => {
 window.addEventListener('scroll', handleStaticBgScroll);
 
 updateStaticBgSize();
-preloadImages();
+
+// بدء التحميل التدريجي
+startProgressiveLoading();
 </script>
 </body>
 </html>
