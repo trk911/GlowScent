@@ -41,7 +41,7 @@ html{scroll-behavior:auto;}
     --btn-shadow: 0 8px 20px rgba(197, 135, 128, 0.25);
     --shadow-sm: 0 4px 12px rgba(0, 0, 0, 0.3);
     --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
-    --shadow-glow: 0 0 20px rgba(197, 135, 128, 0.15);
+    --shadow-background.webpglow: 0 0 20px rgba(197, 135, 128, 0.15);
 }
 
 body{
@@ -1092,9 +1092,10 @@ function updateStaticBgSize() {
     if (staticBg.maxMove < 0) staticBg.maxMove = 0;
 }
 
-const totalFrames = 170;
+const totalFrames = 97;
 const frameDigits = 4;
 const folderName = 'frames';
+
 
 // ===== CANVAS SIZING - Responsive =====
 const canvas = document.getElementById('sequenceCanvas');
@@ -1109,7 +1110,7 @@ function getFrameScale() {
     if (width < 480) return 0.5;      // Small phones
     if (width < 768) return 0.65;     // Tablets / large phones
     if (width < 1024) return 0.8;     // Small laptops
-    return 1.0;                       // Desktops
+    return 0.75;                       // Desktops
 }
 
 const images = [];
