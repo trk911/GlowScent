@@ -2,7 +2,7 @@
 <html lang="en" dir="ltr">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
 <title>GlowScent | Smart Hair Brush</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -70,21 +70,7 @@ canvas{
 }
 
 .hero{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:5;text-align:center;white-space:nowrap;}
-.hero .coming-soon-badge{
-    display:inline-block;
-    font-family:inherit;
-    font-size:11px;
-    letter-spacing:6px;
-    margin-bottom:20px;
-    color: var(--primary-light);
-    font-weight:600;
-    text-transform:uppercase;
-    padding:8px 20px;
-    border:1.5px solid var(--primary-light);
-    border-radius:30px;
-    background: rgba(238, 185, 185, 0.08);
-    backdrop-filter:blur(4px);
-}
+/* COMING SOON BADGE REMOVED */
 .hero h1{
     font-family:'Cormorant Garamond',serif;
     font-size:100px;
@@ -140,7 +126,7 @@ canvas{
 }
 .scroll-down.hidden{opacity:0;}
 
-/* ===== BLOCK TEXT - Solid single color, no gradients/filters ===== */
+/* ===== 6 TEXT WRAPPERS - Evenly distributed ===== */
 .text-wrapper{position:absolute;width:55%;left:22.5%;z-index:4;opacity:1;transform:translateY(0);}
 .text-card{background:transparent;border-radius:0;padding:16px 20px;border:none;text-align:center;}
 .text-card h1{
@@ -180,7 +166,13 @@ canvas{
     margin-right:auto;
 }
 
-#w1{top:150vh;}#w2{top:275.5vh;}#w3{top:400vh;}#w4{top:525.5vh;}#w5{top:650vh;}
+/* 6 texts distributed across 170 frames (700vh) */
+#w1{top:110vh;}
+#w2{top:215vh;}
+#w3{top:320vh;}
+#w4{top:425vh;}
+#w5{top:530vh;}
+#w6{top:635vh;}
 
 .model-section,.perfume-section,.reserve-section,.contact-section,.about-section{
     scroll-margin-top:30vh;
@@ -225,7 +217,7 @@ canvas{
     height: auto;
     position: relative;
     display: block;
-    Line-heigh:0;
+    line-height:0;
 }
 .fullscreen-image-section picture,
 .fullscreen-image-section img {
@@ -332,7 +324,6 @@ canvas{
     font-style:italic;
 }
 
-/* ===== 30% OFF - BIGGER & MORE PROMINENT ===== */
 .reserve-left .discount-badge{
     display:inline-block;
     margin:25px 0;
@@ -550,7 +541,60 @@ canvas{
     color: var(--primary);
 }
 
-/* ===== RESPONSIVE HEADER ===== */
+/* ===== LOADING SCREEN ===== */
+#loading-screen {
+    position: fixed;
+    inset: 0;
+    background: #0C0B0A;
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: opacity 0.8s ease, visibility 0.8s ease;
+}
+#loading-screen.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+.loading-content {
+    width: min(300px, 70vw);
+    text-align: center;
+}
+.loading-logo {
+    font-family: 'Brush Script MT', 'Lucida Handwriting', cursive;
+    font-size: 48px;
+    color: #EEB9B9;
+    margin-bottom: 30px;
+}
+.loading-text {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    color: #A69792;
+    margin-bottom: 15px;
+}
+.loading-percent {
+    font-family: 'Montserrat', sans-serif;
+    font-size: 12px;
+    color: #EEB9B9;
+    margin-bottom: 10px;
+}
+.loading-bar {
+    width: 100%;
+    height: 2px;
+    background: rgba(197,135,128,0.15);
+    overflow: hidden;
+    border-radius: 2px;
+}
+.loading-bar-fill {
+    width: 0%;
+    height: 100%;
+    background: #C58780;
+    transition: width 0.3s ease;
+}
+
+/* ===== RESPONSIVE ===== */
 @media (max-width:1400px){
     .hero h1{font-size:85px;letter-spacing:10px;}
     .text-wrapper{width:60%;left:20%;}
@@ -563,7 +607,6 @@ canvas{
 }
 @media (max-width:1200px){
     .hero h1{font-size:75px;letter-spacing:8px;}
-    .hero .coming-soon-badge{font-size:10px;letter-spacing:5px;padding:6px 16px;}
     .hero .tagline{font-size:12px;letter-spacing:4px;}
     .hero .sub-tagline{font-size:10px;letter-spacing:3px;}
     .text-wrapper{width:65%;left:17.5%;}
@@ -582,7 +625,6 @@ canvas{
     .logo-header{left:20px;top:20px;padding:5px 14px;min-width:70px;}
     .logo-text{font-size:17px;}
     .hero h1{font-size:60px;letter-spacing:6px;}
-    .hero .coming-soon-badge{font-size:9px;letter-spacing:4px;padding:6px 14px;margin-bottom:15px;}
     .hero .tagline{font-size:11px;letter-spacing:3px;}
     .hero .sub-tagline{font-size:9px;letter-spacing:2px;}
     .text-wrapper{width:70%;left:15%;}
@@ -605,7 +647,6 @@ canvas{
     .logo-header{left:10px;top:15px;padding:4px 10px;min-width:60px;}
     .logo-text{font-size:14px;}
     .hero h1{font-size:45px;letter-spacing:5px;}
-    .hero .coming-soon-badge{font-size:8px;letter-spacing:3px;padding:5px 12px;margin-bottom:12px;}
     .hero .tagline{font-size:10px;letter-spacing:2px;}
     .hero .sub-tagline{font-size:8px;letter-spacing:1px;}
     .text-wrapper{width:85%;left:7.5%;}
@@ -635,7 +676,6 @@ canvas{
     .logo-header{left:8px;top:12px;padding:3px 8px;min-width:50px;}
     .logo-text{font-size:12px;}
     .hero h1{font-size:32px;letter-spacing:4px;}
-    .hero .coming-soon-badge{font-size:7px;letter-spacing:2px;padding:4px 10px;margin-bottom:10px;}
     .hero .tagline{font-size:9px;letter-spacing:2px;}
     .hero .sub-tagline{font-size:7px;letter-spacing:1px;}
     .text-card h1{font-size:24px;}
@@ -824,17 +864,28 @@ canvas{
     font-size:12px;
     letter-spacing:1px;
 }
-
 </style>
 </head>
 <body>
+
+<!-- ===== LOADING SCREEN ===== -->
+<div id="loading-screen">
+    <div class="loading-content">
+        <div class="loading-logo">Hatan</div>
+        <div class="loading-text">LOADING EXPERIENCE</div>
+        <div class="loading-percent" id="loadingPercent">0%</div>
+        <div class="loading-bar">
+            <div class="loading-bar-fill" id="loadingBarFill"></div>
+        </div>
+    </div>
+</div>
 
 <div id="scene">
     <div class="viewport">
         <div class="static-bg" id="staticBg"></div>
         <canvas id="sequenceCanvas"></canvas>
         <div class="hero" id="hero">
-            <span class="coming-soon-badge">COMING SOON</span>
+            <!-- COMING SOON BADGE REMOVED -->
             <h1>GLOWSCENT</h1>
             <p class="tagline">THE WORLD'S FIRST SMART HAIR BRUSH</p>
             <p class="sub-tagline">AROMATHERAPY x RED LIGHT THERAPY</p>
@@ -846,11 +897,13 @@ canvas{
         </div>
     </div>
 
-    <div class="text-wrapper" id="w1"><div class="text-card"><h1>Your hair deserves more than just a brush.</h1><p>What if every stroke delivered fragrance, care, and therapy?</p></div></div>
-    <div class="text-wrapper" id="w2"><div class="text-card"><h1>Fragrance and care in one simple step.</h1><p>Micro-doses of natural botanical extracts - weightless, non-greasy, and made for your hair's biology.</p></div></div>
-    <div class="text-wrapper" id="w3"><div class="text-card"><h1>Red light therapy meets natural aromatherapy.</h1><p>Supporting scalp health with every pass. No extra time. No extra effort.</p></div></div>
-    <div class="text-wrapper" id="w4"><div class="text-card"><h1>No residue. No stickiness. Just results.</h1><p>Wireless charging. Refillable cartridges. Designed for the life you actually live.</p></div></div>
-    <div class="text-wrapper" id="w5"><div class="text-card"><h1>This is GlowScent.</h1><p>Make it part of your routine.</p></div></div>
+    <!-- ===== 6 NEW TEXTS ===== -->
+    <div class="text-wrapper" id="w1"><div class="text-card"><h1>The Future of Hair Care.</h1><p>Smart technology, refined into one effortless beauty ritual.</p></div></div>
+    <div class="text-wrapper" id="w2"><div class="text-card"><h1>Nano Mist Technology.</h1><p>An ultra-fine mist that envelops every strand with effortless precision.</p></div></div>
+    <div class="text-wrapper" id="w3"><div class="text-card"><h1>Beauty, Scented Your Way.</h1><p>A curated collection of hair care and fragrance blends for every ritual.</p></div></div>
+    <div class="text-wrapper" id="w4"><div class="text-card"><h1>Red Light Therapy.</h1><p>Targeted red light technology to elevate your scalp care experience.</p></div></div>
+    <div class="text-wrapper" id="w5"><div class="text-card"><h1>3D Vibration Massage.</h1><p>Multidimensional vibrations designed to create a soothing, immersive scalp massage.</p></div></div>
+    <div class="text-wrapper" id="w6"><div class="text-card"><h1>Your GlowScent Ritual.</h1><p>Mist. Massage. Nourish. A complete hair care ritual, beautifully simplified.</p></div></div>
 </div>
 
 <div class="fullscreen-image-section">
@@ -1042,14 +1095,27 @@ function updateStaticBgSize() {
 const totalFrames = 170;
 const frameDigits = 4;
 const folderName = 'frames';
-const FRAME_SCALE = 0.7;
 
+// ===== CANVAS SIZING - Responsive =====
 const canvas = document.getElementById('sequenceCanvas');
 const ctx = canvas.getContext('2d');
+
+// Frame scale based on viewport - responsive for mobile
+function getFrameScale() {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    // Scale frames to fit canvas while maintaining aspect ratio
+    // Smaller on mobile, larger on desktop
+    if (width < 480) return 0.5;      // Small phones
+    if (width < 768) return 0.65;     // Tablets / large phones
+    if (width < 1024) return 0.8;     // Small laptops
+    return 1.0;                       // Desktops
+}
 
 const images = [];
 let imagesLoaded = 0;
 let currentFrameIndex = 1;
+let framesLoaded = false;
 
 function getFramePath(frameNumber) {
     const paddedNumber = String(frameNumber).padStart(frameDigits, '0');
@@ -1059,7 +1125,7 @@ function getFramePath(frameNumber) {
 function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
-    if (imagesLoaded === totalFrames && currentFrameIndex) {
+    if (framesLoaded && currentFrameIndex) {
         drawFrame(currentFrameIndex);
     }
 }
@@ -1067,8 +1133,9 @@ function resizeCanvas() {
 function drawFrame(index) {
     if (!images[index - 1]?.complete) return;
     const img = images[index - 1];
-    const imgW = img.width * FRAME_SCALE;
-    const imgH = img.height * FRAME_SCALE;
+    const scale = getFrameScale();
+    const imgW = img.width * scale;
+    const imgH = img.height * scale;
     const x = (canvas.width - imgW) / 2;
     const y = (canvas.height - imgH) / 2;
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -1080,20 +1147,51 @@ function showFrame(index) {
     drawFrame(index);
 }
 
+// ===== PRELOAD WITH LOADING SCREEN =====
 function preloadImages() {
+    const loadingPercent = document.getElementById('loadingPercent');
+    const loadingBarFill = document.getElementById('loadingBarFill');
+    const loadingScreen = document.getElementById('loading-screen');
+
+    let loaded = 0;
+    const total = totalFrames;
+
     for (let i = 1; i <= totalFrames; i++) {
         const img = new Image();
         img.src = getFramePath(i);
         img.onload = () => {
-            imagesLoaded++;
-            if (imagesLoaded === totalFrames) {
-                console.log('✅ Frames loaded');
+            loaded++;
+            const percent = Math.round((loaded / total) * 100);
+            loadingPercent.textContent = percent + '%';
+            loadingBarFill.style.width = percent + '%';
+            
+            if (loaded === total) {
+                console.log('✅ All frames loaded');
+                framesLoaded = true;
                 resizeCanvas();
                 showFrame(1);
                 initScrollTrigger();
+                // Hide loading screen
+                loadingScreen.classList.add('hidden');
+                document.body.style.overflow = '';
             }
         };
-        img.onerror = () => console.error(`Error: ${getFramePath(i)}`);
+        img.onerror = () => {
+            console.error(`Error: ${getFramePath(i)}`);
+            loaded++;
+            const percent = Math.round((loaded / total) * 100);
+            loadingPercent.textContent = percent + '%';
+            loadingBarFill.style.width = percent + '%';
+            if (loaded === total) {
+                console.log('✅ All frames loaded (with some errors)');
+                framesLoaded = true;
+                resizeCanvas();
+                showFrame(1);
+                initScrollTrigger();
+                loadingScreen.classList.add('hidden');
+                document.body.style.overflow = '';
+            }
+        };
         images.push(img);
     }
 }
@@ -1144,6 +1242,7 @@ gsap.to(hero, {
     ease: "power2.in"
 });
 
+// ===== 6 TEXT WRAPPERS ANIMATION =====
 const wrappers = document.querySelectorAll('.text-wrapper');
 wrappers.forEach(wrapper => { 
     const viewportHeight = window.innerHeight; 
@@ -1341,7 +1440,11 @@ window.addEventListener('resize', () => {
 
 window.addEventListener('scroll', handleStaticBgScroll);
 
+// Start
 updateStaticBgSize();
+
+// Prevent scroll while loading
+document.body.style.overflow = 'hidden';
 preloadImages();
 </script>
 </body>
