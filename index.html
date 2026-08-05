@@ -1327,21 +1327,17 @@ document.getElementById('nextBtn')?.addEventListener('click', () => updateCarous
 createCarousel();
 
 const socialLinks = {
-    tiktok: 'https://www.tiktok.com/@glowscent',
-    instagram: 'https://www.instagram.com/glowscent',
-    facebook: 'https://www.facebook.com/glowscent',
-    snapchat: 'https://www.snapchat.com/add/glowscent'
-};
+    tiktok: 'https://www.tiktok.com/@hatanglowscent',
+    instagram: 'https://www.instagram.com/hatan_glowscent',
+   };
 function buildSocialLinks(containerId) {
     const containerSocial = document.getElementById(containerId);
     if (!containerSocial) return;
     containerSocial.innerHTML = '';
     const platforms = [
         { icon: 'fab fa-tiktok', url: socialLinks.tiktok },
-        { icon: 'fab fa-instagram', url: socialLinks.instagram },
-        { icon: 'fab fa-facebook-f', url: socialLinks.facebook },
-        { icon: 'fab fa-snapchat-ghost', url: socialLinks.snapchat }
-    ];
+        { icon: 'fab fa-instagram', url: socialLinks.instagram }
+           ];
     platforms.forEach(platform => {
         const link = document.createElement('a');
         link.href = platform.url;
