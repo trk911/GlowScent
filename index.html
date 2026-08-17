@@ -1,0 +1,1633 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0, shrink-to-fit=no, user-scalable=no">
+
+<title>GlowScent | Smart Hair Brush</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Montserrat:wght@300;400;500;600;700&display=swap"
+      rel="stylesheet">
+
+<link rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollToPlugin.min.js"></script>
+
+<link rel="stylesheet" href="css/style.css">
+
+
+<!-- =========================================================
+     POLICY / FAQ SIMPLE TEXT STYLING
+========================================================= -->
+
+<style>
+
+.policy-modal-content {
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 13px !important;
+
+    line-height: 1.75;
+
+}
+
+.policy-modal-content h2 {
+
+    font-family: 'Cormorant Garamond', serif;
+
+    font-size: 25px !important;
+
+    font-weight: 500;
+
+    margin-bottom: 18px;
+
+}
+
+.policy-modal-content h3 {
+
+    font-family: 'Montserrat', sans-serif;
+
+    font-size: 14px !important;
+
+    font-weight: 600;
+
+    margin-top: 22px;
+
+    margin-bottom: 7px;
+
+}
+
+.policy-modal-content p {
+
+    font-size: 12.5px !important;
+
+    line-height: 1.75;
+
+    margin-bottom: 12px;
+
+}
+
+.policy-modal-content ul {
+
+    padding-left: 20px;
+
+    margin-bottom: 14px;
+
+}
+
+.policy-modal-content li {
+
+    font-size: 12.5px !important;
+
+    line-height: 1.75;
+
+    margin-bottom: 5px;
+
+}
+
+.policy-modal-content strong {
+
+    font-weight: 600;
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =========================================================
+     LOADING SCREEN
+========================================================= -->
+
+<div id="loading-screen">
+
+    <div class="loading-content">
+
+        <div class="loading-logo">
+            Hatan
+        </div>
+
+        <div class="loading-text">
+            LOADING EXPERIENCE
+        </div>
+
+        <div class="loading-percent" id="loadingPercent">
+            0%
+        </div>
+
+        <div class="loading-bar">
+            <div class="loading-bar-fill" id="loadingBarFill"></div>
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<div class="header">
+
+    <!-- ORDER NOW -->
+    <a href="https://shop.tamaztech.com/products/glowscent"
+       class="header-cta">
+        ORDER NOW
+    </a>
+
+    <!-- TRACK ORDER
+         Temporary link until you provide the Shoptop tracking URL -->
+    <a href="pages/track.html"
+       class="header-link">
+        TRACK ORDER
+    </a>
+
+    <!-- LOGIN -->
+    <a href="https://shop.tamaztech.com/account/login"
+       class="header-link">
+        LOGIN
+    </a>
+
+    <!-- SIGN UP -->
+    <a href="https://shop.tamaztech.com/account/register"
+       class="header-link">
+        SIGN UP
+    </a>
+
+    <button onclick="goToSection('contact')">
+        CONTACT
+    </button>
+
+    <button onclick="goToSection('about')">
+        ABOUT
+    </button>
+
+    <button onclick="goToTop()">
+        HOME
+    </button>
+
+</div>
+
+
+<!-- =========================================================
+     LOGO
+========================================================= -->
+
+<div class="logo-header">
+
+    <h3 class="logo-text">
+        Hatan
+    </h3>
+
+</div>
+
+
+<!-- =========================================================
+     HERO / FRAME SEQUENCE
+========================================================= -->
+
+<div id="scene">
+
+    <div class="viewport">
+
+        <div class="static-bg" id="staticBg"></div>
+
+        <canvas id="sequenceCanvas"></canvas>
+
+        <div class="hero" id="hero">
+
+            <h1>
+                GLOWSCENT
+            </h1>
+
+            <p class="tagline">
+                THE WORLD'S FIRST SMART HAIR BRUSH
+            </p>
+
+            <p class="sub-tagline">
+                AROMATHERAPY x RED LIGHT THERAPY
+            </p>
+
+        </div>
+
+
+        <div class="scroll-down" id="scrollDown">
+
+            SCROLL DOWN
+
+            <span>&#8964;</span>
+            <span>&#8964;</span>
+
+        </div>
+
+    </div>
+
+
+    <!-- =====================================================
+         6 FEATURE TEXTS
+    ====================================================== -->
+
+    <div class="text-wrapper" id="w1">
+
+        <div class="text-card">
+
+            <h1>
+                The Future of Hair Care.
+            </h1>
+
+            <p>
+                Smart technology, refined into one effortless beauty ritual.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="text-wrapper" id="w2">
+
+        <div class="text-card">
+
+            <h1>
+                Nano Mist Technology.
+            </h1>
+
+            <p>
+                An ultra-fine mist that envelops every strand with effortless precision.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="text-wrapper" id="w3">
+
+        <div class="text-card">
+
+            <h1>
+                Beauty, Scented Your Way.
+            </h1>
+
+            <p>
+                A curated collection of hair care and fragrance blends for every ritual.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="text-wrapper" id="w4">
+
+        <div class="text-card">
+
+            <h1>
+                Red Light Therapy.
+            </h1>
+
+            <p>
+                Targeted red light technology to elevate your scalp care experience.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="text-wrapper" id="w5">
+
+        <div class="text-card">
+
+            <h1>
+                3D Vibration Massage.
+            </h1>
+
+            <p>
+                Multidimensional vibrations designed to create a soothing, immersive scalp massage.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="text-wrapper" id="w6">
+
+        <div class="text-card">
+
+            <h1>
+                Your GlowScent Ritual.
+            </h1>
+
+            <p>
+                Mist. Massage. Nourish. A complete hair care ritual, beautifully simplified.
+            </p>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FULLSCREEN BACKGROUND
+========================================================= -->
+
+<div class="fullscreen-image-section">
+
+    <picture>
+
+        <source
+            media="(max-width: 768px)"
+            srcset="backgrounds/bgbenmob.webp">
+
+        <source
+            media="(min-width: 769px)"
+            srcset="backgrounds/bgbendesk.webp">
+
+        <img
+            src="backgrounds/bgbendesk.webp"
+            alt="GlowScent Fullscreen Background">
+
+    </picture>
+
+</div>
+
+
+<!-- =========================================================
+     PERFUME / CARE COLLECTION
+========================================================= -->
+
+<div class="perfume-section" id="perfume-section">
+
+    <div class="perfume-container">
+
+        <h2>
+            THE SCENT & CARE COLLECTION
+        </h2>
+
+        <div class="subtitle">
+            &#10022; EXPLORE THE COLLECTION &#10022;
+        </div>
+
+
+        <div class="carousel-wrapper">
+
+            <button
+                class="carousel-btn prev"
+                id="prevBtn">
+
+                <i class="fas fa-chevron-left"></i>
+
+            </button>
+
+
+            <div
+                class="carousel-container"
+                id="carouselContainer">
+            </div>
+
+
+            <button
+                class="carousel-btn next"
+                id="nextBtn">
+
+                <i class="fas fa-chevron-right"></i>
+
+            </button>
+
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MODEL SECTION
+========================================================= -->
+
+<div
+    class="model-section"
+    id="model-section">
+
+    <div
+        class="model-container"
+        id="model-container">
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     ABOUT
+========================================================= -->
+
+<div
+    class="about-section"
+    id="about">
+
+    <div class="about-container">
+
+        <h2>
+            ABOUT US
+        </h2>
+
+        <div class="subtitle">
+            INNOVATION MEETS ELEGANCE
+        </div>
+
+
+        <p>
+            Tamaz Tech is a forward-thinking technology company dedicated to redefining the intersection of beauty, wellness, and innovation. We combine cutting-edge engineering with sophisticated design to deliver exceptional user experiences.
+        </p>
+
+
+        <div class="about-divider"></div>
+
+
+        <h3>
+            HATAN - THE BRAND
+        </h3>
+
+        <p>
+            Hatan is the luxury brand under Tamaz Tech, representing a commitment to excellence, craftsmanship, and timeless elegance. Every Hatan product is meticulously designed to elevate daily rituals into moments of indulgence.
+        </p>
+
+
+        <div class="about-divider"></div>
+
+
+        <h3>
+            GLOWSCENT - THE VISION
+        </h3>
+
+        <p>
+            GlowScent was born from a simple yet powerful idea: What if your daily hair care routine could also be a therapeutic ritual? The answer is a revolutionary device that combines a premium hairbrush with an integrated aromatherapy system and red light therapy technology.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     CONTACT
+========================================================= -->
+
+<div
+    class="contact-section"
+    id="contact">
+
+    <div class="contact-container">
+
+        <h2>
+            GET IN TOUCH
+        </h2>
+
+        <div class="subtitle">
+            &#10022; CONNECT WITH US &#10022;
+        </div>
+
+
+        <!-- Contact information -->
+
+        <div class="contact-info">
+
+            <div class="contact-item">
+
+                <i class="fas fa-envelope"></i>
+
+                <h4>
+                    Email
+                </h4>
+
+                <p>
+                    contact@tamaztech.com
+                </p>
+
+            </div>
+
+
+            <div class="contact-item">
+
+                <i class="fas fa-map-marker-alt"></i>
+
+                <h4>
+                    Location
+                </h4>
+
+                <p>
+                    Hong Kong
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <!-- =================================================
+             CONTACT FORM
+        ================================================== -->
+
+        <div class="contact-form-wrapper">
+
+            <h3>
+                Send Us a Message
+            </h3>
+
+
+            <form
+                id="glowForm"
+                class="glow-form"
+                method="POST">
+
+                <div class="form-group">
+
+                    <label>
+                        NAME
+                        <span class="optional">
+                            (optional)
+                        </span>
+                    </label>
+
+                    <input
+                        type="text"
+                        name="name"
+                        placeholder="Your name"
+                        autocomplete="off">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        EMAIL
+                        <span class="required">
+                            *
+                        </span>
+                    </label>
+
+                    <input
+                        type="email"
+                        name="email"
+                        placeholder="your@email.com"
+                        required
+                        autocomplete="off">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        MESSAGE
+                        <span class="optional">
+                            (optional)
+                        </span>
+                    </label>
+
+                    <textarea
+                        name="message"
+                        rows="4"
+                        placeholder="Tell us something...">
+                    </textarea>
+
+                </div>
+
+
+                <button
+                    type="submit"
+                    class="submit-btn">
+
+                    SEND MESSAGE
+
+                </button>
+
+
+                <div
+                    id="formMessage"
+                    class="form-message">
+                </div>
+
+            </form>
+
+        </div>
+
+
+        <!-- Social -->
+
+        <div
+            class="social-links"
+            id="contact-social-links">
+        </div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FOOTER
+========================================================= -->
+
+<footer class="footer">
+
+    <div class="footer-container">
+
+
+        <div class="footer-brand">
+
+            <h3>
+                HATAN
+            </h3>
+
+            <p>
+                Luxury fragrance technology redefining daily rituals. GlowScent is where science meets elegance.
+            </p>
+
+        </div>
+
+
+        <div class="footer-links">
+
+            <h4>
+                Quick Links
+            </h4>
+
+            <ul>
+
+                <li>
+                    <a
+                        href="#"
+                        onclick="goToTop(); return false;">
+                        Home
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://shop.tamaztech.com/products/glowscent">
+                        Order Now
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="pages/track.html">
+                        Track Order
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://shop.tamaztech.com/account/login">
+                        Login
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="https://shop.tamaztech.com/account/register">
+                        Sign Up
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#about"
+                        onclick="goToSection('about'); return false;">
+                        About
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#contact"
+                        onclick="goToSection('contact'); return false;">
+                        Contact
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <!-- =================================================
+             INFORMATION LINKS
+        ================================================== -->
+
+        <div class="footer-links">
+
+            <h4>
+                Information
+            </h4>
+
+            <ul>
+
+                <li>
+                    <a
+                        href="#"
+                        onclick="openPolicy('privacy'); return false;">
+                        Privacy Policy
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        onclick="openPolicy('terms'); return false;">
+                        Terms & Conditions
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        onclick="openPolicy('payment'); return false;">
+                        Payment Policy
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        onclick="openPolicy('shipping'); return false;">
+                        Shipping Policy
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        onclick="openPolicy('returns'); return false;">
+                        Returns & Refunds
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        onclick="openPolicy('warranty'); return false;">
+                        Warranty
+                    </a>
+                </li>
+
+                <li>
+                    <a
+                        href="#"
+                        onclick="openPolicy('faq'); return false;">
+                        FAQ
+                    </a>
+                </li>
+
+            </ul>
+
+        </div>
+
+
+        <div class="footer-contact">
+
+            <h4>
+                Contact
+            </h4>
+
+            <p>
+                <i class="fas fa-envelope"></i>
+                contact@tamaztech.com
+            </p>
+
+            <p>
+                <i class="fas fa-map-marker-alt"></i>
+                Hong Kong
+            </p>
+
+
+            <div
+                class="footer-social"
+                id="footer-social-links">
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <div class="footer-bottom">
+
+        <p>
+            &copy; 2026 TAMAZ TECH - All Rights Reserved.
+            Designed with
+            <i
+                class="fas fa-heart"
+                style="color:var(--primary);">
+            </i>
+            for luxury.
+        </p>
+
+        <p class="company-chinese">
+            佛山市塔马滋贸易有限公司
+        </p>
+
+    </div>
+
+</footer>
+
+
+<!-- =========================================================
+     PRIVACY POLICY
+========================================================= -->
+
+<div
+    class="policy-modal"
+    id="privacyModal">
+
+    <div class="policy-modal-content">
+
+        <button
+            class="policy-close"
+            onclick="closePolicy('privacy')">
+
+            &times;
+
+        </button>
+
+        <h2>
+            Privacy Policy
+        </h2>
+
+        <p>
+            Tamaz Tech and Hatan respect your privacy. This Privacy Policy explains how we collect, use, store and protect information provided through the GlowScent website and related services.
+        </p>
+
+        <h3>
+            1. Information We Collect
+        </h3>
+
+        <p>
+            Depending on how you use the website, we may collect information including your name, email address, telephone number, country, state or region, city, shipping address, postal code, order information and information you voluntarily provide through our contact form.
+        </p>
+
+        <h3>
+            2. Order Information
+        </h3>
+
+        <p>
+            When you place an order, information necessary to process and fulfill the order may be stored in our backend database. This may include your order number, product, quantity, price, shipping information, payment status and shipping or tracking information.
+        </p>
+
+        <h3>
+            3. Payment Information
+        </h3>
+
+        <p>
+            Payments are processed through our designated payment service provider. We do not intend to store complete payment card numbers, CVV codes or other full card credentials in our own website database.
+        </p>
+
+        <p>
+            Payment-related information received from the payment provider may include transaction identifiers, payment status and other information necessary to confirm and manage an order.
+        </p>
+
+        <h3>
+            4. How We Use Your Information
+        </h3>
+
+        <p>
+            We may use collected information to:
+        </p>
+
+        <ul>
+
+            <li>Process and fulfill orders.</li>
+
+            <li>Confirm payments and maintain order records.</li>
+
+            <li>Arrange shipping and provide tracking information.</li>
+
+            <li>Respond to customer inquiries.</li>
+
+            <li>Provide customer support.</li>
+
+            <li>Prevent fraud, abuse or unauthorized activity.</li>
+
+            <li>Improve our website, products and services.</li>
+
+            <li>Meet applicable legal or operational requirements.</li>
+
+        </ul>
+
+        <h3>
+            5. Sharing Information
+        </h3>
+
+        <p>
+            We may share necessary information with service providers involved in operating our business, such as payment providers, shipping carriers, logistics providers, hosting or technical service providers, and other parties when reasonably necessary to provide our services or comply with applicable law.
+        </p>
+
+        <h3>
+            6. Data Security
+        </h3>
+
+        <p>
+            We take reasonable technical and organizational measures to protect customer information. However, no method of electronic storage or transmission over the Internet can be guaranteed to be completely secure.
+        </p>
+
+        <h3>
+            7. Data Retention
+        </h3>
+
+        <p>
+            We may retain order, transaction and customer service information for as long as reasonably necessary for business operations, customer support, accounting, dispute resolution, fraud prevention and legal obligations.
+        </p>
+
+        <h3>
+            8. Your Rights
+        </h3>
+
+        <p>
+            Depending on applicable law, you may have rights relating to access, correction, deletion or other processing of your personal information. Requests may be submitted through our contact information.
+        </p>
+
+        <h3>
+            9. Changes to This Policy
+        </h3>
+
+        <p>
+            We may update this Privacy Policy when necessary. Any updated version will be made available through this website.
+        </p>
+
+        <h3>
+            10. Contact
+        </h3>
+
+        <p>
+            For privacy-related questions, please contact us at contact@tamaztech.com.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     TERMS & CONDITIONS
+========================================================= -->
+
+<div
+    class="policy-modal"
+    id="termsModal">
+
+    <div class="policy-modal-content">
+
+        <button
+            class="policy-close"
+            onclick="closePolicy('terms')">
+
+            &times;
+
+        </button>
+
+        <h2>
+            Terms & Conditions
+        </h2>
+
+        <p>
+            These Terms & Conditions govern your use of the GlowScent website and your purchase of products offered by Tamaz Tech under the Hatan brand.
+        </p>
+
+        <h3>
+            1. Acceptance of Terms
+        </h3>
+
+        <p>
+            By accessing or using this website, you acknowledge that you have read and agree to these Terms & Conditions. If you do not agree with these terms, please do not use the website.
+        </p>
+
+        <h3>
+            2. Product Information
+        </h3>
+
+        <p>
+            We make reasonable efforts to provide accurate product descriptions, specifications, images and pricing. However, product appearance, packaging, colors and other details may vary slightly from displayed materials.
+        </p>
+
+        <h3>
+            3. Product Availability
+        </h3>
+
+        <p>
+            All orders are subject to product availability. We reserve the right to limit quantities or decline an order where necessary.
+        </p>
+
+        <h3>
+            4. Orders
+        </h3>
+
+        <p>
+            Submitting an order request does not by itself constitute confirmation that payment has been successfully completed. An order becomes a paid order only after successful payment confirmation is received from the designated payment provider.
+        </p>
+
+        <h3>
+            5. Pricing
+        </h3>
+
+        <p>
+            Product prices are displayed on the website in the currency indicated at checkout. Prices may be changed before an order is successfully paid.
+        </p>
+
+        <h3>
+            6. Taxes and Customs
+        </h3>
+
+        <p>
+            Depending on the destination country, customers may be responsible for customs duties, import taxes, VAT, local charges or other fees imposed by the destination country.
+        </p>
+
+        <h3>
+            7. Prohibited Use
+        </h3>
+
+        <p>
+            You agree not to use this website for unlawful activities, fraudulent transactions, unauthorized access, interference with website operations or any activity that may harm the website or other users.
+        </p>
+
+        <h3>
+            8. Intellectual Property
+        </h3>
+
+        <p>
+            Website content, product designs, images, text, branding, logos and other materials are owned by or licensed to Tamaz Tech or its respective rights holders and may not be reproduced or used without appropriate authorization.
+        </p>
+
+        <h3>
+            9. Limitation of Liability
+        </h3>
+
+        <p>
+            To the extent permitted by applicable law, Tamaz Tech shall not be responsible for indirect, incidental or consequential losses arising from use of the website, delays caused by third parties, shipping carriers, customs authorities or circumstances outside our reasonable control.
+        </p>
+
+        <h3>
+            10. Changes
+        </h3>
+
+        <p>
+            We may update these Terms & Conditions when necessary. Continued use of the website after an update constitutes acceptance of the revised terms to the extent permitted by applicable law.
+        </p>
+
+        <h3>
+            11. Contact
+        </h3>
+
+        <p>
+            Questions regarding these Terms & Conditions may be sent to contact@tamaztech.com.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     PAYMENT POLICY
+========================================================= -->
+
+<div
+    class="policy-modal"
+    id="paymentModal">
+
+    <div class="policy-modal-content">
+
+        <button
+            class="policy-close"
+            onclick="closePolicy('payment')">
+
+            &times;
+
+        </button>
+
+        <h2>
+            Payment Policy
+        </h2>
+
+        <p>
+            GlowScent orders are processed through our designated payment service provider. The payment process is designed to securely transfer customers to the applicable payment checkout environment.
+        </p>
+
+        <h3>
+            1. Payment Process
+        </h3>
+
+        <p>
+            After submitting an order, the customer may be redirected to the payment page provided by our payment service provider. The payment provider processes the transaction according to its own terms and security procedures.
+        </p>
+
+        <h3>
+            2. Payment Confirmation
+        </h3>
+
+        <p>
+            An order is not considered paid merely because a payment page was opened or a payment request was created. Payment status is confirmed only after our backend receives and verifies the appropriate payment confirmation from the payment service provider.
+        </p>
+
+        <h3>
+            3. Order Status
+        </h3>
+
+        <p>
+            After successful payment confirmation, the order may be updated automatically in our system and prepared for fulfillment.
+        </p>
+
+        <h3>
+            4. Payment Information
+        </h3>
+
+        <p>
+            Complete payment card information is not intended to be stored in our website database. Payment credentials are handled by the designated payment provider.
+        </p>
+
+        <h3>
+            5. Failed or Cancelled Payments
+        </h3>
+
+        <p>
+            If a payment fails, is cancelled, expires or is otherwise not successfully confirmed, the order may remain unpaid and may not be processed for shipment.
+        </p>
+
+        <h3>
+            6. Refunds
+        </h3>
+
+        <p>
+            Where a refund is approved, it will generally be processed through the applicable payment method and may require additional processing time depending on the payment provider and customer's financial institution.
+        </p>
+
+        <h3>
+            7. Currency
+        </h3>
+
+        <p>
+            Unless otherwise indicated at checkout, product prices are displayed in USD. The payment provider or customer's bank may apply currency conversion rates or additional charges.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     SHIPPING POLICY
+========================================================= -->
+
+<div
+    class="policy-modal"
+    id="shippingModal">
+
+    <div class="policy-modal-content">
+
+        <button
+            class="policy-close"
+            onclick="closePolicy('shipping')">
+
+            &times;
+
+        </button>
+
+        <h2>
+            Shipping Policy
+        </h2>
+
+        <p>
+            We aim to process and ship GlowScent orders as efficiently as possible after successful payment confirmation.
+        </p>
+
+        <h3>
+            1. Order Processing
+        </h3>
+
+        <p>
+            Orders are prepared for shipment after payment has been successfully confirmed. Processing time may vary depending on product availability, order volume, destination and operational circumstances.
+        </p>
+
+        <h3>
+            2. Shipping Address
+        </h3>
+
+        <p>
+            Customers are responsible for providing complete and accurate shipping information. We are not responsible for delays or failed delivery caused by incorrect, incomplete or outdated information provided by the customer.
+        </p>
+
+        <h3>
+            3. Shipping Time
+        </h3>
+
+        <p>
+            Estimated delivery times may vary depending on destination, shipping method, customs clearance and the carrier's operations. Any delivery estimate provided on the website is an estimate and is not a guaranteed delivery date.
+        </p>
+
+        <h3>
+            4. Tracking
+        </h3>
+
+        <p>
+            When a tracking number becomes available, it may be added to the customer's order. Customers can use the Track Order page to view available tracking information and order status.
+        </p>
+
+        <h3>
+            5. Customs and Import Charges
+        </h3>
+
+        <p>
+            International shipments may be subject to customs inspection, import duties, taxes, VAT, brokerage fees or other charges imposed by the destination country. Such charges may be the responsibility of the customer unless otherwise stated.
+        </p>
+
+        <h3>
+            6. Delays
+        </h3>
+
+        <p>
+            Delivery may be delayed by customs, weather, transportation disruptions, carrier delays, incorrect address information, public holidays or circumstances outside our reasonable control.
+        </p>
+
+        <h3>
+            7. Lost or Damaged Shipments
+        </h3>
+
+        <p>
+            If a shipment appears to be lost, significantly delayed or damaged, please contact us with your order number and relevant shipping information so that we can review the matter with the applicable carrier.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     RETURNS & REFUNDS
+========================================================= -->
+
+<div
+    class="policy-modal"
+    id="returnsModal">
+
+    <div class="policy-modal-content">
+
+        <button
+            class="policy-close"
+            onclick="closePolicy('returns')">
+
+            &times;
+
+        </button>
+
+        <h2>
+            Returns & Refunds
+        </h2>
+
+        <p>
+            We want our customers to have a positive experience with GlowScent. If you experience a problem with your order or product, please contact us before returning anything.
+        </p>
+
+        <h3>
+            1. Return Requests
+        </h3>
+
+        <p>
+            Customers should contact us as soon as reasonably possible after receiving an order if they believe the product is damaged, defective, incorrect or otherwise eligible for return.
+        </p>
+
+        <h3>
+            2. Product Condition
+        </h3>
+
+        <p>
+            Return eligibility may depend on the condition of the product, the reason for the return, whether the product has been used, and applicable laws and order conditions.
+        </p>
+
+        <h3>
+            3. Hygiene and Personal Care Products
+        </h3>
+
+        <p>
+            Because GlowScent is a personal-care product that comes into contact with hair and scalp, certain returns may be restricted for hygiene reasons where permitted by applicable law, particularly when a product has been opened or used.
+        </p>
+
+        <h3>
+            4. Damaged or Defective Products
+        </h3>
+
+        <p>
+            If your product arrives damaged or appears to have a manufacturing defect, please contact us and provide your order number and, where appropriate, photographs or other information that may help us assess the issue.
+        </p>
+
+        <h3>
+            5. Refund Approval
+        </h3>
+
+        <p>
+            If a refund is approved, the refund will generally be issued through the original payment method used for the order.
+        </p>
+
+        <h3>
+            6. Refund Processing Time
+        </h3>
+
+        <p>
+            After we authorize a refund, the time required for the funds to appear in the customer's account may depend on the payment provider and the customer's bank or card issuer.
+        </p>
+
+        <h3>
+            7. Shipping Costs
+        </h3>
+
+        <p>
+            Shipping charges may be non-refundable unless otherwise required by applicable law or specifically approved by us.
+        </p>
+
+        <h3>
+            8. Unauthorized Returns
+        </h3>
+
+        <p>
+            Please do not send products back without contacting us first. Unauthorized returns may result in delays in processing the request.
+        </p>
+
+        <h3>
+            9. Contact
+        </h3>
+
+        <p>
+            Please contact us at contact@tamaztech.com with your order number and a description of the issue before returning a product.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     WARRANTY
+========================================================= -->
+
+<div
+    class="policy-modal"
+    id="warrantyModal">
+
+    <div class="policy-modal-content">
+
+        <button
+            class="policy-close"
+            onclick="closePolicy('warranty')">
+
+            &times;
+
+        </button>
+
+        <h2>
+            Warranty
+        </h2>
+
+        <p>
+            GlowScent products are designed and manufactured with quality and reliability in mind. This Warranty Policy describes the general warranty framework applicable to eligible GlowScent products.
+        </p>
+
+        <h3>
+            1. Warranty Coverage
+        </h3>
+
+        <p>
+            Eligible GlowScent products may be covered against manufacturing defects in materials or workmanship for the applicable warranty period stated with the product or order.
+        </p>
+
+        <h3>
+            2. Warranty Period
+        </h3>
+
+        <p>
+            The applicable warranty period may depend on the product, purchase date and terms associated with the order. Customers should retain their order information as proof of purchase.
+        </p>
+
+        <h3>
+            3. What the Warranty May Cover
+        </h3>
+
+        <p>
+            Subject to applicable conditions, warranty service may cover verified manufacturing defects that prevent the product from functioning as intended under normal use.
+        </p>
+
+        <h3>
+            4. Warranty Exclusions
+        </h3>
+
+        <p>
+            Warranty coverage may not apply to damage resulting from:
+        </p>
+
+        <ul>
+
+            <li>Misuse or improper operation.</li>
+
+            <li>Accidental damage.</li>
+
+            <li>Physical damage caused by impact or external forces.</li>
+
+            <li>Unauthorized modification or repair.</li>
+
+            <li>Use outside the product instructions.</li>
+
+            <li>Normal wear and cosmetic deterioration.</li>
+
+            <li>Damage caused by incompatible liquids or substances.</li>
+
+            <li>Damage caused by improper cleaning or maintenance.</li>
+
+            <li>Damage caused by unauthorized accessories or components.</li>
+
+        </ul>
+
+        <h3>
+            5. Warranty Service
+        </h3>
+
+        <p>
+            Customers requesting warranty service may be asked to provide their order number, purchase information, photographs, videos or other information necessary to evaluate the issue.
+        </p>
+
+        <h3>
+            6. Repair or Replacement
+        </h3>
+
+        <p>
+            Where a valid warranty claim is approved, we may, depending on the circumstances and applicable law, repair the product, replace the affected product or provide another appropriate remedy.
+        </p>
+
+        <h3>
+            7. Warranty Claims
+        </h3>
+
+        <p>
+            To submit a warranty request, contact contact@tamaztech.com and include your order number and a clear description of the issue.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     FAQ
+========================================================= -->
+
+<div
+    class="policy-modal"
+    id="faqModal">
+
+    <div class="policy-modal-content">
+
+        <button
+            class="policy-close"
+            onclick="closePolicy('faq')">
+
+            &times;
+
+        </button>
+
+        <h2>
+            Frequently Asked Questions
+        </h2>
+
+        <h3>
+            What is GlowScent?
+        </h3>
+
+        <p>
+            GlowScent is a smart hair-care device combining hair brushing, nano mist technology, fragrance or hair-care liquids, red light therapy and 3D vibration massage in one beauty ritual.
+        </p>
+
+        <h3>
+            How do I place an order?
+        </h3>
+
+        <p>
+            Select ORDER NOW from the website, choose the desired quantity, enter your shipping information and continue to the payment process.
+        </p>
+
+        <h3>
+            When is my order considered paid?
+        </h3>
+
+        <p>
+            Your order is considered paid only after successful payment confirmation is received and verified by our backend system from the designated payment provider.
+        </p>
+
+        <h3>
+            Where can I find my order number?
+        </h3>
+
+        <p>
+            Your order number is generated when your order is created. Keep this number for future order lookup and customer support.
+        </p>
+
+        <h3>
+            How can I track my order?
+        </h3>
+
+        <p>
+            Use the TRACK ORDER page and enter the required order or tracking information. Once a tracking number becomes available, the latest available shipping information can be displayed.
+        </p>
+
+        <h3>
+            When will I receive my tracking number?
+        </h3>
+
+        <p>
+            A tracking number is generally added after the order has been prepared for shipment and the shipment information becomes available.
+        </p>
+
+        <h3>
+            How long does shipping take?
+        </h3>
+
+        <p>
+            Delivery time depends on the destination, shipping method, carrier, customs clearance and other factors. Delivery estimates are not guaranteed delivery dates.
+        </p>
+
+        <h3>
+            Are customs duties or taxes included?
+        </h3>
+
+        <p>
+            Not necessarily. Depending on the destination country, customs duties, VAT, import taxes or other local charges may apply.
+        </p>
+
+        <h3>
+            Can I change my shipping address after placing an order?
+        </h3>
+
+        <p>
+            Contact us as soon as possible if you need to correct your shipping information. We cannot guarantee that an address can be changed after an order has entered fulfillment or shipment.
+        </p>
+
+        <h3>
+            Can I cancel my order?
+        </h3>
+
+        <p>
+            Cancellation may depend on the order status and whether the order has already entered fulfillment or shipment. Contact us as soon as possible if you need to request a cancellation.
+        </p>
+
+        <h3>
+            How do I request a return or refund?
+        </h3>
+
+        <p>
+            Contact us at contact@tamaztech.com with your order number and an explanation of the issue. Please wait for instructions before sending a product back.
+        </p>
+
+        <h3>
+            Does GlowScent have a warranty?
+        </h3>
+
+        <p>
+            Eligible GlowScent products may be covered by the applicable warranty terms. Please refer to the Warranty section for general information.
+        </p>
+
+        <h3>
+            How can I contact GlowScent?
+        </h3>
+
+        <p>
+            You can contact us through the Contact section of this website or by email at contact@tamaztech.com.
+        </p>
+
+    </div>
+
+</div>
+
+
+<!-- =========================================================
+     MAIN JAVASCRIPT
+========================================================= -->
+
+<script src="js/main.js"></script>
+
+</body>
+
+</html>
