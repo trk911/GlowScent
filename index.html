@@ -582,9 +582,14 @@
 
 
             <form
-                id="glowForm"
-                class="glow-form"
-                method="POST">
+    id="glowForm"
+    class="glow-form"
+    method="POST"
+    style="display: none;">
+
+    <script>
+        document.getElementById('glowForm').style.display = 'block';
+    </script>
 
                 <div class="form-group">
 
@@ -641,13 +646,17 @@
                 </div>
 
 
-                <button
-                    type="submit"
-                    class="submit-btn">
+                <div style="position: absolute; left: -9999px;" aria-hidden="true">
+    <input type="text" name="website" tabindex="-1" autocomplete="off">
+</div>
 
-                    SEND MESSAGE
+<button
+    type="submit"
+    class="submit-btn">
 
-                </button>
+    SEND MESSAGE
+
+</button>
 
 
                 <div
