@@ -1237,6 +1237,27 @@ if (form) {
                 ).value.trim();
 
 
+            const honeypot =
+                form.querySelector(
+                    'input[name="website"]'
+                );
+
+
+            if (honeypot && honeypot.value.trim() !== '') {
+
+                /* روبوت: أظهر نجاحاً وهمياً ولا ترسل */
+                showFormMessage(
+                    '✓ Message sent successfully! We will contact you soon. ✓',
+                    'success'
+                );
+
+                form.reset();
+
+                return;
+
+            }
+
+
             /* =================================================
                VALIDATION
             ================================================= */
